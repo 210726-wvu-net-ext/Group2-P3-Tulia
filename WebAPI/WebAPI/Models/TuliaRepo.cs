@@ -108,5 +108,49 @@ namespace WebAPI.Models
                 return new Database_Models.User(0, "error", "error", "error");
             }
         }
+
+        // adds a comment to the database
+        public Database_Models.Comment CreateComment(Database_Models.Comment comment)
+        {
+            _context.Comments.Add(new Entities.Comment
+            {
+                UserId = comment.UserId,
+                PostId = comment.PostId,
+                Content = comment.Content,
+                Time = comment.Time
+            });
+            _context.SaveChanges();
+            return new Database_Models.Comment(comment.UserId, comment.PostId, comment.Content, comment.Time);
+        }
+
+        // List all comments from a user
+        public List<Database_Models.Comment> ListCommentsFromUser(Database_Models.User user)
+        {
+            // try to find the user
+            try
+            {
+                var foundUser = _context.Users.Single(u => u.Username == user.Username);
+                
+                // if user is found, find user's comments
+                try
+                {
+                    var comments = _context.Comments.Where(c => c.UserId == foundUser.Id).ToList();
+                    List<Database_Models.Comment> userComments = new List<Database_Models.Comment>();
+
+                    foreach(var comment in comments)
+                    {
+                        userComments.Add(new Database_Models.Comment(comment.UserId, comment.PostId, comment.Content, comment.Time));
+                    }
+
+                    return userComments;
+                } catch (System.InvalidOperationException)
+                {
+                    return null;
+                }
+            } catch(System.InvalidOperationException)
+            {
+                return null;
+            }
+        }
     }
 }

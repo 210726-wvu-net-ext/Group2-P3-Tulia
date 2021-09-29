@@ -18,5 +18,9 @@ namespace WebAPI.Models
         public List<Group> GetAllGroups();
 
         public User LogIn(LoggedInUser user);
+
+        public Comment CreateComment(Comment comment);
+
+        public List<Comment> ListCommentsFromUser(User user);
     }
 }
