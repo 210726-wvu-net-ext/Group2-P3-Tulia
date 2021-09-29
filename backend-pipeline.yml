@@ -53,14 +53,15 @@ stages:
         inputs:
           script: 'dotnet test --configuration Release'
           workingDirectory: $(sDir)
-# - stage: Docker
-#   jobs:
-#   #Build and eventally deploy a docker container
-#     - job: Docker_Build
-#       displayName: Docker Build
-#       steps:
-#       #Build
-#       - task: Docker@2
-#         inputs:
-#           command: 'build'
-#           Dockerfile: '$(sDir)/WebAPI/Dockerfile'
+- stage: Docker
+  jobs:
+  #Build and eventally deploy a docker container
+    - job: Docker_Build
+      displayName: Docker Build
+      steps:
+      #Build
+      - task: Docker@2
+        inputs:
+          command: 'build'
+          Dockerfile: '$(sDir)/WebAPI/Dockerfile'
+          arguments: '.'
