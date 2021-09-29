@@ -15,7 +15,7 @@ variables: #Path to folders
   solution: 'WebAPI/*.sln'
 
 stages:
-- stage: Install/Build
+- stage: Install_Build
   #Runs NuGet and NPM Installs
   jobs:
     - job: NuInstall
