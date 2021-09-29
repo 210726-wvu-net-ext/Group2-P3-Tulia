@@ -15,7 +15,7 @@ variables: #Path to folders
   solution: 'WebAPI/*.sln'
 
 stages:
-- stage: Installs
+- stage: Install/Build
   #Runs NuGet and NPM Installs
   jobs:
     - job: NuInstall
@@ -29,8 +29,6 @@ stages:
       - task: NuGetCommand@2
         inputs:
           restoreSolution: $(solution)
-- stage: DotNet
-  jobs:
   #Build and test dotnet code
     - job: Build_test
       displayName: Dotnet Build-Test
