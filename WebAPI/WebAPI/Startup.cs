@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebAPI.Models;
 using WebAPI.Models.Entities;
 
 namespace WebAPI
@@ -30,6 +31,7 @@ namespace WebAPI
         {
 
             services.AddControllers();
+            services.AddScoped<ITuliaRepo, TuliaRepo>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });
