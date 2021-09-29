@@ -60,7 +60,7 @@ stages:
       displayName: Docker Build
       steps:
       #Build
-      - task: CmdLine@2
+      - task: Docker@2
         inputs:
-          script: 'docker build .'
-
+          command: 'build'
+          Dockerfile: '**/Dockerfile'
