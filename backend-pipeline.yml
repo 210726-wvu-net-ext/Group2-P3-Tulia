@@ -60,8 +60,7 @@ stages:
       displayName: Docker Build
       steps:
       #Build
-      - task: Docker@2
+      - task: CmdLine@2
         inputs:
-          command: 'build'
-          Dockerfile: '$(sDir)/WebAPI/Dockerfile'
-          arguments: '.'
+          script: 'docker build .'
+
