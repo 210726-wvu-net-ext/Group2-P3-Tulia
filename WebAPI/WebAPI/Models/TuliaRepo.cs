@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebAPI.Models.Controller_Models;
 using WebAPI.Models.Entities;
 
 namespace WebAPI.Models
@@ -82,6 +83,30 @@ namespace WebAPI.Models
             }
 
             return listGroups;
+        }
+
+        public Database_Models.User LogIn(LoggedInUser user)
+        {
+            // check to see if username exists
+            try
+            {
+                var loginUser = _context.Users.Single(u => u.Username == user.username);
+                
+                //if that succeeds, make sure password fits
+                if(user.password == loginUser.Password)
+                {
+                    return new Database_Models.User(loginUser.Id, loginUser.Username, loginUser.Password, loginUser.FirstName, loginUser.LastName,
+                        loginUser.Role, loginUser.NumberGroups);
+                } else
+                {
+                    return new Database_Models.User(0, "error", "error", "error");
+                }
+            } catch (System.InvalidOperationException)
+            {
+                // username could not be found
+                // return an "error" user object
+                return new Database_Models.User(0, "error", "error", "error");
+            }
         }
     }
 }

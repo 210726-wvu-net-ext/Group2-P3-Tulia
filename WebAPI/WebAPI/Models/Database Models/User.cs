@@ -24,5 +24,16 @@ namespace WebAPI.Models.Database_Models
             this.LastName = LastName;
             this.Username = Username;
         }
+
+        public User(int Id, string FirstName, string LastName, string Username, string password, string Role, int? NumberGroups)
+        {
+            this.Id = Id;
+            this.FirstName = FirstName;
+            this.LastName = LastName;
+            this.Username = Username;
+            this.Role = Role;
+            this.Password = password;
+            this.NumberGroups = NumberGroups;
+        }
     }
 }
