@@ -28,21 +28,12 @@ stages:
       - task: NuGetCommand@2
         inputs:
           restoreSolution: $(solution)
-- stage: DotNet_Sonar
+- stage: DotNet
   jobs:
-  #Prepare the sonar cloud
-    - job: Scanner
-      displayName: 'Run Sonar Analysis'
+  #Build and test dotnet code
+    - job: Build_test
+      displayName: Dotnet Build-Test
       steps:
-      - task: SonarCloudPrepare@1
-        inputs:
-          SonarCloud: 'Tulia Scanner'
-          organization: '210726-wvu-net-ext'
-          scannerMode: 'MSBuild'
-          projectKey: '210726-wvu-net-ext_Group2-P3-Tulia'
-          projectName: 'Group2-P3-Tulia'
-          extraProperties: 'sonar.exclusions=**/lib/**/*'
-  # DotNet Build and Test Here
       # Force dotnet 5
       - task: UseDotNet@2
         displayName: Dotnet SDK 5
@@ -61,16 +52,3 @@ stages:
         inputs:
           script: 'dotnet test --configuration Release'
           workingDirectory: $(sDir)
-  #Finial Sonar Steps
-      # Force dotnet 3.1 runtime
-      - task: UseDotNet@2
-        displayName: Dotnet SDK 3
-        inputs:
-          packageType: 'runtime'
-          version: '3.1.x'
-    #Analyze
-      - task: SonarCloudAnalyze@1
-        displayName: 'Run SonarCloud analysis'
-    #Publish
-      - task: SonarCloudPublish@1
-        displayName: 'Publish results on build summary'
