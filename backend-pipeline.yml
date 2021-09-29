@@ -1,0 +1,64 @@
+#DOCKER COMMENTED OUT UNTIL FILE IS WORKING
+#Backend 
+trigger:
+- master
+
+pr:
+- master
+- Main-Dev
+
+pool:
+  vmImage: ubuntu-latest
+
+variables: #Path to folders
+  sDir: 'WebAPI'
+  solution: 'WebAPI/*.sln'
+
+stages:
+- stage: Install/Build
+  #Runs NuGet and NPM Installs
+  jobs:
+    - job: NuInstall
+      displayName: NuGet Install-Restore
+      steps:
+      #Install
+      - task: NuGetToolInstaller@1
+        inputs:
+          checkLatest: true
+      #Restore
+      - task: NuGetCommand@2
+        inputs:
+          restoreSolution: $(solution)
+  #Build and test dotnet code
+    - job: Build_test
+      displayName: Dotnet Build-Test
+      steps:
+      # Force dotnet 5
+      - task: UseDotNet@2
+        displayName: Dotnet SDK 5
+        inputs:
+          packageType: 'sdk'
+          version: '5.x'
+      #Build
+      - task: CmdLine@2
+        displayName: Dotnet Build
+        inputs:
+          script: 'dotnet build --configuration Release'
+          workingDirectory: $(sDir)
+      #Test
+      - task: CmdLine@2
+        displayName: Dotnet Tests
+        inputs:
+          script: 'dotnet test --configuration Release'
+          workingDirectory: $(sDir)
+- stage: Docker
+  jobs:
+  #Build and eventally deploy a docker container
+    - job: Docker_Build
+      displayName: Docker Build
+      steps:
+      #Build
+      - task: Docker@2
+        inputs:
+          command: 'build'
+          Dockerfile: '**/Dockerfile'
