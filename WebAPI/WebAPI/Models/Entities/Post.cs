@@ -18,7 +18,9 @@ namespace WebAPI.Models.Entities
         public string Title { get; set; }
         public string Body { get; set; }
         public DateTime CreatedTime { get; set; }
+        public int GroupId { get; set; }
 
+        public virtual Group Group { get; set; }
         public virtual User User { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Report> Reports { get; set; }

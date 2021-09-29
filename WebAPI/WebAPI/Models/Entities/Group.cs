@@ -10,6 +10,7 @@ namespace WebAPI.Models.Entities
         public Group()
         {
             Memberships = new HashSet<Membership>();
+            Posts = new HashSet<Post>();
         }
 
         public int Id { get; set; }
@@ -20,5 +21,6 @@ namespace WebAPI.Models.Entities
 
         public virtual User User { get; set; }
         public virtual ICollection<Membership> Memberships { get; set; }
+        public virtual ICollection<Post> Posts { get; set; }
     }
 }

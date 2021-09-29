@@ -104,6 +104,12 @@ namespace WebAPI.Models.Entities
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
+                entity.HasOne(d => d.Group)
+                    .WithMany(p => p.Posts)
+                    .HasForeignKey(d => d.GroupId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Posts__GroupId__7B5B524B");
+
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Posts)
                     .HasForeignKey(d => d.UserId)
