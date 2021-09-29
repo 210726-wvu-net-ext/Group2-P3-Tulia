@@ -7,5 +7,10 @@ namespace WebAPI.Models
 {
     public interface ITuliaRepository
     {
+        // returns a string with information regarding the success or failure
+        // of the method.
+        public string CreateAccount();
+
+        
     }
 }
