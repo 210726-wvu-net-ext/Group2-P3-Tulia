@@ -175,13 +175,28 @@ namespace WebAPI.Models
         }
 
         // see the last 15 posts
-        public List<Database_Models.Post> GetRecentPosts()
+        public List<Database_Models.Post> GetAllPosts()
         {
             var posts = _context.Posts.ToList();
 
             List<Database_Models.Post> fetchedPosts = new List<Database_Models.Post>();
 
             foreach(var post in posts)
+            {
+                fetchedPosts.Add(new Database_Models.Post(post.Id, post.UserId, post.Title, post.Body, post.CreatedTime, post.GroupId));
+            }
+
+            return fetchedPosts;
+        }
+
+        // returns the last 10 posts from a specific group
+        public List<Database_Models.Post> GetPostsFromGroup(int groupId)
+        {
+            var posts = _context.Posts.Where(p => p.GroupId == groupId).ToList();
+
+            List<Database_Models.Post> fetchedPosts = new List<Database_Models.Post>();
+
+            foreach (var post in posts)
             {
                 fetchedPosts.Add(new Database_Models.Post(post.Id, post.UserId, post.Title, post.Body, post.CreatedTime, post.GroupId));
             }

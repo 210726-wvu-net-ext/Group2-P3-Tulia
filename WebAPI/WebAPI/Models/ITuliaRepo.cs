@@ -25,6 +25,8 @@ namespace WebAPI.Models
 
         public string CreatePost(Post post);
 
-        public List<Post> GetRecentPosts();
+        public List<Post> GetAllPosts();
+
+        public List<Post> GetPostsFromGroup(int groupId);
     }
 }

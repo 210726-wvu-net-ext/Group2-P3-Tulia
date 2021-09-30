@@ -26,9 +26,15 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        public List<Post> GetRecentPosts()
+        public List<Post> GetAllPosts()
         {
-            return _repo.GetRecentPosts();
+            return _repo.GetAllPosts();
+        }
+
+        [HttpGet("{groupId}")]
+        public List<Post> GetPostsFromGroup(int groupId)
+        {
+            return _repo.GetPostsFromGroup(groupId);
         }
     }
 }
