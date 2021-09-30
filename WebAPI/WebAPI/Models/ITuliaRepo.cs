@@ -11,7 +11,7 @@ namespace WebAPI.Models
     {
         public List<Database_Models.User> GetAllUsers();
 
-        public string CreateUser(User user);
+        public Message CreateUser(User user);
 
         public string CreateGroup(Group group);
 

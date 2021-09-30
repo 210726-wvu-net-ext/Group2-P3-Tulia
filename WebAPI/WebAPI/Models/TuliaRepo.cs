@@ -29,12 +29,12 @@ namespace WebAPI.Models
             return userList;
         }
 
-        public string CreateUser(Database_Models.User user)
+        public Message CreateUser(Database_Models.User user)
         {
             try
             {
                 var duplicateUsername = _context.Users.Single(u => u.Username == user.Username);
-                return "that username is already taken.";
+                return new Message("denied", "that username is already in use.");
             } catch(System.InvalidOperationException)
             {
                 _context.Users.Add(new Entities.User
@@ -47,7 +47,7 @@ namespace WebAPI.Models
                 });
                 _context.SaveChanges();
 
-                return "user created successfully.";
+                return new Message("accepted", "account created.");
             }
         }
 
