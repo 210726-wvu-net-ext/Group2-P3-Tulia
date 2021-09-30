@@ -219,5 +219,19 @@ namespace WebAPI.Models
                 return "Error: That group could not be found";
             }
         }
+
+        // displays comments from specific post from post id
+        public List<Database_Models.Comment> DisplayCommentsOnPost(int postId)
+        {
+            var comments = _context.Comments.Where(p => p.PostId == postId);
+            List<Database_Models.Comment> commentList = new List<Database_Models.Comment>();
+
+            foreach(var comment in comments)
+            {
+                commentList.Add(new Database_Models.Comment(comment.UserId, comment.PostId, comment.Content, comment.Time));
+            }
+
+            return commentList;
+        }
     }
 }

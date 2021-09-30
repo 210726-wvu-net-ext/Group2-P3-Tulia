@@ -8,7 +8,6 @@
 * Create group -> `/api/group/create/(Group object)`
 * Delete group -> `/api/group/delete/(Group id)`
 
-
 ## Post Controller
 * Create post -> `/api/post/create/(Post object)`
 * Display all groups -> `/api/post/all`
@@ -17,3 +16,4 @@
 ## Comment Controller
 * Create comment -> `/api/comment/create/(Comment object)`
 * Display all comments from a specific user -> `/api/comment/user/(User object)`
+* Display comments on a post -> `/api/comment/post/(Post id)`

@@ -30,5 +30,11 @@ namespace WebAPI.Controllers
         {
             return _repo.ListCommentsFromUser(user);
         }
+
+        [HttpGet("~/api/[controller]/post/{postId}")]
+        public List<Comment> DisplayCommentsOnPost(int postId)
+        {
+            return _repo.DisplayCommentsOnPost(postId);
+        }
     }
 }
