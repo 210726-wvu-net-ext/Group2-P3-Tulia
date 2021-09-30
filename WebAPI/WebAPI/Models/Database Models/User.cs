@@ -15,14 +15,20 @@ namespace WebAPI.Models.Database_Models
         public string Role { get; set; }
         public int? NumberGroups { get; set; }
 
-        public User() { }
-
         public User(int Id, string FirstName, string LastName, string Username)
         {
             this.Id = Id;
             this.FirstName = FirstName;
             this.LastName = LastName;
             this.Username = Username;
+        }
+
+        public User(string Username, string Password, string FirstName, string LastName)
+        {
+            this.Username = Username;
+            this.Password = Password;
+            this.FirstName = FirstName;
+            this.LastName = LastName;
         }
 
         public User(int Id, string FirstName, string LastName, string Username, string password, string Role, int? NumberGroups)

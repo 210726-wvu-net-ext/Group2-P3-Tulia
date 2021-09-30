@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebAPI.Models;
+using WebAPI.Models.Controller_Models;
 using WebAPI.Models.Database_Models;
 
 namespace WebAPI.Controllers
@@ -22,13 +23,19 @@ namespace WebAPI.Controllers
         [HttpGet]
         public List<User> GetAllUsers()
         {
-            return  _repo.GetAllUsers();
+            return _repo.GetAllUsers();
         }
 
-        [HttpPost]
+        [HttpPost("~/api/[controller]/register")]
         public string CreateUser([FromBody] User user)
         {
             return _repo.CreateUser(user);
+        }
+
+        [HttpPost("~/api/[controller]/login")]
+        public User Login(string username, string password)
+        {
+            return _repo.LogIn(new LoggedInUser(username, password));
         }
     }
 }
