@@ -1,0 +1,39 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace WebAPI.Models.Database_Models
+{
+    public class User
+    {
+        public int Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string Role { get; set; }
+        public int? NumberGroups { get; set; }
+
+        public User() { }
+
+        public User(int Id, string FirstName, string LastName, string Username)
+        {
+            this.Id = Id;
+            this.FirstName = FirstName;
+            this.LastName = LastName;
+            this.Username = Username;
+        }
+
+        public User(int Id, string FirstName, string LastName, string Username, string password, string Role, int? NumberGroups)
+        {
+            this.Id = Id;
+            this.FirstName = FirstName;
+            this.LastName = LastName;
+            this.Username = Username;
+            this.Role = Role;
+            this.Password = password;
+            this.NumberGroups = NumberGroups;
+        }
+    }
+}

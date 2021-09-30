@@ -36,3 +36,4 @@ stages:
             npm ci
             ng build --prod
           displayName: 'npm install and build'
+          workingDirectory: $(angular)
