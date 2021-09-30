@@ -13,3 +13,7 @@
 * Create post -> `/api/post/create/(Post object)`
 * Display all groups -> `/api/post/all`
 * Display posts from specific group -> `/api/post/(Group id)`
+
+## Comment Controller
+* Create comment -> `/api/comment/create/(Comment object)`
+* Display all comments from a specific user -> `/api/comment/user/(User object)`
