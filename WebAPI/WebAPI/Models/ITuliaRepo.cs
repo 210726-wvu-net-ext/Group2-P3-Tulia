@@ -22,5 +22,7 @@ namespace WebAPI.Models
         public Comment CreateComment(Comment comment);
 
         public List<Comment> ListCommentsFromUser(User user);
+
+        public string CreatePost(Post post);
     }
 }

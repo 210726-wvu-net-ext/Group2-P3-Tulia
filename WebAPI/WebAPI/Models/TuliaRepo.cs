@@ -152,5 +152,26 @@ namespace WebAPI.Models
                 return null;
             }
         }
+
+        // Create a new post
+        public string CreatePost(Database_Models.Post post)
+        {
+            try
+            {
+                _context.Posts.Add(new Entities.Post
+                {
+                    UserId = post.UserId,
+                    Title = post.Title,
+                    GroupId = post.GroupId,
+                    Body = post.Body,
+                    CreatedTime = post.CreatedTime
+                });
+                _context.SaveChanges();
+                return "Post created successfully";
+            } catch(System.InvalidOperationException)
+            {
+                return "There was an error creating this post";
+            }
+        }
     }
 }

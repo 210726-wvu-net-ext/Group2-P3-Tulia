@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebAPI.Models;
+using WebAPI.Models.Database_Models;
 
 namespace WebAPI.Controllers
 {
@@ -16,6 +17,12 @@ namespace WebAPI.Controllers
         public PostController(ITuliaRepo repo)
         {
             _repo = repo;
+        }
+
+        [HttpPost]
+        public string CreatePost(Post post)
+        {
+            return _repo.CreatePost(post);
         }
     }
 }
