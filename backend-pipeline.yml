@@ -1,4 +1,3 @@
-#DOCKER COMMENTED OUT UNTIL FILE IS WORKING
 #Backend 
 trigger:
 - master
@@ -16,19 +15,8 @@ variables: #Path to folders
 
 stages:
 - stage: Install_Build
-  #Runs NuGet and NPM Installs
+  #Runs restores, builds and tests 
   jobs:
-    - job: NuInstall
-      displayName: NuGet Install-Restore
-      steps:
-      #Install
-      - task: NuGetToolInstaller@1
-        inputs:
-          checkLatest: true
-      #Restore
-      - task: NuGetCommand@2
-        inputs:
-          restoreSolution: $(solution)
   #Build and test dotnet code
     - job: Build_test
       displayName: Dotnet Build-Test
@@ -39,6 +27,14 @@ stages:
         inputs:
           packageType: 'sdk'
           version: '5.x'
+      #Install nuGet
+      - task: NuGetToolInstaller@1
+        inputs:
+          checkLatest: true
+      #Restore Solution
+      - task: NuGetCommand@2
+        inputs:
+          restoreSolution: $(solution)
       #Build
       - task: CmdLine@2
         displayName: Dotnet Build
