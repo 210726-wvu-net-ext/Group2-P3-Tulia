@@ -173,5 +173,20 @@ namespace WebAPI.Models
                 return "There was an error creating this post";
             }
         }
+
+        // see the last 15 posts
+        public List<Database_Models.Post> GetRecentPosts()
+        {
+            var posts = _context.Posts.ToList();
+
+            List<Database_Models.Post> fetchedPosts = new List<Database_Models.Post>();
+
+            foreach(var post in posts)
+            {
+                fetchedPosts.Add(new Database_Models.Post(post.Id, post.UserId, post.Title, post.Body, post.CreatedTime, post.GroupId));
+            }
+
+            return fetchedPosts;
+        }
     }
 }

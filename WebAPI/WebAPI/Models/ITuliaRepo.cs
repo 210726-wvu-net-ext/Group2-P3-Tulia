@@ -24,5 +24,7 @@ namespace WebAPI.Models
         public List<Comment> ListCommentsFromUser(User user);
 
         public string CreatePost(Post post);
+
+        public List<Post> GetRecentPosts();
     }
 }

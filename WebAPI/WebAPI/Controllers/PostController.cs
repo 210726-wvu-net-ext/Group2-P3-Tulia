@@ -24,5 +24,11 @@ namespace WebAPI.Controllers
         {
             return _repo.CreatePost(post);
         }
+
+        [HttpGet]
+        public List<Post> GetRecentPosts()
+        {
+            return _repo.GetRecentPosts();
+        }
     }
 }
