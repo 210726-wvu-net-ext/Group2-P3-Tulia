@@ -42,7 +42,8 @@ namespace WebAPI.Models
                     Username = user.Username,
                     Password = user.Password,
                     FirstName = user.FirstName,
-                    LastName = user.LastName
+                    LastName = user.LastName,
+                    Role = "user"
                 });
                 _context.SaveChanges();
 
