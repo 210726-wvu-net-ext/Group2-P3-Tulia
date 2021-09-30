@@ -24,3 +24,17 @@ Tulia offers virtual support groups to college-aged students at university so th
 ## Usage
 	
 ![Tulia Flowchart](/Documentation/TuliaFlowchart.png)
+
+##Contributors
+### Business Analysis
+- Adriann James
+- Jamaal Smith
+- Kyle Walters
+
+### Development
+- Collin Hintzke
+- Du Tran
+- Dylan Restivo
+- Emery Hart
+- Liam Sloan
+- Yuriy Yarytskyy
