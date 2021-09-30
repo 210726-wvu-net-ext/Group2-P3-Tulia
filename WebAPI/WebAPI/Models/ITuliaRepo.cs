@@ -11,7 +11,7 @@ namespace WebAPI.Models
     {
         public List<Database_Models.User> GetAllUsers();
 
-        public string CreateUser(User user);
+        public Message CreateUser(User user);
 
         public string CreateGroup(Group group);
 
@@ -30,5 +30,7 @@ namespace WebAPI.Models
         public List<Post> GetPostsFromGroup(int groupId);
 
         public string DeleteGroup(int groupId);
+
+        public List<Comment> DisplayCommentsOnPost(int postId);
     }
 }

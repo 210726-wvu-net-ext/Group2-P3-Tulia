@@ -9,5 +9,11 @@ namespace WebAPI.Models.Controller_Models
     {
         public string username { get; private set; }
         public string password { get; private set; }
+
+        public LoggedInUser(string username, string password)
+        {
+            this.username = username;
+            this.password = password;
+        }
     }
 }

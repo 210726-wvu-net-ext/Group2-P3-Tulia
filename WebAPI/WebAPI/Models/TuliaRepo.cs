@@ -29,12 +29,12 @@ namespace WebAPI.Models
             return userList;
         }
 
-        public string CreateUser(Database_Models.User user)
+        public Message CreateUser(Database_Models.User user)
         {
             try
             {
                 var duplicateUsername = _context.Users.Single(u => u.Username == user.Username);
-                return "that username is already taken.";
+                return new Message("denied", "that username is already in use.");
             } catch(System.InvalidOperationException)
             {
                 _context.Users.Add(new Entities.User
@@ -42,11 +42,12 @@ namespace WebAPI.Models
                     Username = user.Username,
                     Password = user.Password,
                     FirstName = user.FirstName,
-                    LastName = user.LastName
+                    LastName = user.LastName,
+                    Role = "user"
                 });
                 _context.SaveChanges();
 
-                return "user created successfully.";
+                return new Message("accepted", "account created.");
             }
         }
 
@@ -218,6 +219,20 @@ namespace WebAPI.Models
             {
                 return "Error: That group could not be found";
             }
+        }
+
+        // displays comments from specific post from post id
+        public List<Database_Models.Comment> DisplayCommentsOnPost(int postId)
+        {
+            var comments = _context.Comments.Where(p => p.PostId == postId);
+            List<Database_Models.Comment> commentList = new List<Database_Models.Comment>();
+
+            foreach(var comment in comments)
+            {
+                commentList.Add(new Database_Models.Comment(comment.UserId, comment.PostId, comment.Content, comment.Time));
+            }
+
+            return commentList;
         }
     }
 }
