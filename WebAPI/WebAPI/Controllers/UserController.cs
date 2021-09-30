@@ -20,7 +20,7 @@ namespace WebAPI.Controllers
             _repo = repo;
         }
 
-        [HttpGet]
+        [HttpGet("~/api/[controller]/all")]
         public List<User> GetAllUsers()
         {
             return _repo.GetAllUsers();
