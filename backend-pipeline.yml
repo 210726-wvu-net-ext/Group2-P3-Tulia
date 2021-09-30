@@ -51,10 +51,25 @@ stages:
   jobs:
   #Build and eventally deploy a docker container
     - job: Docker_Build
-      displayName: Docker Build
+      displayName: Docker Build & Push
       steps:
+      #Login
+      - task: Docker@2
+        displayName: Login
+        inputs:
+          containerRegistry: 'Docker 1'
+          command: 'login'
       #Build
       - task: Docker@2
+        displayName: Build & Push
         inputs:
-          command: 'build'
+          containerRegistry: 'Docker 1'
+          repository: 'ehart3/tulia'
+          command: 'buildAndPush'
           Dockerfile: '**/Dockerfile'
+      #logout
+      - task: Docker@2
+        displayName: Logout
+        inputs:
+          containerRegistry: 'Docker 1'
+          command: 'logout'
