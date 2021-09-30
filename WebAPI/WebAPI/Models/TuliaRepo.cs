@@ -203,5 +203,21 @@ namespace WebAPI.Models
 
             return fetchedPosts;
         }
+
+        // remove a group
+        public string DeleteGroup(int groupId)
+        {
+            try
+            {
+                var group = _context.Groups.Single(g => g.Id == groupId);
+                _context.Groups.Remove(group);
+                _context.SaveChanges();
+                return "Group removed";
+            }
+            catch (System.InvalidOperationException)
+            {
+                return "Error: That group could not be found";
+            }
+        }
     }
 }

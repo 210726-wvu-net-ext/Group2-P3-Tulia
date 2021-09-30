@@ -32,5 +32,11 @@ namespace WebAPI.Controllers
         {
             return _repo.CreateGroup(group);
         }
+
+        [HttpDelete("{groupId}")]
+        public string DeleteGroup(int groupId)
+        {
+            return _repo.DeleteGroup(groupId);
+        }
     }
 }

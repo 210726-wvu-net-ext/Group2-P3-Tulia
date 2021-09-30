@@ -28,5 +28,7 @@ namespace WebAPI.Models
         public List<Post> GetAllPosts();
 
         public List<Post> GetPostsFromGroup(int groupId);
+
+        public string DeleteGroup(int groupId);
     }
 }
