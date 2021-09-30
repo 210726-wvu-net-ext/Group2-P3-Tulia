@@ -37,7 +37,7 @@ Tulia offers virtual support groups to college-aged students at university so th
 
 ![Tulia Flowchart](/Documentation/TuliaFlowchart.png)
 
-##Contributors
+## Contributors
 ### Business Analysis
 - Adriann James
 - Jamaal Smith
