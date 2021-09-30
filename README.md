@@ -23,3 +23,4 @@ Tulia offers virtual support groups to college-aged students at university so th
 
 ## Usage
 	
+![Tulia Flowchart](/Documentation/TuliaFlowchart.png)
