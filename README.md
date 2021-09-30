@@ -15,12 +15,12 @@ Tulia offers virtual support groups to college-aged students at university so th
 	- SeriLog
 ## Features
 	- Users can:
-    -   Create an account and sign in
-	-   Join and leave groups
-	-   Post in a support group
-    -   Comment on a post
-    -   Report posts
-	-   Talk to Moderators
+    	- Create an account and sign in
+		- Join and leave groups
+		- Post in a support group
+    	- Comment on a post
+    	- Report posts
+		- Talk to Moderators
 	- Moderators can:
 		- See reported posts
 		- Delete reported posts
