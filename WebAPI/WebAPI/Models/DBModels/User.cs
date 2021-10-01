@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebAPI.Models.Database_Models
+namespace WebAPI.Models.DBModels
 {
     public class User
     {
@@ -14,6 +14,8 @@ namespace WebAPI.Models.Database_Models
         public string Password { get; set; }
         public string Role { get; set; }
         public int? NumberGroups { get; set; }
+
+        public User() { }
 
         public User(int Id, string FirstName, string LastName, string Username)
         {

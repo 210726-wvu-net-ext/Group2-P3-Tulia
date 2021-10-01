@@ -36,7 +36,7 @@ namespace WebAPI
             {
                 options.AddPolicy(name: MyAllowSpecificOrigins, builder =>
                 {
-                    builder.WithOrigins("https://localhost:4200").WithHeaders("*");
+                    builder.WithOrigins("http://localhost:4200").WithHeaders("*");
                 });
             });
 

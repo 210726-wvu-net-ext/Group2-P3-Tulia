@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebAPI.Models;
-using WebAPI.Models.Database_Models;
+using WebAPI.Models.DBModels;
 
 namespace WebAPI.Controllers
 {
@@ -19,19 +19,19 @@ namespace WebAPI.Controllers
             _repo = repo;
         }
 
-        [HttpPost("~/api/[controller]/create/{post}")]
+        [HttpPost("create/{post}")]
         public string CreatePost(Post post)
         {
             return _repo.CreatePost(post);
         }
 
-        [HttpGet("~/api/[controller]/all")]
+        [HttpGet("all")]
         public List<Post> GetAllPosts()
         {
             return _repo.GetAllPosts();
         }
 
-        [HttpGet("~/api/[controller]/{groupId}")]
+        [HttpGet("{groupId}")]
         public List<Post> GetPostsFromGroup(int groupId)
         {
             return _repo.GetPostsFromGroup(groupId);

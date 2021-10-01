@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebAPI.Models.Controller_Models;
+using WebAPI.Models.ControllerModels;
 using WebAPI.Models.Entities;
 
 namespace WebAPI.Models
@@ -16,25 +16,25 @@ namespace WebAPI.Models
             _context = context;
         }
 
-        public List<Database_Models.User> GetAllUsers()
+        public List<DBModels.User> GetAllUsers()
         {
             var users = _context.Users.ToList();
-            List<Database_Models.User> userList = new List<Database_Models.User>();
+            List<DBModels.User> userList = new List<DBModels.User>();
 
             foreach(var user in users)
             {
-                userList.Add(new Database_Models.User(user.Id, user.FirstName, user.LastName, user.Username));
+                userList.Add(new DBModels.User(user.Id, user.FirstName, user.LastName, user.Username));
             }
 
             return userList;
         }
 
-        public Database_Models.User CreateUser(Database_Models.User user)
+        public DBModels.User CreateUser(DBModels.User user)
         {
             try
             {
                 var duplicateUsername = _context.Users.Single(u => u.Username == user.Username);
-                return new Database_Models.User(0, "Error", "Username is already in use", "Error");
+                return new DBModels.User(0, "Error", "Username is already in use", "Error");
             } catch(System.InvalidOperationException)
             {
                 _context.Users.Add(new Entities.User
@@ -47,11 +47,11 @@ namespace WebAPI.Models
                 });
                 _context.SaveChanges();
 
-                return new Database_Models.User(0, user.FirstName, user.LastName, user.Username);
+                return new DBModels.User(0, user.FirstName, user.LastName, user.Username);
             }
         }
 
-        public string CreateGroup(Database_Models.Group group)
+        public string CreateGroup(DBModels.Group group)
         {
             // check to see if that group name is taken already.
             try
@@ -73,20 +73,20 @@ namespace WebAPI.Models
             }
         }
 
-        public List<Database_Models.Group> GetAllGroups()
+        public List<DBModels.Group> GetAllGroups()
         {
             var groups = _context.Groups.ToList();
-            List<Database_Models.Group> listGroups = new List<Database_Models.Group>();
+            List<DBModels.Group> listGroups = new List<DBModels.Group>();
 
             foreach(var group in groups)
             {
-                listGroups.Add(new Database_Models.Group(group.Id, group.UserId, group.NumberMember, group.GroupTitle, group.Description));
+                listGroups.Add(new DBModels.Group(group.Id, group.UserId, group.NumberMember, group.GroupTitle, group.Description));
             }
 
             return listGroups;
         }
 
-        public Database_Models.User LogIn(LoggedInUser user)
+        public DBModels.User LogIn(LoggedInUser user)
         {
             // check to see if username exists
             try
@@ -96,22 +96,22 @@ namespace WebAPI.Models
                 //if that succeeds, make sure password fits
                 if(user.password == loginUser.Password)
                 {
-                    return new Database_Models.User(loginUser.Id, loginUser.Username, loginUser.Password, loginUser.FirstName, loginUser.LastName,
+                    return new DBModels.User(loginUser.Id, loginUser.Username, loginUser.Password, loginUser.FirstName, loginUser.LastName,
                         loginUser.Role, loginUser.NumberGroups);
                 } else
                 {
-                    return new Database_Models.User(0, "error", "error", "error");
+                    return new DBModels.User(0, "error", "error", "error");
                 }
             } catch (System.InvalidOperationException)
             {
                 // username could not be found
                 // return an "error" user object
-                return new Database_Models.User(0, "error", "error", "error");
+                return new DBModels.User(0, "error", "error", "error");
             }
         }
 
         // adds a comment to the database
-        public Database_Models.Comment CreateComment(Database_Models.Comment comment)
+        public DBModels.Comment CreateComment(DBModels.Comment comment)
         {
             _context.Comments.Add(new Entities.Comment
             {
@@ -121,11 +121,11 @@ namespace WebAPI.Models
                 Time = comment.Time
             });
             _context.SaveChanges();
-            return new Database_Models.Comment(comment.UserId, comment.PostId, comment.Content, comment.Time);
+            return new DBModels.Comment(comment.UserId, comment.PostId, comment.Content, comment.Time);
         }
 
         // List all comments from a user
-        public List<Database_Models.Comment> ListCommentsFromUser(Database_Models.User user)
+        public List<DBModels.Comment> ListCommentsFromUser(DBModels.User user)
         {
             // try to find the user
             try
@@ -136,11 +136,11 @@ namespace WebAPI.Models
                 try
                 {
                     var comments = _context.Comments.Where(c => c.UserId == foundUser.Id).ToList();
-                    List<Database_Models.Comment> userComments = new List<Database_Models.Comment>();
+                    List<DBModels.Comment> userComments = new List<DBModels.Comment>();
 
                     foreach(var comment in comments)
                     {
-                        userComments.Add(new Database_Models.Comment(comment.UserId, comment.PostId, comment.Content, comment.Time));
+                        userComments.Add(new DBModels.Comment(comment.UserId, comment.PostId, comment.Content, comment.Time));
                     }
 
                     return userComments;
@@ -155,7 +155,7 @@ namespace WebAPI.Models
         }
 
         // Create a new post
-        public string CreatePost(Database_Models.Post post)
+        public string CreatePost(DBModels.Post post)
         {
             try
             {
@@ -176,30 +176,30 @@ namespace WebAPI.Models
         }
 
         // see the last 15 posts
-        public List<Database_Models.Post> GetAllPosts()
+        public List<DBModels.Post> GetAllPosts()
         {
             var posts = _context.Posts.ToList();
 
-            List<Database_Models.Post> fetchedPosts = new List<Database_Models.Post>();
+            List<DBModels.Post> fetchedPosts = new List<DBModels.Post>();
 
             foreach(var post in posts)
             {
-                fetchedPosts.Add(new Database_Models.Post(post.Id, post.UserId, post.Title, post.Body, post.CreatedTime, post.GroupId));
+                fetchedPosts.Add(new DBModels.Post(post.Id, post.UserId, post.Title, post.Body, post.CreatedTime, post.GroupId));
             }
 
             return fetchedPosts;
         }
 
         // returns the last 10 posts from a specific group
-        public List<Database_Models.Post> GetPostsFromGroup(int groupId)
+        public List<DBModels.Post> GetPostsFromGroup(int groupId)
         {
             var posts = _context.Posts.Where(p => p.GroupId == groupId).ToList();
 
-            List<Database_Models.Post> fetchedPosts = new List<Database_Models.Post>();
+            List<DBModels.Post> fetchedPosts = new List<DBModels.Post>();
 
             foreach (var post in posts)
             {
-                fetchedPosts.Add(new Database_Models.Post(post.Id, post.UserId, post.Title, post.Body, post.CreatedTime, post.GroupId));
+                fetchedPosts.Add(new DBModels.Post(post.Id, post.UserId, post.Title, post.Body, post.CreatedTime, post.GroupId));
             }
 
             return fetchedPosts;
@@ -222,14 +222,14 @@ namespace WebAPI.Models
         }
 
         // displays comments from specific post from post id
-        public List<Database_Models.Comment> DisplayCommentsOnPost(int postId)
+        public List<DBModels.Comment> DisplayCommentsOnPost(int postId)
         {
             var comments = _context.Comments.Where(p => p.PostId == postId);
-            List<Database_Models.Comment> commentList = new List<Database_Models.Comment>();
+            List<DBModels.Comment> commentList = new List<DBModels.Comment>();
 
             foreach(var comment in comments)
             {
-                commentList.Add(new Database_Models.Comment(comment.UserId, comment.PostId, comment.Content, comment.Time));
+                commentList.Add(new DBModels.Comment(comment.UserId, comment.PostId, comment.Content, comment.Time));
             }
 
             return commentList;

@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebAPI.Models.Controller_Models;
-using WebAPI.Models.Database_Models;
+using WebAPI.Models.ControllerModels;
+using WebAPI.Models.DBModels;
 
 namespace WebAPI.Models
 {
     public interface ITuliaRepo
     {
-        public List<Database_Models.User> GetAllUsers();
+        public List<DBModels.User> GetAllUsers();
 
         public User CreateUser(User user);
 
