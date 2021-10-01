@@ -27,9 +27,16 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("register")]
-        public User CreateUser(User user)
+        public ActionResult<User> CreateUser(User user)
         {
-            return _repo.CreateUser(user);
+            var result = _repo.CreateUser(user);
+            if(result != null)
+            {
+                return result;
+            } else
+            {
+                return StatusCode(403, null);
+            }
         }
 
         [HttpPost("login")]

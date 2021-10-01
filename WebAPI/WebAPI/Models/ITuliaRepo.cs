@@ -9,7 +9,7 @@ namespace WebAPI.Models
 {
     public interface ITuliaRepo
     {
-        public List<DBModels.User> GetAllUsers();
+        public List<User> GetAllUsers();
 
         public User CreateUser(User user);
 
