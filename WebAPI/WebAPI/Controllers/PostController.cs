@@ -19,7 +19,7 @@ namespace WebAPI.Controllers
             _repo = repo;
         }
 
-        [HttpPost("create/{post}")]
+        [HttpPost("create")]
         public string CreatePost(Post post)
         {
             return _repo.CreatePost(post);

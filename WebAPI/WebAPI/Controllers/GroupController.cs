@@ -25,7 +25,7 @@ namespace WebAPI.Controllers
             return _repo.GetAllGroups();
         }
 
-        [HttpPost("create/{group}")]
+        [HttpPost("create")]
         public string CreateGroup(Group group)
         {
             return _repo.CreateGroup(group);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -34,8 +35,8 @@ namespace WebAPI.Models
             try
             {
                 var duplicateUsername = _context.Users.Single(u => u.Username == user.Username);
-                return new DBModels.User(0, "Error", "Username is already in use", "Error");
-            } catch(System.InvalidOperationException)
+                return null;
+            } catch(System.InvalidOperationException e)
             {
                 _context.Users.Add(new Entities.User
                 {
