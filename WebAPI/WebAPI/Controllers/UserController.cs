@@ -32,10 +32,10 @@ namespace WebAPI.Controllers
             var result = _repo.CreateUser(user);
             if(result != null)
             {
-                return result;
+                return Ok(result);
             } else
             {
-                return StatusCode(403, null);
+                return StatusCode(403, "Username already in use.");
             }
         }
 
