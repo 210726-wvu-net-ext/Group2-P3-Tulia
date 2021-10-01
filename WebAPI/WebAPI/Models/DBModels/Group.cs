@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebAPI.Models.Database_Models
+namespace WebAPI.Models.DBModels
 {
     public class Group
     {

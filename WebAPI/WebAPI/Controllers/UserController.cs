@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebAPI.Models;
-using WebAPI.Models.Controller_Models;
-using WebAPI.Models.Database_Models;
+using WebAPI.Models.ControllerModels;
+using WebAPI.Models.DBModels;
 
 namespace WebAPI.Controllers
 {

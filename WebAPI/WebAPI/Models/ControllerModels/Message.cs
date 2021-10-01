@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebAPI.Models.Controller_Models
+namespace WebAPI.Models.ControllerModels
 {
     public class Message
     {
