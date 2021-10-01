@@ -20,19 +20,19 @@ namespace WebAPI.Controllers
             _repo = repo;
         }
 
-        [HttpGet("~/api/[controller]/all")]
+        [HttpGet("all")]
         public List<User> GetAllUsers()
         {
             return _repo.GetAllUsers();
         }
 
-        [HttpPost("~/api/[controller]/register")]
+        [HttpPost("register")]
         public User CreateUser(User user)
         {
             return _repo.CreateUser(user);
         }
 
-        [HttpPost("~/api/[controller]/login")]
+        [HttpPost("login")]
         public User Login(string username, string password)
         {
             return _repo.LogIn(new LoggedInUser(username, password));

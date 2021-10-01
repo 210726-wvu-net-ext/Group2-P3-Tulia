@@ -19,19 +19,19 @@ namespace WebAPI.Controllers
             _repo = repo;
         }
 
-        [HttpPost("~/api/[controller]/create/{comment}")]
+        [HttpPost("create/{comment}")]
         public Comment CreateComment(Comment comment)
         {
             return _repo.CreateComment(comment);
         }
 
-        [HttpGet("~/api/[controller]/user/{user}")]
+        [HttpGet("user/{user}")]
         public List<Comment> GetCommentsFromUser(User user)
         {
             return _repo.ListCommentsFromUser(user);
         }
 
-        [HttpGet("~/api/[controller]/post/{postId}")]
+        [HttpGet("post/{postId}")]
         public List<Comment> DisplayCommentsOnPost(int postId)
         {
             return _repo.DisplayCommentsOnPost(postId);

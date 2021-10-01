@@ -19,19 +19,19 @@ namespace WebAPI.Controllers
             _repo = repo;
         }
 
-        [HttpGet("~/api/[controller]/all")]
+        [HttpGet("all")]
         public List<Group> GetAllGroups()
         {
             return _repo.GetAllGroups();
         }
 
-        [HttpPost("~/api/[controller]/create/{group}")]
+        [HttpPost("create/{group}")]
         public string CreateGroup(Group group)
         {
             return _repo.CreateGroup(group);
         }
 
-        [HttpDelete("~/api/[controller]/delete/{groupId}")]
+        [HttpDelete("delete/{groupId}")]
         public string DeleteGroup(int groupId)
         {
             return _repo.DeleteGroup(groupId);
