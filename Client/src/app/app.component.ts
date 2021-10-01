@@ -6,7 +6,7 @@ import { UserService } from './user.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Client';
+  title = 'Welcome to Tulia';
 
   constructor(
     private userService: UserService

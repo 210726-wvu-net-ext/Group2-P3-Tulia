@@ -44,7 +44,7 @@ export class UserService {
     (catchError(this.handleError1));
   }
   handleError1(error: HttpErrorResponse){
-    return throwError(error.message);
+    return throwError(error.error);
   }
 
   updateUser(id: number, user: User): Observable<any> {
