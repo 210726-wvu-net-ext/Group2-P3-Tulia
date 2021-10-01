@@ -1,4 +1,35 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<p>
+<mat-form-field appearance="legacy">
+    <mat-label for='username'>Username</mat-label>
+    <input matInput placeholder="Username" formControlName="username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+    <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+        <mat-error *ngIf="f.username.errors.required">Username is required</mat-error>
+    </div>
+    <mat-icon matSuffix></mat-icon>
+    <mat-hint>Ex: Bob</mat-hint>
+</mat-form-field>
+</p>
+<mat-form-field appearance="legacy">
+    <mat-label for='password'>Password</mat-label>
+    <input matInput placeholder="Username" formControlName="username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+        <mat-error *ngIf="f.password.errors.required">Password is required</mat-error>
+    </div>
+    <mat-icon matSuffix></mat-icon>
+    <mat-hint>Ex: Bob@12</mat-hint>
+</mat-form-field>
 
+<p>
+    <button mat-raised-button color="primary" [disabled]="loading">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+        Login
+    </button>
+    <a routerLink="../register" class="btn btn-link">Register</a>
+</p>
+
+</form>
+<!--
 <div class="card">
     <h4 class="card-header">Login</h4>
     <div class="card-body">
@@ -27,3 +58,4 @@
         </form>
     </div>
 </div>
+-->

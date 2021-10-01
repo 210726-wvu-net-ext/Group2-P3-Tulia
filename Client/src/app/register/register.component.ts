@@ -4,6 +4,7 @@ import { User } from '../models/user';
 import { first } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../user.service';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
