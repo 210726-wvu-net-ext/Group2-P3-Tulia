@@ -27,7 +27,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("~/api/[controller]/register")]
-        public Message CreateUser([FromBody] User user)
+        public User CreateUser(User user)
         {
             return _repo.CreateUser(user);
         }
