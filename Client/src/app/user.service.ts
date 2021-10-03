@@ -1,15 +1,19 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { User } from './models/user';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpEvent, HttpHandler, HttpRequest } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { Router, Routes } from '@angular/router';
+import { JwtHelperService } from "@auth0/angular-jwt";
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class UserService {
+
+  helper = new JwtHelperService();
+  //decodedToken = this.helper.decodeToken(localStorage.getItem("user")!)
 
   private userSubject: BehaviorSubject<User> | any;
   public user: Observable<User> | any;
@@ -29,15 +33,20 @@ export class UserService {
     this.user = this.userSubject.asObservable();
   }
 
+  public get userValue(): User {
+    return this.userSubject.value;
+  }
+
   getUser(id: number): Observable<User>
   {
     const url = `${this.usersUrl}/${id}`;
     return this.http.get<User>(url);
   }
-  //getUsers(): Observable<User>
-  //{
-  //  return this.http.get<User[]>(this.usersUrl);
-  //}
+
+  getUsers(): Observable<User[]>
+  {
+    return this.http.get<User[]>(`${this.usersUrl}/all`);
+  }
 
   addUser(user: User): Observable<User>{
     return this.http.post<User>(`${this.usersUrl}/register`, user, this.httpOptions).pipe
@@ -60,7 +69,7 @@ export class UserService {
   }
   
   login(username: string, password: string) {
-    return this.http.post<User>(`${this.usersUrl}/authenticate`, { username, password })
+    return this.http.post<User>(`${this.usersUrl}/login`, { username, password })
         .pipe(map(user => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('user', JSON.stringify(user));
@@ -69,10 +78,15 @@ export class UserService {
         }));
 }
 
-logout() {
-    // remove user from local storage and set current user to null
-    localStorage.removeItem('user');
-    this.userSubject.next(null);
-    this.router.navigate(['/account/login']);
-}
+  loggedIn(){
+    return localStorage.getItem('user');
+  }
+  
+
+  logout() {
+      // remove user from local storage and set current user to null
+      localStorage.removeItem('user');
+      this.userSubject.next(null);
+      this.router.navigate(['/login']);
+  }
 }

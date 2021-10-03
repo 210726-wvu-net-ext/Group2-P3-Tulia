@@ -30,6 +30,16 @@ namespace WebAPI.Models
             return userList;
         }
 
+        public async Task<DBModels.User> GetUserById(int id)
+        {
+            var foundUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+            if (foundUser != null)
+            {
+                return new DBModels.User(foundUser.Id, foundUser.FirstName, foundUser.LastName, foundUser.Username, foundUser.Role);
+            }
+            return new DBModels.User();
+        }
+
         public DBModels.User CreateUser(DBModels.User user)
         {
             try
@@ -87,28 +97,40 @@ namespace WebAPI.Models
             return listGroups;
         }
 
-        public DBModels.User LogIn(LoggedInUser user)
+        //public DBModels.User LogIn(LoggedInUser user)
+        //{
+        //    // check to see if username exists
+        //    try
+        //    {
+        //        var loginUser = _context.Users.Single(u => u.Username == user.username);
+        //        
+        //        //if that succeeds, make sure password fits
+        //        if(user.password == loginUser.Password)
+        //        {
+        //            return new DBModels.User(loginUser.Id, loginUser.Username, loginUser.Password, loginUser.FirstName, loginUser.LastName,
+        //                loginUser.Role, loginUser.NumberGroups);
+        //        } else
+        //        {
+        //            return new DBModels.User(0, "error", "error", "error");
+        //        }
+        //    } catch (System.InvalidOperationException)
+        //    {
+        //        // username could not be found
+        //        // return an "error" user object
+        //        return new DBModels.User(0, "error", "error", "error");
+        //    }
+        //}
+
+        public async Task<DBModels.User> LogIn(LoggedInUser user)
         {
-            // check to see if username exists
-            try
+            Entities.User foundUser = await _context.Users.FirstOrDefaultAsync(u => u.Username == user.username && u.Password == user.password);
+
+            if (foundUser != null)
             {
-                var loginUser = _context.Users.Single(u => u.Username == user.username);
-                
-                //if that succeeds, make sure password fits
-                if(user.password == loginUser.Password)
-                {
-                    return new DBModels.User(loginUser.Id, loginUser.Username, loginUser.Password, loginUser.FirstName, loginUser.LastName,
-                        loginUser.Role, loginUser.NumberGroups);
-                } else
-                {
-                    return new DBModels.User(0, "error", "error", "error");
-                }
-            } catch (System.InvalidOperationException)
-            {
-                // username could not be found
-                // return an "error" user object
-                return new DBModels.User(0, "error", "error", "error");
-            }
+                DBModels.User loginUser = await GetUserById(foundUser.Id);
+                return loginUser;
+            }else
+            return null;
         }
 
         // adds a comment to the database

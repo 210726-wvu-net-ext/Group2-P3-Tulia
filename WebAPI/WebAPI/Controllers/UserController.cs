@@ -40,9 +40,17 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("login")]
-        public User Login(string username, string password)
+        public async Task<ActionResult> Login(LoggedInUser user)
         {
-            return _repo.LogIn(new LoggedInUser(username, password));
+
+            var result = await _repo.LogIn(new LoggedInUser(user.username, user.password));
+            if(result !=null)
+            {
+                return Ok(result);
+            } else
+            {
+                return StatusCode(404, "Invalid username or password");
+            }
         }
     }
 }

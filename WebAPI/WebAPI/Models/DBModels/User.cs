@@ -33,6 +33,15 @@ namespace WebAPI.Models.DBModels
             this.LastName = LastName;
         }
 
+        public User(int Id, string FirstName, string LastName, string Username, string Role)
+        {
+            this.Id = Id;
+            this.FirstName = FirstName;
+            this.LastName = LastName;
+            this.Username = Username;
+            this.Role = Role;
+        }
+
         public User(int Id, string FirstName, string LastName, string Username, string password, string Role, int? NumberGroups)
         {
             this.Id = Id;
