@@ -36,6 +36,7 @@ stages:
         displayName: NPM CI
         inputs:
           script: 'npm ci'
+          workingDirectory: $(angular)
     #Build Angular App
       - task: AngularCLI@1
         displayName: Angular Build
