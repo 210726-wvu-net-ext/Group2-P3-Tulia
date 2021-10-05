@@ -242,18 +242,18 @@ namespace WebAPI.Models
         }
 
         // remove a group
-        public string DeleteGroup(int groupId)
+        public DBModels.Group DeleteGroup(int groupId)
         {
             try
             {
                 var group = _context.Groups.Single(g => g.Id == groupId);
                 _context.Groups.Remove(group);
                 _context.SaveChanges();
-                return "Group removed";
+                return new DBModels.Group(group.UserId, group.GroupTitle, group.Description);
             }
             catch (System.InvalidOperationException)
             {
-                return "Error: That group could not be found";
+                return null;
             }
         }
 
@@ -269,6 +269,32 @@ namespace WebAPI.Models
             }
 
             return commentList;
+        }
+
+        public DBModels.Comment DeleteComment(int commentId)
+        {
+            try
+            {
+                var comment = _context.Comments.Single(c => c.Id == commentId);
+                return new DBModels.Comment(comment.UserId, comment.PostId, comment.Content, comment.Time);
+            }
+            catch (System.InvalidOperationException)
+            {
+                return null;
+            }
+        }
+
+        public DBModels.Post DeletePost(int postId)
+        {
+            try
+            {
+                var post = _context.Posts.Single(p => p.Id == postId);
+                return new DBModels.Post(post.Id, post.UserId, post.Title, post.Body, post.CreatedTime, post.GroupId);
+            }
+            catch (System.InvalidOperationException)
+            {
+                return null;
+            }
         }
     }
 }
