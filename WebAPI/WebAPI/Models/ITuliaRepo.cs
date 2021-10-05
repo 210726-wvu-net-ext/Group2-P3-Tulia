@@ -14,9 +14,9 @@ namespace WebAPI.Models
 
         public User CreateUser(User user);
 
-        public Task<Group> CreateGroup(Group group);
+        public Group CreateGroup(Group group);
 
-        //public List<Group> GetAllGroups();
+        public List<Group> GetAllGroups();
 
         public Task<User> LogIn(LoggedInUser user);
 

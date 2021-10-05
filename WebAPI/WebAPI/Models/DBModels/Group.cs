@@ -13,6 +13,8 @@ namespace WebAPI.Models.DBModels
         public string GroupTitle { get; set; }
         public string Description { get; set; }
 
+        public Group() { }
+
         public Group(int userId, string GroupTitle, string Description)
         {
             this.UserId = UserId;
