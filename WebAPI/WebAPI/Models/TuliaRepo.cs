@@ -191,7 +191,7 @@ namespace WebAPI.Models
         }
 
         // Create a new post
-        public string CreatePost(DBModels.Post post)
+        public DBModels.Post CreatePost(DBModels.Post post)
         {
             try
             {
@@ -204,10 +204,10 @@ namespace WebAPI.Models
                     CreatedTime = post.CreatedTime
                 });
                 _context.SaveChanges();
-                return "Post created successfully";
+                return new DBModels.Post(post.Id, post.UserId, post.Title, post.Body, post.CreatedTime, post.GroupId);
             } catch(System.InvalidOperationException)
             {
-                return "There was an error creating this post";
+                return null;
             }
         }
 
