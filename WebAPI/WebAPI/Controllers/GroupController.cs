@@ -40,9 +40,16 @@ namespace WebAPI.Controllers
         }
 
         [HttpDelete("delete/{groupId}")]
-        public string DeleteGroup(int groupId)
+        public ActionResult<Group> DeleteGroup(int groupId)
         {
-            return _repo.DeleteGroup(groupId);
+            var result = _repo.DeleteGroup(groupId);
+            if(result != null)
+            {
+                return Ok(result);
+            } else
+            {
+                return StatusCode(404, "That group could not be found");
+            }
         }
     }
 }

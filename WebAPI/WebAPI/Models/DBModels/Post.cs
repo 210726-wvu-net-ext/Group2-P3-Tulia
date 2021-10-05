@@ -14,6 +14,8 @@ namespace WebAPI.Models.DBModels
         public DateTime CreatedTime { get; set; }
         public int GroupId { get; set; }
 
+        public Post() { }
+
         public Post(int Id, int UserId, string Title, string Body, DateTime CreatedTime, int GroupId)
         {
             this.Id = Id;
