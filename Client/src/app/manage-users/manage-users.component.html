@@ -1,5 +1,5 @@
 <p>manage-users works!</p>
 <h2>All Users</h2>
 <li *ngFor="let user of users">
-    {{user.firstName}} {{user.lastName}}
+    <a routerLink="/userdetail/{{user.id}}">{{user.firstName}} {{user.lastName}}</a>
 </li>

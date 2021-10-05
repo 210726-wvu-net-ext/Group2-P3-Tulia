@@ -14,11 +14,13 @@ namespace WebAPI.Models
 
         public User CreateUser(User user);
 
-        public string CreateGroup(Group group);
+        public Task<Group> CreateGroup(Group group);
 
-        public List<Group> GetAllGroups();
+        //public List<Group> GetAllGroups();
 
         public Task<User> LogIn(LoggedInUser user);
+
+        public Task<bool> DeleteUserById(int id);
 
         public Comment CreateComment(Comment comment);
 

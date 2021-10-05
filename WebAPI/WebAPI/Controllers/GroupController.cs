@@ -26,9 +26,17 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("create")]
-        public string CreateGroup(Group group)
+        public ActionResult<Group> CreateGroup(Group group)
         {
-            return _repo.CreateGroup(group);
+            var result = _repo.CreateGroup(group);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return StatusCode(404, "GroupTitle already in use.");
+            }
         }
 
         [HttpDelete("delete/{groupId}")]

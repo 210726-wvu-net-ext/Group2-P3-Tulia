@@ -26,6 +26,13 @@ namespace WebAPI.Controllers
             return _repo.GetAllUsers();
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<User>> Get(int id)
+        {
+            var user = await _repo.GetUserById(id);
+            return Ok(user);
+        }
+
         [HttpPost("register")]
         public ActionResult<User> CreateUser(User user)
         {
@@ -51,6 +58,15 @@ namespace WebAPI.Controllers
             {
                 return StatusCode(404, "Invalid username or password");
             }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            bool result = await _repo.DeleteUserById(id);
+            if (result == false)
+                return NotFound();
+            return Ok();
         }
     }
 }

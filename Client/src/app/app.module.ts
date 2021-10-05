@@ -23,6 +23,8 @@ import { MatListModule } from '@angular/material/list';
 import { HomeComponent } from './home/home.component';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ManageUsersComponent } from './manage-users/manage-users.component';
+import { UserDetailComponent } from './user-detail/user-detail.component';
+import { CreateGroupComponent } from './create-group/create-group.component';
 
 
 @NgModule({
@@ -33,6 +35,8 @@ import { ManageUsersComponent } from './manage-users/manage-users.component';
     NavigationbarComponent,
     HomeComponent,
     ManageUsersComponent,
+    UserDetailComponent,
+    CreateGroupComponent,
  
   ],
   imports: [

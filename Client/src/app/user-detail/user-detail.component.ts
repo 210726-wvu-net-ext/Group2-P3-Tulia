@@ -1,38 +1,29 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../user.service';
 import { User } from '../models/user';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-
 @Component({
-  selector: 'app-manage-users',
-  templateUrl: './manage-users.component.html',
-  styleUrls: ['./manage-users.component.css']
+  selector: 'app-user-detail',
+  templateUrl: './user-detail.component.html',
+  styleUrls: ['./user-detail.component.css']
 })
-export class ManageUsersComponent implements OnInit {
+export class UserDetailComponent implements OnInit {
 
-  users: User[] = [];
-  user?: User;
+  user!: User;
   constructor(
-    private userService: UserService, 
+    private userService: UserService,
     private route: ActivatedRoute,
-    private location: Location) { }
+    private location: Location
+    ) { }
 
   ngOnInit(): void {
     this.getUser();
-    this.getUsers();
-    this.save();
   }
-
   getUser(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.userService.getUser(id)
       .subscribe(user => this.user = user);
-  }
-
-  getUsers(): void{
-    this.userService.getUsers()
-      .subscribe(users => this.users = users)
   }
 
   save(): void {
@@ -43,6 +34,12 @@ export class ManageUsersComponent implements OnInit {
     }
   }
 
+  delete(): void {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+   
+    //this.user = this.user.filter(u => u !== user);
+    this.userService.deleteUser(id).subscribe(() => this.goBack());
+  }
 
   goBack(): void {
     this.location.back();

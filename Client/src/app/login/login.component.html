@@ -15,7 +15,7 @@
         </p>
         <mat-form-field appearance="legacy">
             <mat-label for='password'>Password</mat-label>
-            <input matInput placeholder="Password" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+            <input matInput placeholder="Password" formControlName="password" type="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
             <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
                 <mat-error *ngIf="f.password.errors.required">Password is required</mat-error>
             </div>

@@ -61,26 +61,40 @@ namespace WebAPI.Models
                 return new DBModels.User(0, user.FirstName, user.LastName, user.Username);
             }
         }
+        public async Task<bool> DeleteUserById(int id)
+        {
+            Entities.User userToDelete = await _context.Users
+                .FirstOrDefaultAsync(user => user.Id == id);
+            if (userToDelete != null)
+            {
+                _context.Users.Remove(userToDelete);
+                await _context.SaveChangesAsync();
+                return true;
+            }
 
-        public string CreateGroup(DBModels.Group group)
+            return false;
+        }
+
+        public DBModels.Group CreateGroup(DBModels.Group group)
         {
             // check to see if that group name is taken already.
             try
             {
                 var duplicateGroupName = _context.Groups.Single(g => g.GroupTitle == group.GroupTitle);
-                return "A group with that title already exists";
+                return null;
             } catch(System.InvalidOperationException)
             {
                 _context.Groups.Add(new Entities.Group
                 {
-                    GroupTitle = group.GroupTitle,
                     UserId = group.UserId,
-                    Description = group.Description,
-                    NumberMember = 1
+                    NumberMember = 1,
+                    GroupTitle = group.GroupTitle,
+                    Description = group.Description
+                    
                 });
                 _context.SaveChanges();
 
-                return "Group created successfully";
+                return group;
             }
         }
 
