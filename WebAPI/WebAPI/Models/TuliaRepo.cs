@@ -90,7 +90,6 @@ namespace WebAPI.Models
                     NumberMember = 1,
                     GroupTitle = group.GroupTitle,
                     Description = group.Description
-                    
                 });
                 _context.SaveChanges();
 
