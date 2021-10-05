@@ -12,6 +12,7 @@ pool:
 variables: #Path to folders
   sDir: 'WebAPI'
   solution: 'WebAPI/*.sln'
+  cReg: '2107-p3-acr-Group2-Tulia'
 
 stages:
 - stage: Install_Build
@@ -57,19 +58,19 @@ stages:
       - task: Docker@2
         displayName: Login
         inputs:
-          containerRegistry: 'Docker 1'
+          containerRegistry: $(cReg)
           command: 'login'
       #Build
       - task: Docker@2
         displayName: Build & Push
         inputs:
-          containerRegistry: 'Docker 1'
-          repository: 'ehart3/tulia'
+          containerRegistry: '$(cReg)'
+          repository: 'ehart3/tulia-backend'
           command: 'buildAndPush'
           Dockerfile: '**/Dockerfile'
       #logout
       - task: Docker@2
         displayName: Logout
         inputs:
-          containerRegistry: 'Docker 1'
+          containerRegistry: $(cReg)
           command: 'logout'
