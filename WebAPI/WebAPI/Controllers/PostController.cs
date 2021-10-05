@@ -20,9 +20,17 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("create")]
-        public string CreatePost(Post post)
+        public ActionResult<Post> CreatePost(Post post)
         {
-            return _repo.CreatePost(post);
+            var result = _repo.CreatePost(post);
+
+            if(result != null)
+            {
+                return result;
+            } else
+            {
+                return StatusCode(403);
+            }
         }
 
         [HttpGet("all")]
