@@ -271,12 +271,12 @@ namespace WebAPI.Models
             return commentList;
         }
 
-        public Comment DeleteComment(int commentId)
+        public DBModels.Comment DeleteComment(int commentId)
         {
             try
             {
                 var comment = _context.Comments.Single(c => c.Id == commentId);
-                return comment;
+                return new DBModels.Comment(comment.UserId, comment.PostId, comment.Content, comment.Time);
             }
             catch (System.InvalidOperationException)
             {
