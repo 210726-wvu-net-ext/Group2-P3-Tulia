@@ -38,5 +38,7 @@ namespace WebAPI.Models
         public List<Comment> DisplayCommentsOnPost(int postId);
 
         public Comment DeleteComment(int commentId);
+
+        public Post DeletePost(int postId);
     }
 }

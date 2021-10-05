@@ -283,5 +283,18 @@ namespace WebAPI.Models
                 return null;
             }
         }
+
+        public DBModels.Post DeletePost(int postId)
+        {
+            try
+            {
+                var post = _context.Posts.Single(p => p.Id == postId);
+                return new DBModels.Post(post.Id, post.UserId, post.Title, post.Body, post.CreatedTime, post.GroupId);
+            }
+            catch (System.InvalidOperationException)
+            {
+                return null;
+            }
+        }
     }
 }

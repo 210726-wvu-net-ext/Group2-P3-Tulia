@@ -36,5 +36,18 @@ namespace WebAPI.Controllers
         {
             return _repo.GetPostsFromGroup(groupId);
         }
+
+        [HttpDelete("/delete/{postId}")]
+        public ActionResult<Post> DeletePost(int postId)
+        {
+            var result = _repo.DeletePost(postId);
+            if(result != null)
+            {
+                return Ok(result);
+            } else
+            {
+                return StatusCode(404, "Post could not be found.");
+            }
+        }
     }
 }
