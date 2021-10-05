@@ -17,7 +17,15 @@ export class UserService {
 
   private userSubject: BehaviorSubject<User> | any;
   public user: Observable<User> | any;
-  
+  //currentUser: User = {
+  //  id: null || this.decodedToken?.userId,
+  //  username: null || this.decodedToken?.nameid,
+  //  firstName: null || this.decodedToken?.firstName,
+  //  lastName: null || this.decodedToken?.lastName,
+  //  password: null || this.decodedToken?.password,
+  //  role: null || this.decodedToken?.role,
+  //  numberGroups: null || this.decodedToken?.numberGroups
+  //}
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -74,14 +82,15 @@ export class UserService {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('user', JSON.stringify(user));
             this.userSubject.next(user);
+            console.log(user.id);
+            //this.currentUserid = user.id;
             return user;
         }));
-}
-
+  }
+  
   loggedIn(){
     return localStorage.getItem('user');
   }
-  
 
   logout() {
       // remove user from local storage and set current user to null

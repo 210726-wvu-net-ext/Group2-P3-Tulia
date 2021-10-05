@@ -7,13 +7,15 @@ import { AuthGuard } from './helpers/auth.guard';
 import { RoleGuard } from './helpers/role.guard';
 import { ManageUsersComponent } from './manage-users/manage-users.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
+import { CreateGroupComponent } from './create-group/create-group.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard]},
   { path: 'register', component: RegisterComponent},
   { path: 'login', component: LoginComponent},
   { path: 'manageaccount', component: ManageUsersComponent, canActivate: [RoleGuard]},
-  { path: 'userdetail/:id', component: UserDetailComponent, canActivate: [RoleGuard]}
+  { path: 'userdetail/:id', component: UserDetailComponent, canActivate: [RoleGuard]},
+  { path: 'creategroup', component: CreateGroupComponent, canActivate: [RoleGuard]}
 ];
 @NgModule({
   declarations: [],

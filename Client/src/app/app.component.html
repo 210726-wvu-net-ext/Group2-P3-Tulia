@@ -4,7 +4,8 @@
        <!--<div *ngIf="!userService.loggedIn()"></div>-->
       <a routerLink="/register" mat-button color="warn" *ngIf="!userService.loggedIn()">Register</a>
       <a routerLink="/login" mat-button color="warn" *ngIf="!userService.loggedIn()">Login</a>
-       
+      
+      <a routerLink="/creategroup" mat-button color="warn" *ngIf="user">Create Group</a>
       <a routerLink="/manageaccount" mat-button color="warn" *ngIf="user">Manage Users</a>
       <a (click)="logout()" mat-button color="warn" *ngIf="user">Logout</a>
        
@@ -18,3 +19,4 @@
     <router-outlet></router-outlet>
     
 </div>
+<!--*ngIf="user.role==='admin'";-->
