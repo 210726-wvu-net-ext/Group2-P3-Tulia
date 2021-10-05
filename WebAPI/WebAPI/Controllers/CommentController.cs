@@ -36,5 +36,18 @@ namespace WebAPI.Controllers
         {
             return _repo.DisplayCommentsOnPost(postId);
         }
+
+        [HttpDelete("delete/{commentId}")]
+        public ActionResult<Comment> DeleteComment(int commentId)
+        {
+            var result = _repo.DeleteComment(commentId);
+            if(result != null)
+            {
+                return Ok(result);
+            }else
+            {
+                return StatusCode(404, "That comment could not be found.");
+            }
+        }
     }
 }

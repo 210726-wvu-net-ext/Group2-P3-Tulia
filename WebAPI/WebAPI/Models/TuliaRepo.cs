@@ -270,5 +270,18 @@ namespace WebAPI.Models
 
             return commentList;
         }
+
+        public Comment DeleteComment(int commentId)
+        {
+            try
+            {
+                var comment = _context.Comments.Single(c => c.Id == commentId);
+                return comment;
+            }
+            catch (System.InvalidOperationException)
+            {
+                return null;
+            }
+        }
     }
 }

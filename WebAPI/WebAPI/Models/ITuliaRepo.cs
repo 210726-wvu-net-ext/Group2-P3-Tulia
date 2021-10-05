@@ -10,6 +10,7 @@ namespace WebAPI.Models
     public interface ITuliaRepo
     {
         public List<User> GetAllUsers();
+
         public Task<User> GetUserById(int id);
 
         public User CreateUser(User user);
@@ -35,5 +36,7 @@ namespace WebAPI.Models
         public Group DeleteGroup(int groupId);
 
         public List<Comment> DisplayCommentsOnPost(int postId);
+
+        public Comment DeleteComment(int commentId);
     }
 }
