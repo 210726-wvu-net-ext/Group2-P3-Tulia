@@ -14,7 +14,7 @@ export class UserService {
 
   helper = new JwtHelperService();
   //decodedToken = this.helper.decodeToken(localStorage.getItem("user")!)
-
+  currentuser!: User;
   private userSubject: BehaviorSubject<User> | any;
   public user: Observable<User> | any;
   //currentUser: User = {
@@ -82,8 +82,8 @@ export class UserService {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('user', JSON.stringify(user));
             this.userSubject.next(user);
-            console.log(user.id);
-            //this.currentUserid = user.id;
+            if(user.role=="admin") localStorage.setItem('admin', JSON.stringify(user.role));
+            console.log(user.role);
             return user;
         }));
   }
@@ -91,7 +91,10 @@ export class UserService {
   loggedIn(){
     return localStorage.getItem('user');
   }
-
+  isAdmin(){
+    return localStorage.getItem('admin');
+  }
+  
   logout() {
       // remove user from local storage and set current user to null
       localStorage.removeItem('user');

@@ -25,6 +25,7 @@ import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ManageUsersComponent } from './manage-users/manage-users.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { CreateGroupComponent } from './create-group/create-group.component';
+import { GroupsComponent } from './groups/groups.component';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { CreateGroupComponent } from './create-group/create-group.component';
     ManageUsersComponent,
     UserDetailComponent,
     CreateGroupComponent,
+    GroupsComponent,
  
   ],
   imports: [

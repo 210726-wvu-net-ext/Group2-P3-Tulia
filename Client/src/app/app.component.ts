@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from './user.service';
 import { User } from './models/user';
+import { HomeComponent } from './home/home.component';
 
 @Component({
   selector: 'app-root',
@@ -10,17 +11,18 @@ import { User } from './models/user';
 export class AppComponent implements OnInit{
   title = 'Welcome to Tulia';
   user!: User;
-  isUser: boolean = false;
+  isadmin: boolean | undefined;
 
   constructor(
     public userService: UserService
-    ) { }
+    ) {}
 
   
   ngOnInit() {
     //this.userService.getUser()
     this.userService.user.subscribe((x: User) => this.user = x);
   }
+
 
   logout() {
     this.userService.logout();

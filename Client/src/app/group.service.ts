@@ -26,4 +26,8 @@ export class GroupService {
   handleError1(error: HttpErrorResponse){
     return throwError(error.error);
   }
+
+  getallGroups(): Observable<Group[]>{
+    return this.http.get<Group[]>(`${this.groupsUrl}/all`)
+  }
 }
