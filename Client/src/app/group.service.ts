@@ -27,6 +27,11 @@ export class GroupService {
     return throwError(error.error);
   }
 
+  deleteGroup(id: number): Observable<Group> {
+    const url = `${this.groupsUrl}/delete/${id}`;
+    return this.http.delete<Group>(url, this.httpOptions);
+  }
+  
   getallGroups(): Observable<Group[]>{
     return this.http.get<Group[]>(`${this.groupsUrl}/all`)
   }

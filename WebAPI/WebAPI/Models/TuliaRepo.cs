@@ -24,7 +24,7 @@ namespace WebAPI.Models
 
             foreach(var user in users)
             {
-                userList.Add(new DBModels.User(user.Id, user.FirstName, user.LastName, user.Username));
+                userList.Add(new DBModels.User(user.Id, user.FirstName, user.LastName, user.Username, user.Role, user.NumberGroups));
             }
 
             return userList;
@@ -35,7 +35,7 @@ namespace WebAPI.Models
             var foundUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
             if (foundUser != null)
             {
-                return new DBModels.User(foundUser.Id, foundUser.FirstName, foundUser.LastName, foundUser.Username, foundUser.Role);
+                return new DBModels.User(foundUser.Id, foundUser.FirstName, foundUser.LastName, foundUser.Username, foundUser.Role, foundUser.NumberGroups);
             }
             return new DBModels.User();
         }
@@ -54,12 +54,27 @@ namespace WebAPI.Models
                     Password = user.Password,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
+                    NumberGroups = 0,
                     Role = "user"
                 });
                 _context.SaveChanges();
 
                 return new DBModels.User(0, user.FirstName, user.LastName, user.Username);
             }
+        }
+
+        public async Task<DBModels.User> UpdateUser(int id, DBModels.User user)
+        {
+            Entities.User foundUser = await _context.Users.FindAsync(id);
+            if (foundUser != null)
+            {
+                foundUser.Id = id;
+                foundUser.NumberGroups++;
+
+                _context.Users.Update(foundUser);
+                await _context.SaveChangesAsync();
+            }
+            return new DBModels.User();
         }
         public async Task<bool> DeleteUserById(int id)
         {
@@ -109,6 +124,37 @@ namespace WebAPI.Models
 
             return listGroups;
         }
+
+        public async Task<DBModels.Group> UpdateGroup(int id, DBModels.Group group)
+        {
+            Entities.Group foundGroup = await _context.Groups.FindAsync(id);
+            if (foundGroup != null)
+            {
+                foundGroup.Id = id;
+                foundGroup.UserId = group.UserId;
+                foundGroup.GroupTitle = group.GroupTitle;
+                foundGroup.NumberMember += 1;
+                foundGroup.Description = group.Description;
+
+                _context.Groups.Update(foundGroup);
+                await _context.SaveChangesAsync();
+            }
+            return new DBModels.Group();
+        }
+
+        public async Task<DBModels.Membership> CreateMembership(DBModels.Membership membership)
+        {
+            var newEntity = new Entities.Membership
+            {
+                UserId = membership.UserId,
+                GroupId = membership.GroupId
+
+            };
+            await _context.Memberships.AddAsync(newEntity);
+            await _context.SaveChangesAsync();
+            return membership;
+        }
+
 
         //public DBModels.User LogIn(LoggedInUser user)
         //{

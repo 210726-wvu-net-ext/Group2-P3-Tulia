@@ -59,7 +59,7 @@ export class CreateGroupComponent implements OnInit {
         .pipe(first())
         .subscribe(
           data => {
-            //this.router.navigate(['../login'], {relativeTo: this.route});
+            this.router.navigate(['../groups'], {relativeTo: this.route});
             alert("create successfully!");
           },
           error => {
