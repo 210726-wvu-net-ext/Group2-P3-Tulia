@@ -61,7 +61,7 @@ stages:
         displayName: Build & Push
         inputs:
           containerRegistry: '$(cReg)'
-          repository: 'ehart3/tulia-frontend'
+          repository: 'tulia/frontend'
           command: 'buildAndPush'
           Dockerfile: '**/Dockerfile'
       #logout
