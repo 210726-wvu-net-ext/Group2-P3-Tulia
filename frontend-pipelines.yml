@@ -1,4 +1,3 @@
-#DOCKER TO BE ADDED LATER
 #Front End
 trigger:
 - main
@@ -12,28 +11,62 @@ pool:
 
 variables: #Path to folders
   angular: '$(Build.SourcesDirectory)/Client'
+  cReg: '2107-p3-acr-Group2-Tulia'
 
 stages:
-- stage: Installs
+- stage: Installs_Builds
   #Runs NPM Installs
   jobs:
-    - job: Node_install
-      displayName: Install node.js
+    - job: Main
+      displayName: Install_Build
       steps:
+    #Install Node
       - task: NodeTool@0
         displayName: 'Install Node.js'
         inputs:
           versionSpec: '14.x'
-
-- stage: NG
-  #Installs/Builds angular app
-  jobs:
-    - job: NGbuild
-      displayName: NG install/build
-      steps:
-        - script: |
-            npm install -g @angular/cli
-            npm ci
-            ng build --prod
-          displayName: 'npm install and build'
+    #Install Angular
+      - task: CmdLine@2
+        displayName: Install Angular
+        inputs:
+          script: 'npm install -g @angular/cli'
           workingDirectory: $(angular)
+    #Restore
+      - task: CmdLine@2
+        displayName: NPM CI
+        inputs:
+          script: 'npm ci'
+          workingDirectory: $(angular)
+    #Build Angular App
+      - task: AngularCLI@1
+        displayName: Angular Build
+        inputs:
+          command: 'build'
+          project: '$(angular)'
+          DisableAnalytics: false
+- stage: Docker
+  jobs:
+  #Build and eventally deploy a docker container
+    - job: Docker_Build
+      displayName: Docker Build & Push
+      steps:
+      #Login
+      - task: Docker@2
+        displayName: Login
+        inputs:
+          containerRegistry: $(cReg)
+          command: 'login'
+      #Build
+      - task: Docker@2
+        displayName: Build & Push
+        inputs:
+          containerRegistry: '$(cReg)'
+          repository: 'ehart3/tulia-frontend'
+          command: 'buildAndPush'
+          Dockerfile: '**/Dockerfile'
+      #logout
+      - task: Docker@2
+        displayName: Logout
+        inputs:
+          containerRegistry: $(cReg)
+          command: 'logout'
