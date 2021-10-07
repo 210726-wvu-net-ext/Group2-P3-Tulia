@@ -74,6 +74,13 @@ namespace WebAPI.Controllers
             
         }
 
+        [HttpGet("userwithgroup/{id}")]
+        public async Task<ActionResult<UserWithGroup>> GetUserWithGroup(int id)
+        {
+            var userwithgroup = await _repo.GetUserWithGroup(id);
+            return Ok(userwithgroup);
+        }
+
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {

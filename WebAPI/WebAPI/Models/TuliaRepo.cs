@@ -40,6 +40,27 @@ namespace WebAPI.Models
             return new DBModels.User();
         }
 
+        public async Task<DBModels.UserWithGroup> GetUserWithGroup(int id)
+        {
+            var returnedUser = await _context.Users
+                .Include(g => g.Groups)
+                .ThenInclude(m => m.Memberships)
+                .Select(u => new DBModels.UserWithGroup
+                {
+                    Id = u.Id,
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    Username = u.Username,
+                    Role = u.Role,
+                    NumberGroups = u.NumberGroups,
+                    Groups = u.Groups.Select(g => new DBModels.Group(g.Id, g.UserId, g.NumberMember, g.GroupTitle, g.Description)).ToList(),
+                    Memberships = u.Memberships.Select(m => new DBModels.Membership(m.Id, m.UserId, m.GroupId)).ToList()
+                }
+            ).ToListAsync();
+            DBModels.UserWithGroup singleUser = returnedUser.FirstOrDefault(p => p.Id == id);
+            return singleUser;
+        }
+
         public DBModels.User CreateUser(DBModels.User user)
         {
             try
@@ -130,11 +151,11 @@ namespace WebAPI.Models
             Entities.Group foundGroup = await _context.Groups.FindAsync(id);
             if (foundGroup != null)
             {
-                foundGroup.Id = id;
-                foundGroup.UserId = group.UserId;
-                foundGroup.GroupTitle = group.GroupTitle;
-                foundGroup.NumberMember += 1;
-                foundGroup.Description = group.Description;
+                //foundGroup.Id = id;
+                //foundGroup.UserId = group.UserId;
+                //foundGroup.GroupTitle = group.GroupTitle;
+                foundGroup.NumberMember++;
+                //foundGroup.Description = group.Description;
 
                 _context.Groups.Update(foundGroup);
                 await _context.SaveChangesAsync();

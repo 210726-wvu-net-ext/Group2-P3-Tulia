@@ -39,6 +39,14 @@ namespace WebAPI.Controllers
             }
         }
 
+        [HttpPut("update/{id}")]
+        public async Task<ActionResult<Group>> UpdateGroup(int id, Group group)
+        {
+            var updatedGroup = await _repo.UpdateGroup(id, group);
+            return Ok(updatedGroup);
+
+        }
+
         [HttpDelete("delete/{groupId}")]
         public ActionResult<Group> DeleteGroup(int groupId)
         {

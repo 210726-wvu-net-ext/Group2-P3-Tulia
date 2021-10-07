@@ -4,16 +4,23 @@
         <br>
         <button mat-raised-button color="primary">Join</button>
     </mat-card>-->
+    <form class="signup-form" [formGroup]="form" (ngSubmit)="onSubmit()" class="signup-form-padding">
     <mat-card class="example-card">
         <mat-card-title-group>
           <mat-card-title>Group: {{group.groupTitle}}</mat-card-title>
-          <mat-card-subtitle>Number of members: {{group.numberMember}}</mat-card-subtitle>
+          <mat-card-subtitle>Number of members: {{group.numberMember}}// {{group.id}}</mat-card-subtitle>
           <img mat-card-sm-image src="https://i.ibb.co/BsyRtr1/unknown.png" >
         </mat-card-title-group>
         <mat-card-content>
           {{group.description}}
         </mat-card-content>
-        <button mat-raised-button color="primary">Join</button>
+        <input matInput placeholder="{{group.id}}" formControlName="groupId" >
+        <button mat-raised-button color="primary" [disabled]="loading"><span *ngIf="loading"></span>Join</button>
       </mat-card>
+     
+      <!--<button mat-raised-button class="mt-5" color="accent" (click)="updateGroup()">Save</button>-->
+    </form>
 </div>
 
+
+    

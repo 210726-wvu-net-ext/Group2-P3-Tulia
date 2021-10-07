@@ -16,6 +16,7 @@ namespace WebAPI.Models
         public User CreateUser(User user);
 
         public Task<User> UpdateUser(int id, User user);
+        public Task<UserWithGroup> GetUserWithGroup(int id);
 
         public Group CreateGroup(Group group);
 
