@@ -14,7 +14,10 @@
         <mat-card-content>
           {{group.description}}
         </mat-card-content>
-        <input matInput placeholder="{{group.id}}" formControlName="groupId" >
+        <!--<input type="number" value="1" matInput formControlName="groupId"/>-->
+        <select formControlName="groupId">
+            <option value="{{group.id}}" selected>{{group.id}}</option>
+        </select>
         <button mat-raised-button color="primary" [disabled]="loading"><span *ngIf="loading"></span>Join</button>
       </mat-card>
      

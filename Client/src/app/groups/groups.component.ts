@@ -48,18 +48,8 @@ export class GroupsComponent implements OnInit {
     .subscribe(groups => this.groups = groups);
   }
 
-  //OnInput(event: any) {
-  //  this.groupId = event.target.value;
-  //  }
 
-  //updateGroup():void{
-    //const id = Number(this.route.snapshot.paramMap.get('id'));
-    //if (this.group && this.groupId) {
-      //this.groupService.updateGroup(this.form.value.groupId, this.group); 
-    //}
-  //}
-
-  
+  //when they hit join, +1 to NumberGroups, +1 to NumberMember, and create new Membership
   onSubmit() {
     
     this.submitted = true;
@@ -68,18 +58,19 @@ export class GroupsComponent implements OnInit {
     //    return;
     //}
     this.loading=true;
-    this.groupService.updateGroup(this.form.value.groupId, this.group).subscribe(data=>{alert("yah!")});
+    this.groupService.updateGroup(this.form.value.groupId, this.group).subscribe(data=>{alert("yay!")});
+    this.userService.updateUser(this.user.id, this.user)
     this.groupService.CreateMembership(this.form.value)
         .pipe(first())
         .subscribe(
           data => {
             this.router.navigate(['../groupDetail'], {relativeTo: this.route});
             
-            alert("Register successfully!");
+            alert("Joined successfully!");
             
           },
           error => {
-            //ifmember >40
+            //if numberMember >40 and numberGroup>3
             this.loading = false;
             alert(error);
           }

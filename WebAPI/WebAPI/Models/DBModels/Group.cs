@@ -15,6 +15,11 @@ namespace WebAPI.Models.DBModels
 
         public Group() { }
 
+        public Group(int Id, int? NumberMember)
+        {
+            this.Id = Id;
+            this.NumberMember = NumberMember;
+        }
         public Group(int userId, string GroupTitle, string Description)
         {
             this.UserId = UserId;

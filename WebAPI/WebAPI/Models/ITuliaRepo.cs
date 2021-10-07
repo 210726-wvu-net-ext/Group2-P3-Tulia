@@ -22,7 +22,7 @@ namespace WebAPI.Models
 
         public List<Group> GetAllGroups();
 
-        public Task<Group> UpdateGroup(int id, Group group);
+        public Task<Group> UpdateGroup(int id);
 
         public Task<Membership> CreateMembership(Membership membership);
 

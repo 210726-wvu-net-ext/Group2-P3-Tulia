@@ -89,11 +89,19 @@ namespace WebAPI.Models
             Entities.User foundUser = await _context.Users.FindAsync(id);
             if (foundUser != null)
             {
-                foundUser.Id = id;
+                //everything keeps the same, except the numbergroup will +1 when they hit join
+                foundUser.Id = foundUser.Id;
+                foundUser.FirstName = foundUser.FirstName;
+                foundUser.LastName = foundUser.LastName;
+                foundUser.Username = foundUser.Username;
+                foundUser.Password = foundUser.Password;
+                foundUser.Role = foundUser.Role;
                 foundUser.NumberGroups++;
+
 
                 _context.Users.Update(foundUser);
                 await _context.SaveChangesAsync();
+                return new DBModels.User(foundUser.Id, foundUser.NumberGroups);
             }
             return new DBModels.User();
         }
@@ -146,19 +154,20 @@ namespace WebAPI.Models
             return listGroups;
         }
 
-        public async Task<DBModels.Group> UpdateGroup(int id, DBModels.Group group)
+        public async Task<DBModels.Group> UpdateGroup(int id)
         {
             Entities.Group foundGroup = await _context.Groups.FindAsync(id);
             if (foundGroup != null)
             {
-                //foundGroup.Id = id;
-                //foundGroup.UserId = group.UserId;
-                //foundGroup.GroupTitle = group.GroupTitle;
+                foundGroup.Id = foundGroup.Id;
+                foundGroup.UserId = foundGroup.UserId;
+                foundGroup.GroupTitle = foundGroup.GroupTitle;
                 foundGroup.NumberMember++;
-                //foundGroup.Description = group.Description;
+                foundGroup.Description = foundGroup.Description;
 
                 _context.Groups.Update(foundGroup);
                 await _context.SaveChangesAsync();
+                return new DBModels.Group(foundGroup.Id, foundGroup.NumberMember);
             }
             return new DBModels.Group();
         }

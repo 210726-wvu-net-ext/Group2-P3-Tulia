@@ -40,9 +40,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut("update/{id}")]
-        public async Task<ActionResult<Group>> UpdateGroup(int id, Group group)
+        public async Task<ActionResult<Group>> UpdateGroup(int id)
         {
-            var updatedGroup = await _repo.UpdateGroup(id, group);
+            var updatedGroup = await _repo.UpdateGroup(id);
             return Ok(updatedGroup);
 
         }
