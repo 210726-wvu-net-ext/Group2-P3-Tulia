@@ -26,6 +26,7 @@ import { ManageUsersComponent } from './manage-users/manage-users.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { CreateGroupComponent } from './create-group/create-group.component';
 import { GroupsComponent } from './groups/groups.component';
+import { PostsComponent } from './posts/posts.component';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { GroupsComponent } from './groups/groups.component';
     UserDetailComponent,
     CreateGroupComponent,
     GroupsComponent,
+    PostsComponent,
  
   ],
   imports: [
