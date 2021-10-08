@@ -1,0 +1,9 @@
+<p>user-detail works!</p>
+<div *ngIf="user" class="container">
+        <p>{{user.firstName}}</p>
+      <div>Username: {{user.username}}</div>
+      <div>Role: {{user.role}}</div>
+    <div>
+    <button mat-raised-button class="mt-5" color="warn" (click)="delete()">Delete</button>
+    </div>  
+</div>

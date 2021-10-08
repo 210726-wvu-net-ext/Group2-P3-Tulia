@@ -1,0 +1,29 @@
+<p>
+    <mat-toolbar color="primary">
+    <span class="example-spacer">{{title}}
+       <!--<div *ngIf="!userService.loggedIn()"></div>-->
+      <a routerLink="/register" mat-button color="warn" *ngIf="!userService.loggedIn()">Register</a>
+      <a routerLink="/login" mat-button color="warn" *ngIf="!userService.loggedIn()">Login</a>
+      <div *ngIf="user">
+      <a routerLink="/creategroup" mat-button color="warn" *ngIf="user.role==='admin'">Create Group</a>
+      <a routerLink="/manageaccount" mat-button color="warn" *ngIf="user.role==='admin'">Manage Users</a>
+      <a routerLink="/groups" mat-button color="warn">Groups</a>
+      <a (click)="logout()" mat-button color="warn">Logout</a>
+    </div>
+      
+      
+    </span>
+    </mat-toolbar>
+  </p>
+  <router-outlet></router-outlet>
+<!--<app-navigationbar></app-navigationbar>-->
+
+<!--<div class="app-container" [ngClass]="{ 'bg-light': user }">
+    
+    
+</div>-->
+<!--*ngIf="user.role==='admin'";
+<div *ngIf="user">
+      <a mat-button color="warn" *ngIf="user.role==='admin'">{{user.role}}</a>
+    </div>
+-->
