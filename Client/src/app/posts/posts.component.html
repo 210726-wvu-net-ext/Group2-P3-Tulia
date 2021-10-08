@@ -3,6 +3,11 @@
         <p class="post-header">test</p>
         <mat-card-title>{{post.title}}</mat-card-title>
         <p>{{post.body}}</p>
-        <button>Reply</button>
+        <mat-form-field class="reply-box" appearance="fill">
+            <mat-label>Leave a comment</mat-label>
+        <textarea matInput placeholder="Ex. hope you feel better..."></textarea>
+          </mat-form-field>
+          <br>
+          <button mat-raised-button color="primary">Reply</button>
         </mat-card>
 </div>
