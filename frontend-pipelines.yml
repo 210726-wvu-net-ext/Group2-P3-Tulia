@@ -64,6 +64,13 @@ stages:
           repository: 'tulia/frontend'
           command: 'buildAndPush'
           Dockerfile: '**/Dockerfile'
+          tags: 'latest'
+      #Publish artifact
+      - task: PublishPipelineArtifact@1
+        inputs:
+          targetPath: '$(angular)/Client.yml'
+          artifact: 'manifest'
+          publishLocation: 'pipeline'
       #logout
       - task: Docker@2
         displayName: Logout
