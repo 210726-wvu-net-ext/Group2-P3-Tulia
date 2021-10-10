@@ -60,6 +60,32 @@ namespace WebAPI.Models
             DBModels.UserWithGroup singleUser = returnedUser.FirstOrDefault(p => p.Id == id);
             return singleUser;
         }
+        public async Task<DBModels.MembershipWithGroup> GetMemberById(int id)
+        {
+            var foundMember = await _context.Memberships.FirstOrDefaultAsync(u => u.Id == id);
+            if (foundMember != null)
+            {
+                return new DBModels.MembershipWithGroup(foundMember.Id, foundMember.GroupId, foundMember.UserId, foundMember.Group, foundMember.User);
+            }
+            return new DBModels.MembershipWithGroup();
+        }
+        //public DBModels.MembershipWithGroup GetMembershipWithGroup(int id)
+        //{
+        //    var returnedMembership =  _context.Memberships
+        //        .Include(g => g.Group)
+        //        .ThenInclude(u => u.User)
+        //        .Select(m => new Entities.Membership
+        //        {
+        //            Id = m.Id,
+        //            GroupId = m.GroupId,
+        //            UserId = m.UserId,
+        //            Group = m.Group,
+        //            User = m.User
+        //        }
+        //    );
+        //    //DBModels.MembershipWithGroup membershipWithGroup = returnedMembership.FirstOrDefault(p => p.Id == id);
+        //    return new DBModels.MembershipWithGroup();
+        //}
 
         public DBModels.User CreateUser(DBModels.User user)
         {

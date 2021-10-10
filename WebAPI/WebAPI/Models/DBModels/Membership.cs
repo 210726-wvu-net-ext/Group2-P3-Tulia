@@ -7,6 +7,10 @@ namespace WebAPI.Models.DBModels
 {
     public class Membership
     {
+        public Membership()
+        {
+        }
+
         public Membership(int Id, int UserId, int GroupId)
         {
             this.Id = Id;

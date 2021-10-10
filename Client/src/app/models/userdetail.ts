@@ -11,6 +11,6 @@ export interface UserDetail {
     numberGroups: number,
 
     groups: Group[],
-    membership: Membership[]
+    memberships: Membership[]
 
 }

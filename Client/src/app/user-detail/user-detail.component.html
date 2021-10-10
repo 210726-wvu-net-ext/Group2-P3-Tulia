@@ -1,9 +1,11 @@
-<p>user-detail works!</p>
-<div *ngIf="user" class="container">
-        <p>{{user.firstName}}</p>
-      <div>Username: {{user.username}}</div>
-      <div>Role: {{user.role}}</div>
+
+<mat-card *ngIf="user" class="container">
+    <mat-card-title>{{user.firstName}} {{user.lastName}}</mat-card-title>
+    <mat-card-subtitle>Username: {{user.username}} // {{user.role}}</mat-card-subtitle>
+     <!--
     <div>
     <button mat-raised-button class="mt-5" color="warn" (click)="delete()">Delete</button>
     </div>  
-</div>
+    -->
+</mat-card>
+

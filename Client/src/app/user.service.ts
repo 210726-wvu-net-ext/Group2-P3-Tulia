@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { User } from './models/user';
+import { UserDetail } from './models/userdetail';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpEvent, HttpHandler, HttpRequest } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { Router, Routes } from '@angular/router';
@@ -36,7 +37,7 @@ export class UserService {
   constructor(
     private http: HttpClient,
     private router: Router,
-  ) { 
+  ) {
     this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')!));
     this.user = this.userSubject.asObservable();
   }
@@ -45,22 +46,25 @@ export class UserService {
     return this.userSubject.value;
   }
 
-  getUser(id: number): Observable<User>
-  {
+  getUser(id: number): Observable<User> {
     const url = `${this.usersUrl}/${id}`;
     return this.http.get<User>(url);
   }
 
-  getUsers(): Observable<User[]>
-  {
+  getUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.usersUrl}/all`);
   }
 
-  addUser(user: User): Observable<User>{
-    return this.http.post<User>(`${this.usersUrl}/register`, user, this.httpOptions).pipe
-    (catchError(this.handleError1));
+  getUserwithGroup(id: number): Observable<UserDetail> {
+    const url = `${this.usersUrl}/userwithgroup/${id}`;
+    return this.http.get<UserDetail>(url);
   }
-  handleError1(error: HttpErrorResponse){
+
+  addUser(user: User): Observable<User> {
+    return this.http.post<User>(`${this.usersUrl}/register`, user, this.httpOptions).pipe
+      (catchError(this.handleError1));
+  }
+  handleError1(error: HttpErrorResponse) {
     return throwError(error.error);
   }
 
@@ -69,34 +73,34 @@ export class UserService {
     return this.http.put<User>(url, user, this.httpOptions)
   }
 
-  
+
 
   deleteUser(id: number): Observable<User> {
     const url = `${this.usersUrl}/${id}`;
     return this.http.delete<User>(url, this.httpOptions);
   }
-  
+
   login(username: string, password: string) {
     return this.http.post<User>(`${this.usersUrl}/login`, { username, password })
-        .pipe(map(user => {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('user', JSON.stringify(user));
-            this.userSubject.next(user);
-            if(user.role=="admin") this.isAdmin=true;
-            console.log(user.role);
-            return user;
-        }));
+      .pipe(map(user => {
+        // store user details and jwt token in local storage to keep user logged in between page refreshes
+        localStorage.setItem('user', JSON.stringify(user));
+        this.userSubject.next(user);
+        if (user.role == "admin") this.isAdmin = true;
+        console.log(user.role);
+        return user;
+      }));
   }
-  
-  loggedIn(){
+
+  loggedIn() {
     return localStorage.getItem('user');
   }
-  
-  
+
+
   logout() {
-      // remove user from local storage and set current user to null
-      localStorage.removeItem('user');
-      this.userSubject.next(null);
-      this.router.navigate(['/login']);
+    // remove user from local storage and set current user to null
+    localStorage.removeItem('user');
+    this.userSubject.next(null);
+    this.router.navigate(['/login']);
   }
 }
