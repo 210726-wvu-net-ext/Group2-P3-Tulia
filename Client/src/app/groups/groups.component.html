@@ -17,10 +17,13 @@
         <!--<input type="number" value="1" matInput formControlName="groupId"/>-->
         <form class="signup-form" [formGroup]="form" (ngSubmit)="onSubmit()" class="signup-form-padding">
         <label>Please select confirmed and hit Join to join in the group</label>
-            <select formControlName="groupId">
+            <select formControlName="groupId" [ngClass]="{ 'is-invalid': submitted && f.groupId.errors}">
+                
                 <option value="{{group.id}}">confirmed</option>
             </select>
-    
+            <div *ngIf="submitted && f.groupId.errors" class="invalid-feedback">
+                <div *ngIf="f.groupId.errors.required" style="color: red;">Please select "confirmed" on the group you want to join</div>
+            </div>
         
         <button mat-raised-button color="primary" [disabled]="loading"><span *ngIf="loading"></span>Join</button>
         </form>

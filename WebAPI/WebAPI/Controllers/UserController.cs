@@ -74,6 +74,20 @@ namespace WebAPI.Controllers
             
         }
 
+        [HttpPut("leavegroup/{id}")]
+        public async Task<ActionResult<User>> UpdateUserWhenLeaveGroup(int id, User user)
+        {
+            if (await _repo.GetUserById(id) is User oldUser)
+
+            {
+                oldUser.NumberGroups--;
+                User updatedUser = await _repo.UpdateUser(id, oldUser);
+                return Ok(updatedUser);
+            };
+            return NotFound();
+
+        }
+
         [HttpGet("userwithgroup/{id}")]
         public async Task<ActionResult<UserWithGroup>> GetUserWithGroup(int id)
         {

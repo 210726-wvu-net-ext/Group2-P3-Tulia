@@ -27,6 +27,8 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
 import { CreateGroupComponent } from './create-group/create-group.component';
 import { GroupsComponent } from './groups/groups.component';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { GroupDetailComponent } from './group-detail/group-detail.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     UserDetailComponent,
     CreateGroupComponent,
     GroupsComponent,
+    GroupDetailComponent,
 
   ],
   imports: [
@@ -60,7 +63,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    MatGridListModule
+    MatGridListModule,
+    FlexLayoutModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }

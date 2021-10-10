@@ -16,6 +16,9 @@ namespace WebAPI.Models
         public User CreateUser(User user);
 
         public Task<User> UpdateUser(int id, User user);
+
+        public Task<User> UpdateUserWhenLeaveGroup(int id, User user);
+
         public Task<UserWithGroup> GetUserWithGroup(int id);
 
         public Task<MembershipWithGroup> GetMemberById(int id);
@@ -24,9 +27,15 @@ namespace WebAPI.Models
 
         public List<Group> GetAllGroups();
 
+        public Task<Group> GetGroupById(int id);
+
         public Task<Group> UpdateGroup(int id);
 
+        public Task<Group> LeaveGroup(int id);
+
         public Task<Membership> CreateMembership(Membership membership);
+
+        public Task<bool> DeleteMembership(int id);
 
         public Task<User> LogIn(LoggedInUser user);
 

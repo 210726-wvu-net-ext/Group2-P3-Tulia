@@ -41,8 +41,12 @@ namespace WebAPI.Controllers
 
         // DELETE api/<MembershipController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
+            bool result = await _repo.DeleteMembership(id);
+            if (result == false)
+                return NotFound();
+            return Ok();
         }
     }
 }

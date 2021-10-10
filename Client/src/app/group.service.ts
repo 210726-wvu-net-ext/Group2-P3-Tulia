@@ -20,13 +20,15 @@ export class GroupService {
     private http: HttpClient,
     private router: Router,
   ) { }
-  createGroup(group: Group){
+  createGroup(group: Group) {
     return this.http.post<Group>(`${this.groupsUrl}/create`, group, this.httpOptions).pipe
-    (catchError(this.handleError1));
+      (catchError(this.handleError1));
   }
-  handleError1(error: HttpErrorResponse){
+  handleError1(error: HttpErrorResponse) {
     return throwError(error.error);
   }
+
+
   //update group - when a member hit join button, numberMember +1
   updateGroup(id: number, group: Group): Observable<any> {
     const url = `${this.groupsUrl}/update/${id}`;
@@ -36,7 +38,7 @@ export class GroupService {
     );
   }
 
-  CreateMembership(membership: Membership){
+  CreateMembership(membership: Membership) {
     const url = 'https://localhost:44326/api/Membership/create';
     return this.http.post<Membership>(url, membership, this.httpOptions)
   }
@@ -46,8 +48,13 @@ export class GroupService {
     return this.http.delete<Group>(url, this.httpOptions);
   }
 
-  getallGroups(): Observable<Group[]>{
+  getallGroups(): Observable<Group[]> {
     return this.http.get<Group[]>(`${this.groupsUrl}/all`)
+  }
+
+  getGroupById(id: number): Observable<Group> {
+    const url = `${this.groupsUrl}/${id}`;
+    return this.http.get<Group>(url);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
