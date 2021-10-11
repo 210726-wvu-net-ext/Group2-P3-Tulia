@@ -15,6 +15,8 @@ spec:
   selector:
     app: tulia
     role: api
+  ports:
+  - port: 80
 
 ---
 apiVersion: apps/v1
