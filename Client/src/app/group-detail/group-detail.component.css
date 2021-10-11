@@ -1,20 +1,21 @@
-.container {
+.group-info {
   max-width: 800px;
   margin-bottom: 8px;
-  margin-left: auto;
-  margin-right: auto;
+  float: left;
+  margin-left: 100px;
+  position: fixed;
 }
 
 .post-header {
   font-size: small;
 }
 
-.post-container {
+.group-post {
+  float: right;
+  margin-right: 100px;
   text-align: center;
   margin-top: 10px;
   width: 300px;
-  margin-left: auto;
-  margin-right: auto;
   box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
   border-style: solid;
   border-width: 3px;

@@ -1,6 +1,4 @@
-<div class="container">
-<div class="row">
-    <div class="column">
+    <div class="group-info">
         <mat-card *ngIf="group" class="container">
                                 
             <mat-card-subtitle>{{group.groupTitle}}</mat-card-subtitle>
@@ -13,7 +11,7 @@
             </button>
         </mat-card>
     </div>
-    <div class="column">
+    <div class="group-post">
         <div *ngIf="group">
             <mat-card class="post-container" *ngFor="let post of group.posts">
                 <p class="post-header">{{group.groupTitle}}</p>
@@ -28,5 +26,3 @@
                 </mat-card>
         </div>
     </div>
-</div>
-</div>
