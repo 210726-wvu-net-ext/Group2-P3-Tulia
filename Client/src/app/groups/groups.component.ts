@@ -25,58 +25,63 @@ export class GroupsComponent implements OnInit {
     userId: new FormControl(''),
     groupId: new FormControl('')
   });
-  
+
   constructor(
     private groupService: GroupService,
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
     public userService: UserService
-    ) { this.user = this.userService.userValue;}
+  ) { this.user = this.userService.userValue; }
 
   ngOnInit(): void {
     this.getallgroups();
     this.form = this.formBuilder.group({
       //userId: ['', Validators.required],
       userId: [this.user.id],
-      groupId: ['']
+      groupId: ['', Validators.required]
     })
   };
 
-  getallgroups(): void{
+  getallgroups(): void {
     this.groupService.getallGroups()
-    .subscribe(groups => this.groups = groups);
+      .subscribe(groups => this.groups = groups);
   }
 
-
+  // convenience getter for easy access to form fields
+  get f() { return this.form.controls; }
   //when they hit join, +1 to NumberGroups, +1 to NumberMember, and create new Membership
   onSubmit() {
-    
+
     this.submitted = true;
     //stop here if form is invalid
-    //if (this.form.invalid) {
-    //    return;
-    //}
-    this.loading=true;
-    this.groupService.updateGroup(this.form.value.groupId, this.group).subscribe(data=>{alert("yay!")});
-    this.userService.updateUser(this.user.id, this.user)
+    if (this.form.invalid) {
+      return;
+    }
+    this.loading = true;
+    this.groupService.updateGroup(this.form.value.groupId, this.group).subscribe(data => { console.log("membernumber +1") });
+    this.userService.updateUser(this.user.id, this.user).subscribe(
+      data => { console.log("groupnumber +1") });
     this.groupService.CreateMembership(this.form.value)
-        .pipe(first())
-        .subscribe(
-          data => {
-            this.router.navigate(['../groupDetail'], {relativeTo: this.route});
-            
-            alert("Joined successfully!");
-            
-          },
-          error => {
-            //if numberMember >40 and numberGroup>3
+      .pipe(first())
+      .subscribe(
+        data => {
+
+          this.router.navigate(['../groupDetail/' + this.form.value.groupId], { relativeTo: this.route });
+
+          alert("Joined successfully!");
+
+        },
+        error => {
+          //groupnumber<40
+          if (this.user.numberGroups > 3) {
             this.loading = false;
-            alert(error);
+            alert("you can only join total of 3 groups!");
           }
-        );
-    
-    
+        }
+      );
+
+
   }
 
 

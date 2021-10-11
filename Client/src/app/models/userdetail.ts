@@ -9,8 +9,8 @@ export interface UserDetail {
     password: string,
     role: string,
     numberGroups: number,
+    memberships: Membership[],
+    groups: Group[]
 
-    groups: Group[],
-    membership: Membership[]
 
 }

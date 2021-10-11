@@ -25,6 +25,12 @@ namespace WebAPI.Controllers
             return _repo.GetAllGroups();
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Group>> GetGroupById(int id)
+        {
+            return await _repo.GetGroupById(id);
+        }
+
         [HttpPost("create")]
         public ActionResult<Group> CreateGroup(Group group)
         {
@@ -43,6 +49,14 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<Group>> UpdateGroup(int id)
         {
             var updatedGroup = await _repo.UpdateGroup(id);
+            return Ok(updatedGroup);
+
+        }
+
+        [HttpPut("leavegroup/{id}")]
+        public async Task<ActionResult<Group>> LeaveGroup(int id)
+        {
+            var updatedGroup = await _repo.LeaveGroup(id);
             return Ok(updatedGroup);
 
         }

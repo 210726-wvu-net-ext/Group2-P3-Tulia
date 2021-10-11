@@ -43,6 +43,7 @@ namespace WebAPI.Models
         public async Task<DBModels.UserWithGroup> GetUserWithGroup(int id)
         {
             var returnedUser = await _context.Users
+                .AsQueryable()
                 .Include(g => g.Groups)
                 .ThenInclude(m => m.Memberships)
                 .Select(u => new DBModels.UserWithGroup
@@ -59,6 +60,38 @@ namespace WebAPI.Models
             ).ToListAsync();
             DBModels.UserWithGroup singleUser = returnedUser.FirstOrDefault(p => p.Id == id);
             return singleUser;
+        }
+        public async Task<DBModels.MembershipWithGroup> GetMemberById(int id)
+        {
+            var foundMember = await _context.Memberships.FirstOrDefaultAsync(u => u.Id == id);
+            if (foundMember != null)
+            {
+                return new DBModels.MembershipWithGroup(foundMember.Id, foundMember.GroupId, foundMember.UserId, foundMember.Group);
+            }
+            return new DBModels.MembershipWithGroup();
+        }
+
+        public async Task<DBModels.MembershipWithGroup> GetMemberByGroupId(int userid, int groupid)
+        {
+            var foundMember = await _context.Memberships.FirstOrDefaultAsync(u => u.UserId == userid && u.GroupId == groupid);
+            if (foundMember != null)
+            {
+                //var foundGroup = await _context.Groups.FirstOrDefaultAsync(g => g.Id == foundMember.GroupId);
+                return new DBModels.MembershipWithGroup(foundMember.Id, foundMember.GroupId, foundMember.UserId, foundMember.Group);
+            }
+            return new DBModels.MembershipWithGroup();
+        }
+        public async Task<DBModels.MembershipWithGroup> GetMembershipWithGroup(int id)
+        {
+            var returnedMembership = await _context.Memberships
+                .AsQueryable()
+                .Include(g => g.Group).Select(m => new DBModels.MembershipWithGroup(m.Id, m.UserId, m.GroupId, m.Group))
+                .ToListAsync();
+                
+                
+            DBModels.MembershipWithGroup member = returnedMembership.FirstOrDefault(p => p.Id == id);
+            if (member != null) return member;
+            return new DBModels.MembershipWithGroup();
         }
 
         public DBModels.User CreateUser(DBModels.User user)
@@ -105,6 +138,29 @@ namespace WebAPI.Models
             }
             return new DBModels.User();
         }
+
+        public async Task<DBModels.User> UpdateUserWhenLeaveGroup(int id, DBModels.User user)
+        {
+            Entities.User foundUser = await _context.Users.FindAsync(id);
+            if (foundUser != null)
+            {
+                //everything keeps the same, except the numbergroup will +1 when they hit join
+                foundUser.Id = foundUser.Id;
+                foundUser.FirstName = foundUser.FirstName;
+                foundUser.LastName = foundUser.LastName;
+                foundUser.Username = foundUser.Username;
+                foundUser.Password = foundUser.Password;
+                foundUser.Role = foundUser.Role;
+                foundUser.NumberGroups--;
+
+
+                _context.Users.Update(foundUser);
+                await _context.SaveChangesAsync();
+                return new DBModels.User(foundUser.Id, foundUser.NumberGroups);
+            }
+            return new DBModels.User();
+        }
+
         public async Task<bool> DeleteUserById(int id)
         {
             Entities.User userToDelete = await _context.Users
@@ -141,6 +197,15 @@ namespace WebAPI.Models
             }
         }
 
+        public async Task<DBModels.Group> GetGroupById(int id)
+        {
+            var foundGroup = await _context.Groups.FirstOrDefaultAsync(u => u.Id == id);
+            if (foundGroup != null)
+            {
+                return new DBModels.Group(foundGroup.Id, foundGroup.UserId, foundGroup.NumberMember, foundGroup.GroupTitle, foundGroup.Description);
+            }
+            return new DBModels.Group();
+        }
         public List<DBModels.Group> GetAllGroups()
         {
             var groups = _context.Groups.ToList();
@@ -163,6 +228,24 @@ namespace WebAPI.Models
                 foundGroup.UserId = foundGroup.UserId;
                 foundGroup.GroupTitle = foundGroup.GroupTitle;
                 foundGroup.NumberMember++;
+                foundGroup.Description = foundGroup.Description;
+
+                _context.Groups.Update(foundGroup);
+                await _context.SaveChangesAsync();
+                return new DBModels.Group(foundGroup.Id, foundGroup.NumberMember);
+            }
+            return new DBModels.Group();
+        }
+
+        public async Task<DBModels.Group> LeaveGroup(int id)
+        {
+            Entities.Group foundGroup = await _context.Groups.FindAsync(id);
+            if (foundGroup != null)
+            {
+                foundGroup.Id = foundGroup.Id;
+                foundGroup.UserId = foundGroup.UserId;
+                foundGroup.GroupTitle = foundGroup.GroupTitle;
+                foundGroup.NumberMember--;
                 foundGroup.Description = foundGroup.Description;
 
                 _context.Groups.Update(foundGroup);
@@ -372,5 +455,21 @@ namespace WebAPI.Models
                 return null;
             }
         }
+
+        public async Task<bool> DeleteMembership(int id)
+        {
+            Entities.Membership membershiptoToDelete = await _context.Memberships
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (membershiptoToDelete != null)
+            {
+                _context.Memberships.Remove(membershiptoToDelete);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            return false;
+        }
+
+        
     }
 }

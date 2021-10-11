@@ -7,8 +7,8 @@ import { RegisterComponent } from './register/register.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
-import { MatSliderModule} from '@angular/material/slider';
-import {MatFormFieldModule, MatLabel} from '@angular/material/form-field';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
@@ -26,7 +26,11 @@ import { ManageUsersComponent } from './manage-users/manage-users.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { CreateGroupComponent } from './create-group/create-group.component';
 import { GroupsComponent } from './groups/groups.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { GroupDetailComponent } from './group-detail/group-detail.component';
 import { PostsComponent } from './posts/posts.component';
+
 
 
 @NgModule({
@@ -40,15 +44,15 @@ import { PostsComponent } from './posts/posts.component';
     UserDetailComponent,
     CreateGroupComponent,
     GroupsComponent,
+    GroupDetailComponent,
     PostsComponent,
- 
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule, 
+    AppRoutingModule,
     HttpClientModule,
     MatSliderModule,
     MatFormFieldModule,
@@ -61,7 +65,9 @@ import { PostsComponent } from './posts/posts.component';
     MatToolbarModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatGridListModule,
+    FlexLayoutModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }

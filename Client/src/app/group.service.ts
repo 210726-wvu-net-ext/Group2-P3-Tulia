@@ -12,6 +12,8 @@ import { catchError, map } from 'rxjs/operators';
 export class GroupService {
 
   private groupsUrl = 'https://localhost:44326/api/Group';
+  private memberUrl = 'https://localhost:44326/api/Membership';
+
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -20,21 +22,28 @@ export class GroupService {
     private http: HttpClient,
     private router: Router,
   ) { }
-  createGroup(group: Group){
+  createGroup(group: Group) {
     return this.http.post<Group>(`${this.groupsUrl}/create`, group, this.httpOptions).pipe
-    (catchError(this.handleError1));
+      (catchError(this.handleError1));
   }
-  handleError1(error: HttpErrorResponse){
+  handleError1(error: HttpErrorResponse) {
     return throwError(error.error);
   }
+
+
   //update group - when a member hit join button, numberMember +1
   updateGroup(id: number, group: Group): Observable<any> {
     const url = `${this.groupsUrl}/update/${id}`;
-    return this.http.put<Group>(url, group, this.httpOptions).pipe(
-      //tap(_ => this.log(`updated user id=${user.id}`)),
-      catchError(this.handleError<any>('updateGroup'))
-    );
+    return this.http.put<Group>(url, group, this.httpOptions)
+      ;
   }
+
+  updateGroupWhenLeave(id: number, group: Group): Observable<any> {
+    const url = `${this.groupsUrl}/leavegroup/${id}`;
+    return this.http.put<Group>(url, group, this.httpOptions);
+  }
+
+  CreateMembership(membership: Membership) {
 
   // retrieve the name of a group from it's id
   getGroupName(id: number){
@@ -45,14 +54,29 @@ export class GroupService {
     const url = 'https://localhost:44326/api/Membership/create';
     return this.http.post<Membership>(url, membership, this.httpOptions)
   }
+  GetMembership(id: number): Observable<Membership> {
+    const url = `${this.memberUrl}/${id}`;
+    return this.http.get<Membership>(url);
+  }
 
   deleteGroup(id: number): Observable<Group> {
     const url = `${this.groupsUrl}/delete/${id}`;
     return this.http.delete<Group>(url, this.httpOptions);
   }
 
-  getallGroups(): Observable<Group[]>{
+  getallGroups(): Observable<Group[]> {
     return this.http.get<Group[]>(`${this.groupsUrl}/all`)
+  }
+
+  getGroupById(id: number): Observable<Group> {
+    const url = `${this.groupsUrl}/${id}`;
+    return this.http.get<Group>(url);
+  }
+
+
+  deleteMembership(userid: number, groupid: number): Observable<Membership> {
+    const url = `${this.memberUrl}/delete/${userid}&&${groupid}`;
+    return this.http.delete<Membership>(url, this.httpOptions);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

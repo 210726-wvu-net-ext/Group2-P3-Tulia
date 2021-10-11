@@ -26,17 +26,36 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<Membership>> CreateMembership(Membership membership)
         {
             var result = await _repo.CreateMembership(membership);
-           
+
             return Ok(result);
-            
+
         }
 
+        // GET
+        [HttpGet("{userid}&&{groupid}")]
+        public async Task<ActionResult<Membership>> GetMembershipByGroupId(int userid, int groupid)
+        {
+            var result = await _repo.GetMemberByGroupId(userid, groupid);
+            return Ok(result);
+        }
 
+        // GET
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Membership>> GetMembershipWithGroup(int id)
+        {
+            var result = await _repo.GetMembershipWithGroup(id);
+            return Ok(result);
+        }
 
         // DELETE api/<MembershipController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("delete/{userid}&&{groupid}")]
+        public async Task<ActionResult> Delete(int userid, int groupid)
         {
+            var membership = await _repo.GetMemberByGroupId(userid, groupid);
+            bool result = await _repo.DeleteMembership(membership.Id);
+            if (result == false)
+                return NotFound();
+            return Ok();
         }
     }
 }
