@@ -36,7 +36,9 @@ namespace WebAPI
             {
                 options.AddPolicy(name: MyAllowSpecificOrigins, builder =>
                 {
-                    builder.WithOrigins("http://localhost:4200").WithHeaders("*").AllowAnyMethod();
+                    builder.WithOrigins("http://localhost:4200",
+                                        "http://tulia-ui.eastus.cloudapp.azure.com"
+                    ).WithHeaders("*").AllowAnyMethod();
                 });
             });
 
