@@ -43,13 +43,6 @@ export class GroupService {
     return this.http.put<Group>(url, group, this.httpOptions);
   }
 
-  CreateMembership(membership: Membership) {
-
-  // retrieve the name of a group from it's id
-  getGroupName(id: number){
-    return this.http.get<Group>(`${this.groupsUrl}/${id}`);
-  }
-
   CreateMembership(membership: Membership){
     const url = 'https://localhost:44326/api/Membership/create';
     return this.http.post<Membership>(url, membership, this.httpOptions)
