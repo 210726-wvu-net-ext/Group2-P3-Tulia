@@ -8,6 +8,7 @@
       <a routerLink="/creategroup" mat-button color="warn" *ngIf="user.role==='admin'">Create Group</a>
       <a routerLink="/manageaccount" mat-button color="warn" *ngIf="user.role==='admin'">Manage Users</a>
       <a routerLink="/groups" mat-button color="warn">Groups</a>
+      <a routerLink="/posts" mat-button color="warn">Posts</a>
       <a (click)="logout()" mat-button color="warn">Logout</a>
     </div>
       
