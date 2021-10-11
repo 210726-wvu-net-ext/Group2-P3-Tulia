@@ -44,6 +44,14 @@ stages:
           command: 'build'
           project: '$(angular)'
           DisableAnalytics: false
+    #Test Angular App
+      - task: CmdLine@2
+        displayName: Angular Tests
+        inputs:
+          script: 'npx ng test --browsers=ChromeHeadless --code-coverage --watch=false'
+          workingDirectory: $(angular)
+        continueOnError: true #Does not interupt the pipeline if the tests fail
+
 - stage: Docker
   jobs:
   #Build and eventally deploy a docker container
