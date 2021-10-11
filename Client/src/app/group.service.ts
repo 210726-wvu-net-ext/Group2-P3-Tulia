@@ -43,10 +43,16 @@ export class GroupService {
     return this.http.put<Group>(url, group, this.httpOptions);
   }
 
-  CreateMembership(membership: Membership){
+  CreateMembership(membership: Membership) {
     const url = 'https://localhost:44326/api/Membership/create';
-    return this.http.post<Membership>(url, membership, this.httpOptions)
+    return this.http.post<Membership>(url, membership, this.httpOptions).pipe
+      (catchError(this.handleError2));
   }
+  handleError2(error: HttpErrorResponse) {
+    return throwError(error.error);
+  }
+
+
   GetMembership(id: number): Observable<Membership> {
     const url = `${this.memberUrl}/${id}`;
     return this.http.get<Membership>(url);
