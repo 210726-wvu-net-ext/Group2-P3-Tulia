@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   memberships: Membership[] = [];
   groups: Group[] = [];
   group!: Group;
+
   //user!: User;
   constructor(
     private route: ActivatedRoute,
@@ -34,11 +35,10 @@ export class HomeComponent implements OnInit {
       .subscribe(
         userdetail => {
           this.userdetail = userdetail;
-          console.log(this.userdetail?.memberships);
+
           this.memberships = this.userdetail?.memberships;
-
+          console.log(this.userdetail?.memberships);
           for (let membership of this.memberships) {
-
             this.groupService.GetMembership(membership.id).subscribe(
               member => {
                 this.member = member,
@@ -92,7 +92,8 @@ export class HomeComponent implements OnInit {
     //this.route.params.subscribe(routeParams => {
     //  this.getUser();
     //});
-
+    console.log(this.groups);
+    console.log(this.memberships);
     this.getUserwithGroup();
     //this.getUserwithGroup();
     //this.getMember();

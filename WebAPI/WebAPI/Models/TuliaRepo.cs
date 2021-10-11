@@ -206,6 +206,27 @@ namespace WebAPI.Models
             }
             return new DBModels.Group();
         }
+
+        public async Task<DBModels.GroupIncludingPosts> GetGroupIncludingPosts(int id)
+        {
+
+            var returnedGroup = await _context.Groups
+                .Include(p => p.Posts)
+                .Select(g => new DBModels.GroupIncludingPosts
+                {
+                    Id = g.Id,
+                    GroupTitle = g.GroupTitle,
+                    Description = g.Description,
+                    UserId = g.UserId,
+                    NumberMember = g.NumberMember,
+                    Posts = g.Posts.Select(p => new DBModels.Post(p.Id, p.UserId, p.Title, p.Body, p.CreatedTime)).ToList()
+                }
+                ).ToListAsync();
+            DBModels.GroupIncludingPosts singleGroup = returnedGroup.FirstOrDefault(p => p.Id == id);
+            return singleGroup;
+            
+        }
+
         public List<DBModels.Group> GetAllGroups()
         {
             var groups = _context.Groups.ToList();

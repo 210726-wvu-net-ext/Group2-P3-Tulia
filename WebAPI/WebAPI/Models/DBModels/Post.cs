@@ -25,5 +25,13 @@ namespace WebAPI.Models.DBModels
             this.CreatedTime = CreatedTime;
             this.GroupId = GroupId;
         }
+        public Post(int Id, int UserId, string Title, string Body, DateTime CreatedTime)
+        {
+            this.Id = Id;
+            this.UserId = UserId;
+            this.Title = Title;
+            this.Body = Body;
+            this.CreatedTime = CreatedTime;
+        }
     }
 }

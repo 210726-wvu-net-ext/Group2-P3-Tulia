@@ -1,12 +1,32 @@
-
-<mat-card *ngIf="group" class="container">
-                        
-    <mat-card-subtitle>{{group.groupTitle}}</mat-card-subtitle>
-    <mat-card-content>
-        {{group.description}}
-    </mat-card-content>
-    <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="submitted">
-        <span *ngIf="submitted"></span>
-        Leave
-    </button>
-</mat-card>
+<div class="container">
+<div class="row">
+    <div class="column">
+        <mat-card *ngIf="group" class="container">
+                                
+            <mat-card-subtitle>{{group.groupTitle}}</mat-card-subtitle>
+            <mat-card-content>
+                {{group.description}}
+            </mat-card-content>
+            <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="submitted">
+                <span *ngIf="submitted"></span>
+                Leave
+            </button>
+        </mat-card>
+    </div>
+    <div class="column">
+        <div *ngIf="group">
+            <mat-card class="post-container" *ngFor="let post of group.posts">
+                <p class="post-header">{{group.groupTitle}}</p>
+                <mat-card-title>{{post.title}}</mat-card-title>
+                <p>{{post.body}}</p>
+                <mat-form-field class="reply-box" appearance="fill">
+                    <mat-label>Leave a comment</mat-label>
+                <textarea matInput placeholder="Ex. hope you feel better..."></textarea>
+                </mat-form-field>
+                <br>
+                <button mat-raised-button color="primary">Reply</button>
+                </mat-card>
+        </div>
+    </div>
+</div>
+</div>

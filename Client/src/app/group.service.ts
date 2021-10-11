@@ -71,7 +71,10 @@ export class GroupService {
     const url = `${this.groupsUrl}/${id}`;
     return this.http.get<Group>(url);
   }
-
+  getGroupIncludingPosts(id: number): Observable<Group> {
+    const url = `${this.groupsUrl}/groupwithposts/${id}`;
+    return this.http.get<Group>(url);
+  }
 
   deleteMembership(userid: number, groupid: number): Observable<Membership> {
     const url = `${this.memberUrl}/delete/${userid}&&${groupid}`;
