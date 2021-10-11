@@ -29,6 +29,9 @@ import { GroupsComponent } from './groups/groups.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { GroupDetailComponent } from './group-detail/group-detail.component';
+import { PostsComponent } from './posts/posts.component';
+
+
 
 @NgModule({
   declarations: [
@@ -42,7 +45,7 @@ import { GroupDetailComponent } from './group-detail/group-detail.component';
     CreateGroupComponent,
     GroupsComponent,
     GroupDetailComponent,
-
+    PostsComponent,
   ],
   imports: [
     BrowserModule,

@@ -9,6 +9,7 @@ import { ManageUsersComponent } from './manage-users/manage-users.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { CreateGroupComponent } from './create-group/create-group.component';
 import { GroupsComponent } from './groups/groups.component';
+import { PostsComponent } from './posts/posts.component';
 import { GroupDetailComponent } from './group-detail/group-detail.component';
 
 const routes: Routes = [
@@ -19,7 +20,9 @@ const routes: Routes = [
   { path: 'userdetail/:id', component: UserDetailComponent, canActivate: [RoleGuard] },
   { path: 'creategroup', component: CreateGroupComponent, canActivate: [RoleGuard] },
   { path: 'groups', component: GroupsComponent, canActivate: [AuthGuard] },
-  { path: 'groupDetail/:id', component: GroupDetailComponent, canActivate: [AuthGuard] }
+  { path: 'groupDetail/:id', component: GroupDetailComponent, canActivate: [AuthGuard] },
+  {path: 'posts', component: PostsComponent}
+
 ];
 @NgModule({
   declarations: [],
