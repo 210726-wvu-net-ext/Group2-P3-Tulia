@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebAPI.Models;
-using WebAPI.Models.Database_Models;
+using WebAPI.Models.DBModels;
 
 namespace WebAPI.Controllers
 {
@@ -19,22 +19,59 @@ namespace WebAPI.Controllers
             _repo = repo;
         }
 
-        [HttpGet]
+        [HttpGet("all")]
         public List<Group> GetAllGroups()
         {
             return _repo.GetAllGroups();
         }
 
-        [HttpPost]
-        public string CreateGroup(Group group)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Group>> GetGroupById(int id)
         {
-            return _repo.CreateGroup(group);
+            return await _repo.GetGroupById(id);
         }
 
-        [HttpDelete("{groupId}")]
-        public string DeleteGroup(int groupId)
+        [HttpPost("create")]
+        public ActionResult<Group> CreateGroup(Group group)
         {
-            return _repo.DeleteGroup(groupId);
+            var result = _repo.CreateGroup(group);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return StatusCode(404, "GroupTitle already in use.");
+            }
+        }
+
+        [HttpPut("update/{id}")]
+        public async Task<ActionResult<Group>> UpdateGroup(int id)
+        {
+            var updatedGroup = await _repo.UpdateGroup(id);
+            return Ok(updatedGroup);
+
+        }
+
+        [HttpPut("leavegroup/{id}")]
+        public async Task<ActionResult<Group>> LeaveGroup(int id)
+        {
+            var updatedGroup = await _repo.LeaveGroup(id);
+            return Ok(updatedGroup);
+
+        }
+
+        [HttpDelete("delete/{groupId}")]
+        public ActionResult<Group> DeleteGroup(int groupId)
+        {
+            var result = _repo.DeleteGroup(groupId);
+            if(result != null)
+            {
+                return Ok(result);
+            } else
+            {
+                return StatusCode(404, "That group could not be found");
+            }
         }
     }
 }

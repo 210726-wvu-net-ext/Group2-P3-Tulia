@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebAPI.Models.Controller_Models
+namespace WebAPI.Models.ControllerModels
 {
-    public class CreatedUser
+    public class LoggedInUser
     {
         public string username { get; private set; }
         public string password { get; private set; }
 
-        public CreatedUser(string username, string password)
+        public LoggedInUser(string username, string password)
         {
             this.username = username;
             this.password = password;

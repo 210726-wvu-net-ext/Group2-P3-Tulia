@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebAPI.Models.Database_Models
+namespace WebAPI.Models.DBModels
 {
     public class Group
     {
@@ -13,6 +13,13 @@ namespace WebAPI.Models.Database_Models
         public string GroupTitle { get; set; }
         public string Description { get; set; }
 
+        public Group() { }
+
+        public Group(int Id, int? NumberMember)
+        {
+            this.Id = Id;
+            this.NumberMember = NumberMember;
+        }
         public Group(int userId, string GroupTitle, string Description)
         {
             this.UserId = UserId;

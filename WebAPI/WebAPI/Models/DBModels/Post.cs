@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebAPI.Models.Database_Models
+namespace WebAPI.Models.DBModels
 {
     public class Post
     {
@@ -13,6 +13,8 @@ namespace WebAPI.Models.Database_Models
         public string Body { get; set; }
         public DateTime CreatedTime { get; set; }
         public int GroupId { get; set; }
+
+        public Post() { }
 
         public Post(int Id, int UserId, string Title, string Body, DateTime CreatedTime, int GroupId)
         {
