@@ -46,8 +46,14 @@ stages:
       - task: CmdLine@2
         displayName: Dotnet Tests
         inputs:
-          script: 'dotnet test --configuration Release'
+          script: dotnet test
+            --configuration Release
+            --collect:"XPlat Code Coverage"
+            --results-directory $(Agent.TempDirectory)
+            --DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
           workingDirectory: $(sDir)
+        continueOnError: true
+
 - stage: Docker
   jobs:
   #Build and eventally deploy a docker container
