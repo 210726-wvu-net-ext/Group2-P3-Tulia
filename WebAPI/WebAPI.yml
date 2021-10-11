@@ -1,18 +1,20 @@
 apiVersion: v1
+kind: Namespace
+metadata:
+  name: tulia
+
+---
+apiVersion: v1
 kind: Service
 metadata:
-  name: tulia-backend
-  labels:
-    app: tulia
-    role: api
+  annotations:
+    service.beta.kubernetes.io/azure-dns-label-name: tulia-api
+  name: azure-load-balancer
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: tulia
     role: api
-  ports:
-  - port: 80
-    nodePort: 30003
 
 ---
 apiVersion: apps/v1
