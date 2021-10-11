@@ -72,7 +72,10 @@ export class UserService {
     const url = `${this.usersUrl}/${id}`;
     return this.http.put<User>(url, user, this.httpOptions)
   }
-
+  updateUserWhenLeave(id: number, user: User): Observable<any> {
+    const url = `${this.usersUrl}/leavegroup/${id}`;
+    return this.http.put<User>(url, user, this.httpOptions)
+  }
 
 
   deleteUser(id: number): Observable<User> {

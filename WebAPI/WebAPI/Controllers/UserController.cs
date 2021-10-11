@@ -81,7 +81,7 @@ namespace WebAPI.Controllers
 
             {
                 oldUser.NumberGroups--;
-                User updatedUser = await _repo.UpdateUser(id, oldUser);
+                User updatedUser = await _repo.UpdateUserWhenLeaveGroup(id, oldUser);
                 return Ok(updatedUser);
             };
             return NotFound();

@@ -43,6 +43,7 @@ namespace WebAPI.Models
         public async Task<DBModels.UserWithGroup> GetUserWithGroup(int id)
         {
             var returnedUser = await _context.Users
+                .AsQueryable()
                 .Include(g => g.Groups)
                 .ThenInclude(m => m.Memberships)
                 .Select(u => new DBModels.UserWithGroup
@@ -65,27 +66,33 @@ namespace WebAPI.Models
             var foundMember = await _context.Memberships.FirstOrDefaultAsync(u => u.Id == id);
             if (foundMember != null)
             {
-                return new DBModels.MembershipWithGroup(foundMember.Id, foundMember.GroupId, foundMember.UserId, foundMember.Group, foundMember.User);
+                return new DBModels.MembershipWithGroup(foundMember.Id, foundMember.GroupId, foundMember.UserId, foundMember.Group);
             }
             return new DBModels.MembershipWithGroup();
         }
-        //public DBModels.MembershipWithGroup GetMembershipWithGroup(int id)
-        //{
-        //    var returnedMembership =  _context.Memberships
-        //        .Include(g => g.Group)
-        //        .ThenInclude(u => u.User)
-        //        .Select(m => new Entities.Membership
-        //        {
-        //            Id = m.Id,
-        //            GroupId = m.GroupId,
-        //            UserId = m.UserId,
-        //            Group = m.Group,
-        //            User = m.User
-        //        }
-        //    );
-        //    //DBModels.MembershipWithGroup membershipWithGroup = returnedMembership.FirstOrDefault(p => p.Id == id);
-        //    return new DBModels.MembershipWithGroup();
-        //}
+
+        public async Task<DBModels.MembershipWithGroup> GetMemberByGroupId(int userid, int groupid)
+        {
+            var foundMember = await _context.Memberships.FirstOrDefaultAsync(u => u.UserId == userid && u.GroupId == groupid);
+            if (foundMember != null)
+            {
+                //var foundGroup = await _context.Groups.FirstOrDefaultAsync(g => g.Id == foundMember.GroupId);
+                return new DBModels.MembershipWithGroup(foundMember.Id, foundMember.GroupId, foundMember.UserId, foundMember.Group);
+            }
+            return new DBModels.MembershipWithGroup();
+        }
+        public async Task<DBModels.MembershipWithGroup> GetMembershipWithGroup(int id)
+        {
+            var returnedMembership = await _context.Memberships
+                .AsQueryable()
+                .Include(g => g.Group).Select(m => new DBModels.MembershipWithGroup(m.Id, m.UserId, m.GroupId, m.Group))
+                .ToListAsync();
+                
+                
+            DBModels.MembershipWithGroup member = returnedMembership.FirstOrDefault(p => p.Id == id);
+            if (member != null) return member;
+            return new DBModels.MembershipWithGroup();
+        }
 
         public DBModels.User CreateUser(DBModels.User user)
         {

@@ -14,13 +14,13 @@ namespace WebAPI.Models.DBModels
         public Entities.Group Group { get; set; }
         public Entities.User User { get; set; }
 
-        public MembershipWithGroup(int Id, int UserId, int GroupId, Entities.Group Group, Entities.User User)
+        public MembershipWithGroup(int Id, int UserId, int GroupId, Entities.Group Group)
         {
             this.Id = Id;
             this.UserId = UserId;
             this.GroupId = GroupId;
             this.Group = Group;
-            this.User = User;
+            
         }
     }
 }

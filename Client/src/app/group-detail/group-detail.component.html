@@ -5,4 +5,8 @@
     <mat-card-content>
         {{group.description}}
     </mat-card-content>
+    <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="submitted">
+        <span *ngIf="submitted"></span>
+        Leave
+    </button>
 </mat-card>

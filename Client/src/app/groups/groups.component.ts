@@ -59,15 +59,15 @@ export class GroupsComponent implements OnInit {
       return;
     }
     this.loading = true;
-    this.groupService.updateGroup(this.form.value.groupId, this.group).subscribe(
-      data => { alert("yay!"); });
-
-    this.userService.updateUser(this.user.id, this.user)
+    this.groupService.updateGroup(this.form.value.groupId, this.group).subscribe(data => { console.log("membernumber +1") });
+    this.userService.updateUser(this.user.id, this.user).subscribe(
+      data => { console.log("groupnumber +1") });
     this.groupService.CreateMembership(this.form.value)
       .pipe(first())
       .subscribe(
         data => {
-          this.router.navigate(['../groupDetail'], { relativeTo: this.route });
+
+          this.router.navigate(['../groupDetail/' + this.form.value.groupId], { relativeTo: this.route });
 
           alert("Joined successfully!");
 

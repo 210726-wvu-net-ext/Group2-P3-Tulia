@@ -6,7 +6,7 @@
       <a routerLink="/login" mat-button color="warn" *ngIf="!userService.loggedIn()">Login</a>
       <div *ngIf="user">
       <a routerLink="/" mat-button color="warn">Home</a>
-      <a routerLink="/groupDetail" mat-button color="warn">My Groups</a>
+      
       <a routerLink="/creategroup" mat-button color="warn" *ngIf="user.role==='admin'">Create Group</a>
       <a routerLink="/manageaccount" mat-button color="warn" *ngIf="user.role==='admin'">Manage Users</a>
       <a routerLink="/groups" mat-button color="warn">Groups</a>

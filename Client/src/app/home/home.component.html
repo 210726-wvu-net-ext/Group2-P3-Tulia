@@ -26,17 +26,24 @@
                         </mat-card-content>
                     </mat-card>
                 </div>  
+                <div>
                         <mat-card-title>Groups you are joining</mat-card-title>
-                    <mat-card *ngFor="let membership of userdetail.memberships" class="col-md-4" class="container">
+                <div *ngIf="userdetail">
+                    <mat-card *ngFor="let membership of memberships" class="container">
                         <mat-card-subtitle ><a routerLink="/groupDetail/{{membership.groupId}}">{{membership.groupId}}</a></mat-card-subtitle>
+                        <mat-card-subtitle *ngIf="member">{{group.groupTitle}}</mat-card-subtitle>
+                        
                     </mat-card>
-                
+                    
+                </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 <!--
+    <div *ngIf="member">{{member.group.groupTitle}}</div>
 <div class="outerContainer">
     <div fxLayout="row" fxLayout.sm="column" fxLayoutGap="20px" class="container">
       <div fxLayoutAlign="center center" class="profile">

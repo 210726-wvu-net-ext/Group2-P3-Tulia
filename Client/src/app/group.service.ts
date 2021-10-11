@@ -12,6 +12,8 @@ import { catchError, map } from 'rxjs/operators';
 export class GroupService {
 
   private groupsUrl = 'https://localhost:44326/api/Group';
+  private memberUrl = 'https://localhost:44326/api/Membership';
+
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -32,15 +34,22 @@ export class GroupService {
   //update group - when a member hit join button, numberMember +1
   updateGroup(id: number, group: Group): Observable<any> {
     const url = `${this.groupsUrl}/update/${id}`;
-    return this.http.put<Group>(url, group, this.httpOptions).pipe(
-      //tap(_ => this.log(`updated user id=${user.id}`)),
-      catchError(this.handleError<any>('updateGroup'))
-    );
+    return this.http.put<Group>(url, group, this.httpOptions)
+      ;
+  }
+
+  updateGroupWhenLeave(id: number, group: Group): Observable<any> {
+    const url = `${this.groupsUrl}/leavegroup/${id}`;
+    return this.http.put<Group>(url, group, this.httpOptions);
   }
 
   CreateMembership(membership: Membership) {
     const url = 'https://localhost:44326/api/Membership/create';
     return this.http.post<Membership>(url, membership, this.httpOptions)
+  }
+  GetMembership(id: number): Observable<Membership> {
+    const url = `${this.memberUrl}/${id}`;
+    return this.http.get<Membership>(url);
   }
 
   deleteGroup(id: number): Observable<Group> {
@@ -55,6 +64,12 @@ export class GroupService {
   getGroupById(id: number): Observable<Group> {
     const url = `${this.groupsUrl}/${id}`;
     return this.http.get<Group>(url);
+  }
+
+
+  deleteMembership(userid: number, groupid: number): Observable<Membership> {
+    const url = `${this.memberUrl}/delete/${userid}&&${groupid}`;
+    return this.http.delete<Membership>(url, this.httpOptions);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
