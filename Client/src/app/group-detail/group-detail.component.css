@@ -12,6 +12,20 @@
   margin-left: 100px;
   position: fixed;
   padding-top: 10px;
+  animation-name: slide-in;
+  animation-duration: 2s;
+}
+
+@keyframes slide-in {
+  from {
+    padding-top: 500px;
+    opacity: 0%;
+  }
+
+  to {
+    padding-top: 10px;
+    opacity: 100%;
+  }
 }
 
 .post-header {
