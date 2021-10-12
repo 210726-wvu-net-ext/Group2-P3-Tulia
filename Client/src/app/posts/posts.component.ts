@@ -2,7 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { GroupService } from '../group.service';
 import { Group } from '../models/group';
 import { Post } from '../models/post';
+import { User } from '../models/user';
 import { PostsService } from '../posts.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-posts',
@@ -11,17 +13,20 @@ import { PostsService } from '../posts.service';
 })
 export class PostsComponent implements OnInit {
   post!: Post;
+  user!: User;
   time: string = new Date().toISOString().slice(0, 19).replace('T', ' ');
-  @Input() createdPost: Post = {body:"", userId:1, title:"", groupId:1}
+  @Input() createdPost: Post = {body:"", userId: this.user.id, title:"", groupId:1}
   posts: Post[] = [];
   groups: Group[] = [];
   constructor(
     private postService: PostsService,
-    private groupService: GroupService
+    private groupService: GroupService,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
     this.postService.getAllPosts(this.post).subscribe(posts => this.posts = posts);
+    this.user = this.userService.userValue;
   }
 
   submitPost(): void {
