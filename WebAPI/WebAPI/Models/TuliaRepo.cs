@@ -391,8 +391,8 @@ namespace WebAPI.Models
                     Title = post.Title,
                     GroupId = post.GroupId,
                     Body = post.Body,
-                    CreatedTime = post.CreatedTime
-                });
+                    CreatedTime = DateTime.Now
+                }) ;
                 _context.SaveChanges();
                 return new DBModels.Post(post.Id, post.UserId, post.Title, post.Body, post.CreatedTime, post.GroupId);
             } catch(System.InvalidOperationException)
