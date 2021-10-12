@@ -15,18 +15,20 @@ export class PostsComponent implements OnInit {
   post!: Post;
   user!: User;
   time: string = new Date().toISOString().slice(0, 19).replace('T', ' ');
-  @Input() createdPost: Post = {body:"", userId: this.user.id, title:"", groupId:1}
+  @Input() createdPost: Post;
   posts: Post[] = [];
   groups: Group[] = [];
   constructor(
     private postService: PostsService,
     private groupService: GroupService,
     private userService: UserService
-  ) { }
+  ) { 
+    this.user = this.userService.userValue;
+    this.createdPost = {body:"", userId: this.user.id, title:"", groupId:1}
+  }
 
   ngOnInit(): void {
     this.postService.getAllPosts(this.post).subscribe(posts => this.posts = posts);
-    this.user = this.userService.userValue;
   }
 
   submitPost(): void {
