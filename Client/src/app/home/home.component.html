@@ -17,22 +17,23 @@
             </div>
             <div class="row">
                 <div class="col" *ngIf="user.role==='admin'">
-                    <mat-card-title>Groups you created</mat-card-title>
-                    <mat-card *ngFor="let group of userdetail.groups" class="container">
-                        
-                        <mat-card-subtitle>{{group.groupTitle}}</mat-card-subtitle>
-                        <mat-card-content>
-                            {{group.description}}
-                        </mat-card-content>
-                    </mat-card>
+                    <div *ngIf="userdetail">
+                        <mat-card-title>Groups you created</mat-card-title>
+                        <mat-card *ngFor="let group of userdetail.groups" class="container">
+                            
+                            <mat-card-subtitle>{{group.groupTitle}}</mat-card-subtitle>
+                            <mat-card-content>
+                                {{group.description}}
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
                 </div>  
                 <div>
                         <mat-card-title>Groups you are joining</mat-card-title>
                 <div *ngIf="userdetail">
-                    <mat-card *ngFor="let membership of userdetail.memberships" class="container">
+                    <mat-card *ngFor="let membership of userdetail.memberships; let i= index" class="container">
                         <mat-card-subtitle><a routerLink="/groupDetail/{{membership.groupId}}">{{membership.groupId}}</a></mat-card-subtitle>
-                        <mat-card-subtitle *ngIf="member">{{member.group.groupTitle}}</mat-card-subtitle>
-                        
+                        <mat-card-subtitle *ngIf="groupTitles">{{groupTitles[i]}}</mat-card-subtitle>
                     </mat-card>
                     
                 </div>

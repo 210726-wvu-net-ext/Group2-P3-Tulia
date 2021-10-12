@@ -36,7 +36,6 @@ namespace WebAPI.Controllers
                 
         }
            
-
         // GET
         [HttpGet("{userid}&&{groupid}")]
         public async Task<ActionResult<Membership>> GetMembershipByGroupId(int userid, int groupid)

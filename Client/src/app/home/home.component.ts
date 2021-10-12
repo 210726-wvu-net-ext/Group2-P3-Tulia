@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   memberships: Membership[] = [];
   groups: Group[] = [];
   group!: Group;
+  groupTitles: any;
 
   //user!: User;
   constructor(
@@ -33,18 +34,20 @@ export class HomeComponent implements OnInit {
   getUserwithGroup() {
     this.userService.getUserwithGroup(this.user.id)
       .subscribe(
+
         userdetail => {
           this.userdetail = userdetail;
-
+          this.groups = this.userdetail.groups;
           this.memberships = this.userdetail?.memberships;
           console.log(this.userdetail?.memberships);
+
           for (let membership of this.memberships) {
-            this.groupService.GetMembership(membership.id).subscribe(
-              member => {
-                this.member = member,
-                  console.log(member.id);
-                this.group = this.member?.group,
-                  console.log(this.member?.group)
+            this.groupTitles = new Array();
+
+            this.groupService.getGroupById(membership.groupId).subscribe(
+              group => {
+                this.group = group,
+                  this.groupTitles.push(this.group.groupTitle);
               }
 
             );
@@ -92,8 +95,6 @@ export class HomeComponent implements OnInit {
     //this.route.params.subscribe(routeParams => {
     //  this.getUser();
     //});
-    console.log(this.groups);
-    console.log(this.memberships);
     this.getUserwithGroup();
     //this.getUserwithGroup();
     //this.getMember();
