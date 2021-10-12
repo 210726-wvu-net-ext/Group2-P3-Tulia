@@ -33,9 +33,9 @@
                     <mat-card class="main container">
                         <mat-card-title>Groups you are joining</mat-card-title>
                         <div *ngIf="userdetail">
-                            <mat-card *ngFor="let membership of userdetail.memberships; let i= index" class="container">
-                                <mat-card-subtitle><a routerLink="/groupDetail/{{membership.groupId}}">{{membership.groupId}}</a></mat-card-subtitle>
-                                <mat-card-subtitle *ngIf="groupTitles">{{groupTitles[i]}}</mat-card-subtitle>
+                            <mat-card *ngFor="let Id of Ids; let i= index" class="container">
+                                <mat-card-subtitle *ngIf="groupTitles"><a routerLink="/groupDetail/{{Id}}">{{groupTitles[i]}}</a></mat-card-subtitle>
+                                <mat-card-subtitle ></mat-card-subtitle>
                             </mat-card>
                         </div>
                     </mat-card>
