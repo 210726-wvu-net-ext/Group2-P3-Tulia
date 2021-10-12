@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
           this.userdetail = userdetail;
           this.groups = this.userdetail.groups;
           this.memberships = this.userdetail?.memberships;
-          console.log(this.userdetail?.memberships);
+          //console.log(this.userdetail?.memberships);
 
           for (let membership of this.memberships) {
             this.groupTitles = new Array();
@@ -66,24 +66,7 @@ export class HomeComponent implements OnInit {
         //},
       );
   }
-  //getMember(): void {
-  //  this.groupService.GetMembership(1).subscribe(
-  //    member => { this.member = member },
-  //    group => { group = this.member?.group }
-  //  );
-  //}
 
-  //getUserwithGroup() {
-  //  this.userService.getUserwithGroup(this.user.id)
-  //    .subscribe(
-  //      userdetail => {
-  //        this.userdetail = userdetail;
-  //      },
-  //      //groups => {
-  //      //  groups = this.userdetail?.groups
-  //      //},
-  //    );
-  //}
   getUser(): void {
 
     this.userService.getUser(this.user.id)
@@ -92,9 +75,7 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit(): void {
-    //this.route.params.subscribe(routeParams => {
-    //  this.getUser();
-    //});
+
     this.getUserwithGroup();
     //this.getUserwithGroup();
     //this.getMember();
