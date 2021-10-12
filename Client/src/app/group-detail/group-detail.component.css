@@ -11,6 +11,7 @@
   float: left;
   margin-left: 100px;
   position: fixed;
+  padding-top: 10px;
 }
 
 .post-header {
@@ -19,7 +20,7 @@
 
 .group-post {
   float: right;
-  margin-right: 400px;
+  margin-right: 200px;
   text-align: left;
   margin-top: 10px;
   width: 500px;
@@ -43,4 +44,5 @@
 
 .post-input-container {
   text-align: center;
+  padding-top: 10px;
 }
