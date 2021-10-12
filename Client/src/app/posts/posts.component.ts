@@ -18,6 +18,7 @@ export class PostsComponent implements OnInit {
   @Input() createdPost: Post;
   posts: Post[] = [];
   groups: Group[] = [];
+  userGroups: Group[] = [];
   constructor(
     private postService: PostsService,
     private groupService: GroupService,

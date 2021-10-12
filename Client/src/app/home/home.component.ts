@@ -49,9 +49,7 @@ export class HomeComponent implements OnInit {
                 this.group = group,
                   this.groupTitles.push(this.group.groupTitle);
               }
-
             );
-
           }
         },
         //memberships => {
