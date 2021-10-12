@@ -1,3 +1,4 @@
+
 <div class="write-post">
     <mat-card class="post-input-container">
         <p>{{createdPost.body}}</p>
@@ -10,7 +11,7 @@
     </mat-card>
 </div>
 
-<div *ngFor="let post of posts">
+<div class="post-card-container" *ngFor="let post of posts">
     <mat-card class="post-container">
         <p class="post-header">test</p>
         <mat-card-title>{{post.title}}</mat-card-title>
