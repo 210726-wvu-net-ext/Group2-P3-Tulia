@@ -1,3 +1,13 @@
 .example-spacer {
-    flex: 1 1 auto;
-  }
+  flex: 1 1 auto;
+}
+
+.button {
+  transition-duration: 0.4s;
+}
+
+.mat-raised-button:hover {
+  background-color: #4CAF50;
+  /* Green */
+  color: white;
+}

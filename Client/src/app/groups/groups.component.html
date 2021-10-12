@@ -18,7 +18,7 @@
         <form class="signup-form" [formGroup]="form" (ngSubmit)="onSubmit()" class="signup-form-padding">
         <label>Please select confirmed and hit Join to join in the group</label>
             <select formControlName="groupId" [ngClass]="{ 'is-invalid': submitted && f.groupId.errors}">
-                
+                <option value="">No</option>
                 <option value="{{group.id}}">confirmed</option>
             </select>
             <div *ngIf="submitted && f.groupId.errors" class="invalid-feedback">

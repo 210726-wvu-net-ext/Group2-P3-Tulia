@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col">
                 <div class="col">
-                    <mat-card class="container">
+                    <mat-card class="profile-container">
                         <mat-card-title>{{user.firstName}} {{user.lastName}}</mat-card-title>
                         <mat-card-subtitle>Username: {{user.username}} // {{user.role}}</mat-card-subtitle>
                         <!--
@@ -18,75 +18,47 @@
             <div class="row">
                 <div class="col" *ngIf="user.role==='admin'">
                     <div *ngIf="userdetail">
-                        <mat-card-title>Groups you created</mat-card-title>
-                        <mat-card *ngFor="let group of userdetail.groups" class="container">
-                            
-                            <mat-card-subtitle>{{group.groupTitle}}</mat-card-subtitle>
-                            <mat-card-content>
-                                {{group.description}}
-                            </mat-card-content>
+                        <mat-card class="main container">
+                            <mat-card-title>Groups you created</mat-card-title>
+                            <mat-card *ngFor="let group of userdetail.groups" class="container">
+                                <mat-card-subtitle>{{group.groupTitle}}</mat-card-subtitle>
+                                <mat-card-content>
+                                    {{group.description}}
+                                </mat-card-content>
+                            </mat-card>
                         </mat-card>
                     </div>
                 </div>  
                 <div>
+                    <mat-card class="main container">
                         <mat-card-title>Groups you are joining</mat-card-title>
-                <div *ngIf="userdetail">
-                    <mat-card *ngFor="let membership of userdetail.memberships; let i= index" class="container">
-                        <mat-card-subtitle><a routerLink="/groupDetail/{{membership.groupId}}">{{membership.groupId}}</a></mat-card-subtitle>
-                        <mat-card-subtitle *ngIf="groupTitles">{{groupTitles[i]}}</mat-card-subtitle>
+                        <div *ngIf="userdetail">
+                            <mat-card *ngFor="let membership of userdetail.memberships; let i= index" class="container">
+                                <mat-card-subtitle><a routerLink="/groupDetail/{{membership.groupId}}">{{membership.groupId}}</a></mat-card-subtitle>
+                                <mat-card-subtitle *ngIf="groupTitles">{{groupTitles[i]}}</mat-card-subtitle>
+                            </mat-card>
+                        </div>
                     </mat-card>
-                    
-                </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!--
-    <div *ngIf="member">{{member.group.groupTitle}}</div>
-<div class="outerContainer">
-    <div fxLayout="row" fxLayout.sm="column" fxLayoutGap="20px" class="container">
-      <div fxLayoutAlign="center center" class="profile">
-        <mat-card class="card">
-            <mat-card-title>{{user.firstName}} {{user.lastName}}</mat-card-title>
-            <mat-card-subtitle>Username: {{user.username}} // {{user.role}}</mat-card-subtitle>
-            <!--
-            <div>
-            <button mat-raised-button class="mt-5" color="warn" (click)="delete()">Delete</button>
-            </div>  
-            
-        </mat-card>
-      </div>
-      <div fxLayoutAlign="stretch" fxFlex="2 1 auto">
-          <div ffxLayout="column" fxLayout.sm="row" fxLayoutGap="20px">
-            <mat-card class="card">
-                    <mat-card-title class="group-join">Groups you are joining</mat-card-title>
-                <mat-card *ngFor="let membership of userdetail.memberships" class="col-md-4" class="group-join">
-                    <mat-card-subtitle ><a routerLink="/groupDetail/{{membership.groupId}}">{{membership.groupId}}</a></mat-card-subtitle>
-                </mat-card>
-            </mat-card>
-          </div>
-      </div>
-      
-    </div>
-    <div class="outerContainer">
-        <div fxLayout="row" fxLayout.sm="column" fxLayoutGap="10px" class="container">
-          <div fxLayoutAlign="center center">
-            
-            <div fxLayout="column" fxLayout.sm="row" fxLayoutGap="10px" class="container">
-                <mat-card-title>Groups you created</mat-card-title>
-                <mat-card *ngFor="let group of userdetail.groups" class="container">
-                    <mat-card-subtitle>{{group.groupTitle}}</mat-card-subtitle>
-                    <mat-card-content>
-                        {{group.description}}
-                    </mat-card-content>
-                </mat-card>
-            </div>
-          </div>
-          <div fxLayoutAlign="center center"></div>
-          
-        </div>
-    </div>
+<!-- <div 
+gdAreas="header header | side content | footer footer"
+gdGap="16px"
+gdRows="auto auto auto">
+<div gdArea="header">
+  Header
+ </div>
+<div gdArea="side">
+    side
+ </div>
+<div gdArea="content">
+  Content
 </div>
--->
+<div gdArea="footer">
+  Footer
+</div>
+</div> -->
