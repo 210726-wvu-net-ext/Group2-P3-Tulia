@@ -13,6 +13,7 @@ variables: #Path to folders
   sDir: 'WebAPI'
   solution: 'WebAPI/*.sln'
   cReg: '2107-p3-acr-Group2-Tulia'
+  ver: '1.0.0'
 
 stages:
 - stage: Install_Build
@@ -67,6 +68,15 @@ stages:
         inputs:
           containerRegistry: $(cReg)
           command: 'login'
+      #Build versioned image
+      - task: Docker@2
+        displayName: Build & Push
+        inputs:
+          containerRegistry: '$(cReg)'
+          repository: 'tulia/backend'
+          command: 'buildAndPush'
+          Dockerfile: '**/Dockerfile'
+          tags: '$(ver)'
       #Build
       - task: Docker@2
         displayName: Build & Push
