@@ -25,12 +25,17 @@ namespace WebAPI.Controllers
         [HttpPost("create")]
         public async Task<ActionResult<Membership>> CreateMembership(Membership membership)
         {
-            var result = await _repo.CreateMembership(membership);
-
-            return Ok(result);
-
+            try { 
+                var result = await _repo.CreateMembership(membership);
+                return Ok(result);
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+                
         }
-
+           
         // GET
         [HttpGet("{userid}&&{groupid}")]
         public async Task<ActionResult<Membership>> GetMembershipByGroupId(int userid, int groupid)

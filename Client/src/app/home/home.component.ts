@@ -20,6 +20,8 @@ export class HomeComponent implements OnInit {
   memberships: Membership[] = [];
   groups: Group[] = [];
   group!: Group;
+  groupTitles: any;
+
   //user!: User;
   constructor(
     private route: ActivatedRoute,
@@ -32,19 +34,20 @@ export class HomeComponent implements OnInit {
   getUserwithGroup() {
     this.userService.getUserwithGroup(this.user.id)
       .subscribe(
+
         userdetail => {
           this.userdetail = userdetail;
-          console.log(this.userdetail?.memberships);
+          this.groups = this.userdetail.groups;
           this.memberships = this.userdetail?.memberships;
+          //console.log(this.userdetail?.memberships);
 
           for (let membership of this.memberships) {
+            this.groupTitles = new Array();
 
-            this.groupService.GetMembership(membership.id).subscribe(
-              member => {
-                this.member = member,
-                  console.log(member.id);
-                this.group = this.member?.group,
-                  console.log(this.member?.group)
+            this.groupService.getGroupById(membership.groupId).subscribe(
+              group => {
+                this.group = group,
+                  this.groupTitles.push(this.group.groupTitle);
               }
 
             );
@@ -63,24 +66,7 @@ export class HomeComponent implements OnInit {
         //},
       );
   }
-  //getMember(): void {
-  //  this.groupService.GetMembership(1).subscribe(
-  //    member => { this.member = member },
-  //    group => { group = this.member?.group }
-  //  );
-  //}
 
-  //getUserwithGroup() {
-  //  this.userService.getUserwithGroup(this.user.id)
-  //    .subscribe(
-  //      userdetail => {
-  //        this.userdetail = userdetail;
-  //      },
-  //      //groups => {
-  //      //  groups = this.userdetail?.groups
-  //      //},
-  //    );
-  //}
   getUser(): void {
 
     this.userService.getUser(this.user.id)
@@ -89,9 +75,6 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit(): void {
-    //this.route.params.subscribe(routeParams => {
-    //  this.getUser();
-    //});
 
     this.getUserwithGroup();
     //this.getUserwithGroup();

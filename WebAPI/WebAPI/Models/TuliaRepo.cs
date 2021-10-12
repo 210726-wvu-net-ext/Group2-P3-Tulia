@@ -79,7 +79,7 @@ namespace WebAPI.Models
                 //var foundGroup = await _context.Groups.FirstOrDefaultAsync(g => g.Id == foundMember.GroupId);
                 return new DBModels.MembershipWithGroup(foundMember.Id, foundMember.GroupId, foundMember.UserId, foundMember.Group);
             }
-            return new DBModels.MembershipWithGroup();
+            return null;
         }
         public async Task<DBModels.MembershipWithGroup> GetMembershipWithGroup(int id)
         {
@@ -206,6 +206,27 @@ namespace WebAPI.Models
             }
             return new DBModels.Group();
         }
+
+        public async Task<DBModels.GroupIncludingPosts> GetGroupIncludingPosts(int id)
+        {
+
+            var returnedGroup = await _context.Groups
+                .Include(p => p.Posts)
+                .Select(g => new DBModels.GroupIncludingPosts
+                {
+                    Id = g.Id,
+                    GroupTitle = g.GroupTitle,
+                    Description = g.Description,
+                    UserId = g.UserId,
+                    NumberMember = g.NumberMember,
+                    Posts = g.Posts.Select(p => new DBModels.Post(p.Id, p.UserId, p.Title, p.Body, p.CreatedTime)).ToList()
+                }
+                ).ToListAsync();
+            DBModels.GroupIncludingPosts singleGroup = returnedGroup.FirstOrDefault(p => p.Id == id);
+            return singleGroup;
+            
+        }
+
         public List<DBModels.Group> GetAllGroups()
         {
             var groups = _context.Groups.ToList();
@@ -257,15 +278,25 @@ namespace WebAPI.Models
 
         public async Task<DBModels.Membership> CreateMembership(DBModels.Membership membership)
         {
+
             var newEntity = new Entities.Membership
             {
                 UserId = membership.UserId,
                 GroupId = membership.GroupId
 
             };
-            await _context.Memberships.AddAsync(newEntity);
-            await _context.SaveChangesAsync();
-            return membership;
+             
+            var existingEntity = await GetMemberByGroupId(membership.UserId, membership.GroupId);
+            if (existingEntity != null)
+            {
+                throw new Exception("You already joined this group!");
+            }
+            else
+            {
+                await _context.Memberships.AddAsync(newEntity);
+                await _context.SaveChangesAsync();
+                return membership;
+            }
         }
 
 

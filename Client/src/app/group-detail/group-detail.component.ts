@@ -15,6 +15,7 @@ export class GroupDetailComponent implements OnInit {
   user!: User;
   group!: Group;
   submitted = false;
+  groups: Group[] = [];
   constructor(
     private groupService: GroupService,
     private route: ActivatedRoute,
@@ -34,9 +35,17 @@ export class GroupDetailComponent implements OnInit {
 
   getGroup(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.groupService.getGroupById(id)
-      .subscribe(group => this.group = group);
+    this.groupService.getGroupIncludingPosts(id)
+      .subscribe(
+        group => {
+          this.group = group;
+        },
+        posts =>
+          posts = this.group.posts
+      );
   }
+
+
   onSubmit() {
     this.submitted = true;
     const id = Number(this.route.snapshot.paramMap.get('id'));

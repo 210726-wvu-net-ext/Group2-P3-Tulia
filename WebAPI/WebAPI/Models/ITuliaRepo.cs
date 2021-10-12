@@ -22,12 +22,15 @@ namespace WebAPI.Models
         public Task<UserWithGroup> GetUserWithGroup(int id);
 
         public Task<MembershipWithGroup> GetMemberById(int id);
+
         public Task<MembershipWithGroup> GetMemberByGroupId(int userid, int groupid);
+
         public Task<MembershipWithGroup> GetMembershipWithGroup(int id);
+        
         public Group CreateGroup(Group group);
 
         public List<Group> GetAllGroups();
-
+        public Task<GroupIncludingPosts> GetGroupIncludingPosts(int id);
         public Task<Group> GetGroupById(int id);
 
         public Task<Group> UpdateGroup(int id);

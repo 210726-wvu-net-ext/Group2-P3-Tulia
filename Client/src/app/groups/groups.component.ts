@@ -59,25 +59,31 @@ export class GroupsComponent implements OnInit {
       return;
     }
     this.loading = true;
-    this.groupService.updateGroup(this.form.value.groupId, this.group).subscribe(data => { console.log("membernumber +1") });
-    this.userService.updateUser(this.user.id, this.user).subscribe(
-      data => { console.log("groupnumber +1") });
+
     this.groupService.CreateMembership(this.form.value)
       .pipe(first())
       .subscribe(
         data => {
-
-          this.router.navigate(['../groupDetail/' + this.form.value.groupId], { relativeTo: this.route });
-
-          alert("Joined successfully!");
-
+          console.log(this.form.value);
+          this.groupService.updateGroup(this.form.value.groupId, this.group).subscribe(data => { console.log("membernumber +1") });
+          this.userService.updateUser(this.user.id, this.user).subscribe(
+            data => {
+              console.log("groupnumber +1");
+              this.router.navigate(['../groupDetail/' + this.form.value.groupId], { relativeTo: this.route });
+              alert("Joined successfully!");
+            },
+            error => {
+              //groupnumber<40
+              if (this.user.numberGroups > 3) {
+                this.loading = false;
+                alert("you can only join total of 3 groups!");
+              }
+            }
+          );
         },
         error => {
-          //groupnumber<40
-          if (this.user.numberGroups > 3) {
-            this.loading = false;
-            alert("you can only join total of 3 groups!");
-          }
+          this.loading = false;
+          alert(error);
         }
       );
 

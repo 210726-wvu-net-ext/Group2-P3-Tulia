@@ -31,6 +31,13 @@ namespace WebAPI.Controllers
             return await _repo.GetGroupById(id);
         }
 
+        [HttpGet("groupwithposts/{id}")]
+        public async Task<ActionResult<GroupIncludingPosts>> GetGroupIncludingPosts(int id)
+        {
+            var groupwithpost = await _repo.GetGroupIncludingPosts(id);
+            return Ok(groupwithpost);
+        }
+
         [HttpPost("create")]
         public ActionResult<Group> CreateGroup(Group group)
         {
