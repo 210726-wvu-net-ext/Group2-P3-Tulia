@@ -34,8 +34,16 @@
                         <mat-form-field class="reply-box" appearance="fill">
                             <mat-label>Leave a comment</mat-label>
                         <textarea formControlName="content" matInput placeholder="Ex. hope you feel better..."></textarea>
-                        <input type="number" formControlName="postId" value="{{post.id}}">
+                        <!-- <input type="number" formControlName="postId" value="{{post.id}}"> -->
+                        
                         </mat-form-field>
+                        <div *ngIf="submitted && f.postId.errors" class="invalid-feedback">
+                            <div *ngIf="f.postId.errors.required" style="color: red;">Please check to leave a comment on this selected post</div>
+                        </div>
+                        <label>Leave a comment on this post??</label>
+                        <input type="radio" formControlName="postId" value="{{post.id}}" [ngClass]="{ 'is-invalid': submitted && f.postId.errors}"><label>yes</label>
+                        <input type="radio" formControlName="postId" value=""><label>no</label>
+                        
                         <br>
                         <button mat-raised-button color="primary" [disabled]="loading" class="reply-button"><span *ngIf="loading"></span>Reply</button>
                     </form>

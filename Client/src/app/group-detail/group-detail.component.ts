@@ -40,7 +40,7 @@ export class GroupDetailComponent implements OnInit {
     this.getGroup();
     this.form = this.formBuilder.group({
       userId: [this.user.id],
-      postId: [''],
+      postId: ['', Validators.required],
       content: ['', [Validators.required]]
 
     });
@@ -84,7 +84,7 @@ export class GroupDetailComponent implements OnInit {
       }
     )
   }
-
+  get f() { return this.form.controls; }
   AddComment() {
 
     this.submitted = true;
@@ -98,7 +98,7 @@ export class GroupDetailComponent implements OnInit {
       .subscribe(
         data => {
           const id = Number(this.route.snapshot.paramMap.get('id'));
-          this.router.navigate(['../groupDetail/' + id], { relativeTo: this.route });
+          this.router.navigate(['../' + id], { relativeTo: this.route });
           console.log("added comment");
         },
         error => {
