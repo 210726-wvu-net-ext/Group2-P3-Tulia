@@ -27,8 +27,6 @@ export class DeletePostComponent implements OnInit {
   }
   delete(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-
-    //this.user = this.user.filter(u => u !== user);
     this.postService.deletePost(id).subscribe(() => this.goBack());
   }
   goBack(): void {

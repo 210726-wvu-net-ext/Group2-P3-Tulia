@@ -13,6 +13,7 @@ import { PostDetail } from './models/postdetail';
 })
 export class PostsService {
   private postUrl = "https://localhost:44326/api/Post";
+  private pUrl = "https://localhost:44326";
   private commentUrl = "https://localhost:44326/api/Comment";
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -53,7 +54,9 @@ export class PostsService {
   }
 
   deletePost(id: number): Observable<Post> {
-    const url = `${this.postUrl}/delete/${id}`;
-    return this.http.delete<Post>(url, this.httpOptions);
+    const url = `${this.pUrl}/delete/${id}`;
+    return this.http.delete<Post>(url, this.httpOptions).pipe(
+
+      catchError(this.handleError1));
   }
 }
