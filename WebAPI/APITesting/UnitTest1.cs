@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
+using WebAPI.Controllers;
 using WebAPI.Models;
 using WebAPI.Models.Entities;
 using Xunit;
@@ -65,6 +67,35 @@ namespace APITesting
                 var result = repo.GetUserById(1);
 
                 Assert.NotEqual(user, result.Result);
+            }
+        }
+
+        [Fact]
+        public void DeleteInvalidPost()
+        {
+            var options = new DbContextOptionsBuilder<tuliadbContext>()
+               .UseInMemoryDatabase(databaseName: "TuliaDatabase")
+               .Options;
+
+            using (var context = new tuliadbContext(options))
+            {
+                context.Posts.Add(new WebAPI.Models.Entities.Post
+                {
+                    UserId = 1,
+                    Title = "title",
+                    Body = "body",
+                    CreatedTime = DateTime.Now,
+                    GroupId = 1
+                });
+                context.SaveChanges();
+
+                TuliaRepo repo = new TuliaRepo(context);
+
+                PostController postController = new PostController(repo);
+                var result = postController.DeletePost(0);
+                var expected = postController.DeletePost(1);
+
+                Assert.NotEqual(expected, result);
             }
         }
     }
