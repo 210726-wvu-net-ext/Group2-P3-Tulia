@@ -33,7 +33,7 @@ export class UserService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  private usersUrl = `${environment.dbURL}/User`;
+  private usersUrl = `${environment.dbURL}User`;
 
   constructor(
     private http: HttpClient,
