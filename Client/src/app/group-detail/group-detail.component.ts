@@ -20,12 +20,21 @@ export class GroupDetailComponent implements OnInit {
   group!: Group;
   submitted = false;
   loading = false;
+  loading2 = false;
   groups: Group[] = [];
   posts: PostDetail[] = [];
   postdetail!: PostDetail;
   postIds: any;
   comments: any;
+  groupid = Number(this.route.snapshot.paramMap.get('id'));
 
+  postForm: FormGroup = new FormGroup({
+    userId: new FormControl(''),
+    groupId: new FormControl(''),
+    title: new FormControl(''),
+    body: new FormControl('')
+
+  })
   form: FormGroup = new FormGroup({
 
     userId: new FormControl(''),
@@ -42,12 +51,18 @@ export class GroupDetailComponent implements OnInit {
     private userService: UserService) { this.user = this.userService.userValue; }
 
   ngOnInit(): void {
+
     this.getGroup();
     this.form = this.formBuilder.group({
       userId: [this.user.id],
       postId: ['', Validators.required],
       content: ['', [Validators.required]]
-
+    });
+    this.postForm = this.formBuilder.group({
+      userId: [this.user.id],
+      groupId: [this.groupid],
+      title: ['', Validators.required],
+      body: ['', Validators.required]
     });
   }
 
@@ -95,7 +110,27 @@ export class GroupDetailComponent implements OnInit {
 
       );
   }
-
+  AddPost() {
+    //this.submitted = true;
+    //stop here if form is invalid
+    if (this.postForm.invalid) {
+      return;
+    }
+    this.loading2 = true;
+    this.postService.createPost(this.postForm.value)
+      .pipe(first())
+      .subscribe(
+        data => {
+          const id = Number(this.route.snapshot.paramMap.get('id'));
+          this.router.navigate(['../' + id], { relativeTo: this.route });
+          console.log("added post");
+        },
+        error => {
+          this.loading2 = false;
+          alert(error);
+        }
+      )
+  }
 
 
   onSubmit() {
@@ -134,5 +169,6 @@ export class GroupDetailComponent implements OnInit {
         }
       )
   }
+
 
 }

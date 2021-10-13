@@ -37,10 +37,9 @@ export class PostsService {
   //  return this.http.get<UserDetail>(url);
   //}
 
-  createPost(post: Post) {
-    this.http.post(`${this.postUrl}/create`, post).subscribe(data => {
-      console.log(data);
-    })
+  createPost(post: Post): Observable<Post> {
+    return this.http.post<Post>(`${this.postUrl}/create`, post, this.httpOptions).pipe
+      (catchError(this.handleError1));
   }
 
   createComment(comment: Comment): Observable<Comment> {
