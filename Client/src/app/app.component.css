@@ -11,3 +11,16 @@
   /* Green */
   color: white;
 }
+
+.active {
+  background-color: #4CAF50;
+}
+
+.material-icons {
+  padding-top: 8px;
+  padding-right: 5px;
+}
+
+.main-tool-bar {
+  background-color: green;
+}
