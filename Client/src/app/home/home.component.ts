@@ -58,29 +58,8 @@ export class HomeComponent implements OnInit {
             })
           }
 
-
-            this.groupService.getGroupById(membership.groupId).subscribe(
-              group => {
-                this.group = group,
-                  this.groupTitles.push(this.group.groupTitle);
-              }
-            );
-          }
-        },
-        //memberships => {
-        //  memberships = this.userdetail?.memberships;
-        //  console.log("bla");
-        //  for (let membership of memberships) {
-        //    this.groupService.GetMembership(membership.id).subscribe(
-        //      member => { this.member = member },
-        //      group => { group = this.member?.group }
-        //    );
-        //  }
-        //},
-      );
         }
       );
-
 
 
   }
