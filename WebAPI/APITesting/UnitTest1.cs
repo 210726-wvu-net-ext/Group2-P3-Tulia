@@ -98,5 +98,51 @@ namespace APITesting
                 Assert.NotEqual(expected, result);
             }
         }
+
+        [Fact]
+        public void DeleteInvalidComment()
+        {
+            var options = new DbContextOptionsBuilder<tuliadbContext>()
+               .UseInMemoryDatabase(databaseName: "TuliaDatabase")
+               .Options;
+
+            using (var context = new tuliadbContext(options))
+            {
+                context.Comments.Add(new WebAPI.Models.Entities.Comment
+                {
+                    UserId = 1,
+                    PostId = 1,
+                    Content = "hello",
+                    Time = DateTime.Now
+                });
+                context.SaveChanges();
+
+                TuliaRepo repo = new TuliaRepo(context);
+
+                CommentController commentController = new CommentController(repo);
+                var result = commentController.DeleteComment(0);
+                var expected = commentController.DeleteComment(1);
+                
+                Assert.NotEqual(expected, result);
+            }
+        }
+
+        [Fact]
+        public void CheckUserResult()
+        {
+            var options = new DbContextOptionsBuilder<tuliadbContext>()
+               .UseInMemoryDatabase(databaseName: "TuliaDatabase")
+               .Options;
+
+            using (var context = new tuliadbContext(options))
+            {
+                TuliaRepo repo = new TuliaRepo(context);
+
+                var user = new WebAPI.Models.DBModels.User(1, "Liam", "Sloan", "Liam");
+                var result = repo.GetUserById(1);
+
+                Assert.IsType<WebAPI.Models.DBModels.User>(result.Result);
+            }
+        }
     }
 }
