@@ -13,17 +13,40 @@
         </mat-card>
     </div>
     <div class="group-post">
-        <div *ngIf="group">
+        <div class="write-post">
+            <mat-card class="post-input-container">
+                
+                <mat-form-field class="post-box" appearance="fill">
+                    <mat-label>Write a new post</mat-label>
+                <textarea matInput placeholder="Ex. I'm feeling good..."></textarea>
+                  </mat-form-field>
+                  <br>
+                  <button mat-raised-button color="primary" (click)="submitPost()">Post</button>
+            </mat-card>
+        </div>
+        
+        <div *ngIf="group" class="container">          
             <mat-card class="post-container" *ngFor="let post of group.posts">
                 <p class="post-header">{{group.groupTitle}}</p>
                 <mat-card-title>{{post.title}}</mat-card-title>
                 <p>{{post.body}}</p>
-                <mat-form-field class="reply-box" appearance="fill">
-                    <mat-label>Leave a comment</mat-label>
-                <textarea matInput placeholder="Ex. hope you feel better..."></textarea>
-                </mat-form-field>
-                <br>
-                <button mat-raised-button color="primary">Reply</button>
-                </mat-card>
+                    <form [formGroup]="form" (ngSubmit)="AddComment()">
+                        <mat-form-field class="reply-box" appearance="fill">
+                            <mat-label>Leave a comment</mat-label>
+                        <textarea formControlName="content" matInput placeholder="Ex. hope you feel better..."></textarea>
+                        <!-- <input type="number" formControlName="postId" value="{{post.id}}"> -->
+                        
+                        </mat-form-field>
+                        <div *ngIf="submitted && f.postId.errors" class="invalid-feedback">
+                            <div *ngIf="f.postId.errors.required" style="color: red;">Please check to leave a comment on this selected post</div>
+                        </div>
+                        <label>Leave a comment on this post??</label>
+                        <input type="radio" formControlName="postId" value="{{post.id}}" [ngClass]="{ 'is-invalid': submitted && f.postId.errors}"><label>yes</label>
+                        <input type="radio" formControlName="postId" value=""><label>no</label>
+                        
+                        <br>
+                        <button mat-raised-button color="primary" [disabled]="loading" class="reply-button"><span *ngIf="loading"></span>Reply</button>
+                    </form>
+            </mat-card>
         </div>
     </div>

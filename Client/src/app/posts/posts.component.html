@@ -16,11 +16,14 @@
         <p class="post-header">test</p>
         <mat-card-title>{{post.title}}</mat-card-title>
         <p>{{post.body}}</p>
-        <mat-form-field class="reply-box" appearance="fill">
-            <mat-label>Leave a comment</mat-label>
-        <textarea matInput placeholder="Ex. hope you feel better..."></textarea>
-          </mat-form-field>
-          <br>
-          <button mat-raised-button color="primary">Reply</button>
-        </mat-card>
+            <form [formGroup]="form" (ngSubmit)="AddComment()">
+                <mat-form-field class="reply-box" appearance="fill">
+                    <mat-label>Leave a comment</mat-label>
+                <textarea formControlName="content" matInput placeholder="Ex. hope you feel better..."></textarea>
+                <input type="number" formControlName="postId" value="{{post.id}}">
+                </mat-form-field>
+                <br>
+                <button mat-raised-button color="primary" [disabled]="loading"><span *ngIf="loading"></span>Reply</button>
+            </form>
+    </mat-card>
 </div>

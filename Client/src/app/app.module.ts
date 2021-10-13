@@ -30,7 +30,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { GroupDetailComponent } from './group-detail/group-detail.component';
 import { PostsComponent } from './posts/posts.component';
-
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -67,7 +67,8 @@ import { PostsComponent } from './posts/posts.component';
     MatIconModule,
     MatListModule,
     MatGridListModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatCheckboxModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }

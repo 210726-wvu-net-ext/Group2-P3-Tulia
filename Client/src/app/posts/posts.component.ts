@@ -4,6 +4,10 @@ import { Group } from '../models/group';
 import { Post } from '../models/post';
 import { User } from '../models/user';
 import { PostsService } from '../posts.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { first } from 'rxjs/operators';
+import { User } from '../models/user';
 import { UserService } from '../user.service';
 
 @Component({
@@ -28,8 +32,37 @@ export class PostsComponent implements OnInit {
     this.createdPost = {body:"", userId: this.user.id, title:"", groupId:1}
   }
 
+  @Input() createdPost: Post = { body: "", userId: 1, title: "", groupId: 1 }
+  posts: Post[] = [];
+  groups: Group[] = [];
+  submitted = false;
+  loading = false;
+
+  form: FormGroup = new FormGroup({
+
+    userId: new FormControl(''),
+    postId: new FormControl(''),
+    content: new FormControl('')
+
+  });
+  constructor(
+    private postService: PostsService,
+    private groupService: GroupService,
+    private userService: UserService,
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute
+  ) { this.user = this.userService.userValue; }
+
   ngOnInit(): void {
     this.postService.getAllPosts(this.post).subscribe(posts => this.posts = posts);
+
+    this.form = this.formBuilder.group({
+      userId: [this.user.id],
+      postId: [''],
+      content: ['', [Validators.required]]
+
+    });
   }
 
   submitPost(): void {
@@ -38,6 +71,31 @@ export class PostsComponent implements OnInit {
 
   getAllGroups(): void {
     this.groupService.getallGroups().subscribe(groups => this.groups = groups);
+  }
+
+
+
+  AddComment() {
+
+    this.submitted = true;
+    //stop here if form is invalid
+    if (this.form.invalid) {
+      return;
+    }
+    this.loading = true;
+    this.postService.createComment(this.form.value)
+      .pipe(first())
+      .subscribe(
+        data => {
+          const id = Number(this.route.snapshot.paramMap.get('id'));
+          this.router.navigate(['../groupDetail/' + id], { relativeTo: this.route });
+          console.log("added comment");
+        },
+        error => {
+          this.loading = false;
+          alert(error);
+        }
+      )
   }
 
 }
