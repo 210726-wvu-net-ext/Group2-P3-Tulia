@@ -12,8 +12,8 @@ import { environment } from 'src/environments/environment';
 })
 export class GroupService {
 
-  private groupsUrl = `${environment.dbURL}/Group`;
-  private memberUrl = `${environment.dbURL}/Membership`;
+  private groupsUrl = `${environment.dbURL}Group`;
+  private memberUrl = `${environment.dbURL}Membership`;
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

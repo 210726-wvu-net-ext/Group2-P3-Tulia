@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class PostsService {
-  private postUrl = `${environment.dbURL}/Post`;
+  private postUrl = `${environment.dbURL}Post`;
   httpOptions = {
     headers: new HttpHeaders({'Content-Type' : 'application/json'})
   };
