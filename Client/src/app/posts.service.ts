@@ -6,6 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { Post } from './models/post';
 import { Observable } from 'rxjs';
 import { Comment } from './models/comment';
+import { PostDetail } from './models/postdetail';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,16 @@ export class PostsService {
     return this.http.get<Post[]>(`${this.postUrl}/all`);
   }
 
+  getPostById(id: number): Observable<PostDetail> {
+    const url = `${this.postUrl}/postwithcomments/${id}`;
+    return this.http.get<PostDetail>(url);
+  }
+
+  //getUserwithGroup(id: number): Observable<UserDetail> {
+  //  const url = `${this.usersUrl}/userwithgroup/${id}`;
+  //  return this.http.get<UserDetail>(url);
+  //}
+
   createPost(post: Post) {
     this.http.post(`${this.postUrl}/create`, post).subscribe(data => {
       console.log(data);
@@ -40,5 +51,10 @@ export class PostsService {
 
   handleError1(error: HttpErrorResponse) {
     return throwError(error.error);
+  }
+
+  deletePost(id: number): Observable<Post> {
+    const url = `${this.postUrl}/delete/${id}`;
+    return this.http.delete<Post>(url, this.httpOptions);
   }
 }

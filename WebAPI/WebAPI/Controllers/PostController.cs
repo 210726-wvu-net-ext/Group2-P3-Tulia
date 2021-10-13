@@ -45,6 +45,14 @@ namespace WebAPI.Controllers
             return _repo.GetPostsFromGroup(groupId);
         }
 
+        [HttpGet("postwithcomments/{postId}")]
+        public async Task<ActionResult<PostIncludingComments>> GetPostsIncludingComments(int postId)
+        {
+            var post = await _repo.GetPostIncludingComments(postId);
+            return Ok(post);
+        }
+
+
         [HttpDelete("/delete/{postId}")]
         public ActionResult<Post> DeletePost(int postId)
         {

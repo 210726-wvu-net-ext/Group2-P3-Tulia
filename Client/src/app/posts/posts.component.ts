@@ -18,7 +18,8 @@ export class PostsComponent implements OnInit {
   post!: Post;
   user!: User;
   time: string = new Date().toISOString().slice(0, 19).replace('T', ' ');
-  @Input() createdPost: Post = { body: "", userId: 1, title: "", groupId: 1 }
+  //@Input() createdPost: Post = { body: "", userId: 1, title: "", groupId: 1 }
+
   posts: Post[] = [];
   groups: Group[] = [];
   submitted = false;
@@ -52,7 +53,7 @@ export class PostsComponent implements OnInit {
   }
 
   submitPost(): void {
-    this.postService.createPost(this.createdPost);
+    this.postService.createPost(this.post);
   }
 
   getAllGroups(): void {

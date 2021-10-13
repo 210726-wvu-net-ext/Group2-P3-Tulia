@@ -8,6 +8,7 @@ import { User } from '../models/user';
 import { first } from 'rxjs/operators';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Post } from '../models/post';
+import { PostDetail } from '../models/postdetail';
 @Component({
   selector: 'app-group-detail',
   templateUrl: './group-detail.component.html',
@@ -15,11 +16,15 @@ import { Post } from '../models/post';
 })
 export class GroupDetailComponent implements OnInit {
   user!: User;
-  post!: Post;
+  post!: PostDetail;
   group!: Group;
   submitted = false;
   loading = false;
   groups: Group[] = [];
+  posts: PostDetail[] = [];
+  postdetail!: PostDetail;
+  postIds: any;
+  comments: any;
 
   form: FormGroup = new FormGroup({
 
@@ -59,16 +64,38 @@ export class GroupDetailComponent implements OnInit {
   }
 
   getGroup(): void {
+    //this.postIds = new Array();
+    //this.comments = new Array();
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.groupService.getGroupIncludingPosts(id)
       .subscribe(
         group => {
           this.group = group;
-        },
-        posts =>
-          posts = this.group.posts
+          this.posts = this.group.posts
+          for (let postdetail of this.group.posts) {
+            this.comments = new Array();
+            this.postService.getPostById(postdetail.id).subscribe(post => {
+              this.post = post;
+              this.comments.push(this.post.comments)
+            })
+            //this.postIds.push(postdetail.id)
+            console.log(this.postIds);
+            console.log(this.comments)
+          }
+          //for (let postId of this.postIds) {
+          //  this.postService.getPostById(postId).subscribe(post => {
+          //    this.post = post;
+          //    for (let comment of this.post.comments) {
+          //      this.comments.push(comment)
+          //    }
+          //    console.log(post.comments)
+          //  })
+          //}
+        }
+
       );
   }
+
 
 
   onSubmit() {

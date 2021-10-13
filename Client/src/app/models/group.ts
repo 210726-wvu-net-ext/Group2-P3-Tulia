@@ -1,4 +1,4 @@
-import { Post } from "./post";
+import { PostDetail } from "./postdetail";
 
 export interface Group {
     id: number,
@@ -6,5 +6,5 @@ export interface Group {
     numberMember: number,
     groupTitle: string,
     description: string,
-    posts: Post[],
+    posts: PostDetail[],
 }

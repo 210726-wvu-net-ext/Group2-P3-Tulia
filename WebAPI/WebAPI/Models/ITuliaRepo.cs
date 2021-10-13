@@ -53,6 +53,8 @@ namespace WebAPI.Models
 
         public List<Post> GetAllPosts();
 
+        public Task<PostIncludingComments> GetPostIncludingComments(int id);
+
         public List<Post> GetPostsFromGroup(int groupId);
 
         public Group DeleteGroup(int groupId);

@@ -28,8 +28,11 @@
         <div *ngIf="group" class="container">          
             <mat-card class="post-container" *ngFor="let post of group.posts">
                 <p class="post-header">{{group.groupTitle}}</p>
-                <mat-card-title>{{post.title}}</mat-card-title>
+                <mat-card-title><a routerLink="/delete-post/{{post.id}}">{{post.title}}</a></mat-card-title>
                 <p>{{post.body}}</p>
+                <div *ngIf="postdetail">bla</div>
+                <p *ngFor="let comment of post.comments">{{comment}}</p>
+                
                     <form [formGroup]="form" (ngSubmit)="AddComment()">
                         <mat-form-field class="reply-box" appearance="fill">
                             <mat-label>Leave a comment</mat-label>
