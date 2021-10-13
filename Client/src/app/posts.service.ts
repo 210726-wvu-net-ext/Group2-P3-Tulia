@@ -4,12 +4,13 @@ import { Router } from '@angular/router';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Post } from './models/post';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostsService {
-  private postUrl = "https://localhost:44326/api/Post";
+  private postUrl = `${environment.dbURL}/Post`;
   httpOptions = {
     headers: new HttpHeaders({'Content-Type' : 'application/json'})
   };

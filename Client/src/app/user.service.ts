@@ -6,6 +6,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpEvent, HttpHandler, Htt
 import { catchError, map } from 'rxjs/operators';
 import { Router, Routes } from '@angular/router';
 import { JwtHelperService } from "@auth0/angular-jwt";
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +33,7 @@ export class UserService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  private usersUrl = 'https://localhost:44326/api/User';
+  private usersUrl = `${environment.dbURL}/User`;
 
   constructor(
     private http: HttpClient,
