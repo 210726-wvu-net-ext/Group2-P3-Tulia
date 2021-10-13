@@ -31,7 +31,7 @@
                 </div>  
                 <div>
                     <mat-card class="main container">
-                        <mat-card-title>Groups you are joining</mat-card-title>
+                        <mat-card-title>My Groups</mat-card-title>
                         <div *ngIf="userdetail">
                             <mat-card *ngFor="let Id of Ids; let i= index" class="container">
                                 <mat-card-subtitle *ngIf="groupTitles"><a routerLink="/groupDetail/{{Id}}">{{groupTitles[i]}}</a></mat-card-subtitle>
