@@ -479,6 +479,7 @@ namespace WebAPI.Models
             try
             {
                 var post = _context.Posts.Single(p => p.Id == postId);
+                _context.Posts.Remove(post);
                 return new DBModels.Post(post.Id, post.UserId, post.Title, post.Body, post.CreatedTime, post.GroupId);
             }
             catch (System.InvalidOperationException)

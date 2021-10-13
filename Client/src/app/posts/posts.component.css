@@ -2,12 +2,12 @@
     font-size: small;
 }
 
-.post-container {
+.post-card-container {
     text-align: center;
     margin-top: 10px;
-    width: 300px;
-    margin-left: auto;
+    width: 600px;
     margin-right: auto;
+    margin-left: auto;
     box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
     border-style: solid;
     border-width: 3px;
