@@ -14,9 +14,9 @@
               <mat-hint>Ex: Entertainment</mat-hint>
             </mat-form-field>
              </p>
-            <mat-form-field appearance="legacy">
+            <mat-form-field appearance="fill">
                 <mat-label for='description'>Description</mat-label>
-                <input matInput placeholder="describe your group" formControlName="description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }" />
+                <textarea  class="description" matInput placeholder="describe your group" formControlName="description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></textarea>
                 <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
                   <mat-error *ngIf="f.description.errors.required">description is required</mat-error>
                   </div>

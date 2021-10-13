@@ -3,9 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { GroupService } from '../group.service';
 import { Group } from '../models/group';
 import { UserService } from '../user.service';
+import { PostsService } from '../posts.service';
 import { User } from '../models/user';
 import { first } from 'rxjs/operators';
-
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Post } from '../models/post';
 @Component({
   selector: 'app-group-detail',
   templateUrl: './group-detail.component.html',
@@ -13,18 +15,41 @@ import { first } from 'rxjs/operators';
 })
 export class GroupDetailComponent implements OnInit {
   user!: User;
+  post!: Post;
   group!: Group;
   submitted = false;
+  loading = false;
   groups: Group[] = [];
+
+  form: FormGroup = new FormGroup({
+
+    userId: new FormControl(''),
+    postId: new FormControl(''),
+    content: new FormControl('')
+
+  });
   constructor(
+    private postService: PostsService,
     private groupService: GroupService,
     private route: ActivatedRoute,
     private router: Router,
+    private formBuilder: FormBuilder,
     private userService: UserService) { this.user = this.userService.userValue; }
 
   ngOnInit(): void {
     this.getGroup();
+    this.form = this.formBuilder.group({
+      userId: [this.user.id],
+      postId: ['', Validators.required],
+      content: ['', [Validators.required]]
+
+    });
   }
+
+  submitPost(): void {
+    this.postService.createPost(this.post);
+  }
+
   //delete membership, NumGroups of user -1, MemberNumber of Group -1
   leaveGroup(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -58,6 +83,29 @@ export class GroupDetailComponent implements OnInit {
         alert("you left this group!");
       }
     )
+  }
+  get f() { return this.form.controls; }
+  AddComment() {
+
+    this.submitted = true;
+    //stop here if form is invalid
+    if (this.form.invalid) {
+      return;
+    }
+    this.loading = true;
+    this.postService.createComment(this.form.value)
+      .pipe(first())
+      .subscribe(
+        data => {
+          const id = Number(this.route.snapshot.paramMap.get('id'));
+          this.router.navigate(['../' + id], { relativeTo: this.route });
+          console.log("added comment");
+        },
+        error => {
+          this.loading = false;
+          alert(error);
+        }
+      )
   }
 
 }

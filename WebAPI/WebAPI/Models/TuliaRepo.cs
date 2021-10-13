@@ -344,7 +344,7 @@ namespace WebAPI.Models
                 UserId = comment.UserId,
                 PostId = comment.PostId,
                 Content = comment.Content,
-                Time = comment.Time
+                Time = DateTime.Now
             });
             _context.SaveChanges();
             return new DBModels.Comment(comment.UserId, comment.PostId, comment.Content, comment.Time);

@@ -6,6 +6,7 @@ import { UserDetail } from '../models/userdetail';
 import { GroupService } from '../group.service';
 import { Membership } from '../models/membership';
 import { Group } from '../models/group';
+import { newArray } from '@angular/compiler/src/util';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class HomeComponent implements OnInit {
   groups: Group[] = [];
   group!: Group;
   groupTitles: any;
-
+  groupIds: any;
+  Ids: any;
   //user!: User;
   constructor(
     private route: ActivatedRoute,
@@ -32,39 +34,34 @@ export class HomeComponent implements OnInit {
   }
 
   getUserwithGroup() {
+    this.groupTitles = new Array();
+    this.groupIds = new Array();
+    this.Ids = new Array();
+    console.log(this.Ids);
+    console.log(this.groupTitles);
     this.userService.getUserwithGroup(this.user.id)
       .subscribe(
-
         userdetail => {
           this.userdetail = userdetail;
           this.groups = this.userdetail.groups;
           this.memberships = this.userdetail?.memberships;
           //console.log(this.userdetail?.memberships);
 
-          for (let membership of this.memberships) {
-            this.groupTitles = new Array();
-
-            this.groupService.getGroupById(membership.groupId).subscribe(
-              group => {
-                this.group = group,
-                  this.groupTitles.push(this.group.groupTitle);
-              }
-
-            );
-
+          for (let i = 0; i < this.memberships.length; i++) {
+            this.groupIds.push(this.memberships[i].groupId);
           }
-        },
-        //memberships => {
-        //  memberships = this.userdetail?.memberships;
-        //  console.log("bla");
-        //  for (let membership of memberships) {
-        //    this.groupService.GetMembership(membership.id).subscribe(
-        //      member => { this.member = member },
-        //      group => { group = this.member?.group }
-        //    );
-        //  }
-        //},
+          for (let groupId of this.groupIds) {
+            this.groupService.getGroupById(groupId).subscribe(group => {
+              this.group = group,
+                this.groupTitles.push(groupId + this.group.groupTitle),
+                this.Ids.push(groupId)
+            })
+          }
+
+        }
       );
+
+
   }
 
   getUser(): void {
