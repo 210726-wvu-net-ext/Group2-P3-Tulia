@@ -5,13 +5,18 @@
       <a routerLink="/register" mat-raised-button color="primary" *ngIf="!userService.loggedIn()">Register</a>
       <a routerLink="/login" mat-raised-button color="primary" *ngIf="!userService.loggedIn()">Login</a>
       <ng-template [ngIf]="user">
-      <a routerLink="/" mat-raised-button color="primary">Home</a>
+      <a [routerLinkActive]="['active']" routerLink="/" [routerLinkActiveOptions]="{ exact: true }" mat-raised-button color="primary"><span><i class="material-icons">home</i>
+        </span>Home</a>
       
       <a routerLink="/creategroup" mat-raised-button color="primary" *ngIf="user.role==='admin'">Create Group</a>
       <a routerLink="/manageaccount" mat-raised-button color="primary" *ngIf="user.role==='admin'">Manage Users</a>
-      <a routerLink="/groups" mat-raised-button color="primary">Groups</a>
-      <a routerLink="/posts" mat-raised-button color="primary">Posts</a>
-      <a (click)="logout()" mat-raised-button color="primary">Logout</a>
+      <a [routerLinkActive]="['active']" routerLink="/groups" mat-raised-button color="primary"><span><i class="material-icons">perm_identity</i>
+      </span>Groups</a>
+      <a [routerLinkActive]="['active']" routerLink="/posts" mat-raised-button color="primary"><span><i class="material-icons">article</i>
+      </span>Posts</a>
+      <a (click)="logout()" mat-raised-button color="primary"><span><i class="material-icons">login</i>
+      </span>Logout</a>
+    
       </ng-template>
       
       
