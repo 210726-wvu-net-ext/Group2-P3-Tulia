@@ -1,10 +1,10 @@
 
 <div class="write-post">
     <mat-card class="post-input-container">
-        <p>{{createdPost.body}}</p>
+        <p></p>
         <mat-form-field class="post-box" appearance="fill">
             <mat-label>Write a new post</mat-label>
-        <textarea [(ngModel)]="createdPost.body" matInput placeholder="Ex. I'm feeling good..."></textarea>
+        <textarea matInput placeholder="Ex. I'm feeling good..."></textarea>
           </mat-form-field>
           <br>
           <button mat-raised-button color="primary" (click)="submitPost()">Post</button>

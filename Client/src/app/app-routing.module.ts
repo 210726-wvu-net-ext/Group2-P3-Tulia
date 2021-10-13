@@ -11,6 +11,7 @@ import { CreateGroupComponent } from './create-group/create-group.component';
 import { GroupsComponent } from './groups/groups.component';
 import { PostsComponent } from './posts/posts.component';
 import { GroupDetailComponent } from './group-detail/group-detail.component';
+import { DeletePostComponent } from './delete-post/delete-post.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
@@ -21,7 +22,8 @@ const routes: Routes = [
   { path: 'creategroup', component: CreateGroupComponent, canActivate: [RoleGuard] },
   { path: 'groups', component: GroupsComponent, canActivate: [AuthGuard] },
   { path: 'groupDetail/:id', component: GroupDetailComponent, canActivate: [AuthGuard] },
-  {path: 'posts', component: PostsComponent}
+  { path: 'posts', component: PostsComponent, canActivate: [AuthGuard] },
+  { path: 'delete-post/:id', component: DeletePostComponent, canActivate: [RoleGuard] }
 
 ];
 @NgModule({

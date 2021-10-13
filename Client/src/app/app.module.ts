@@ -31,6 +31,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { GroupDetailComponent } from './group-detail/group-detail.component';
 import { PostsComponent } from './posts/posts.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { DeletePostComponent } from './delete-post/delete-post.component';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     GroupsComponent,
     GroupDetailComponent,
     PostsComponent,
+    DeletePostComponent,
   ],
   imports: [
     BrowserModule,

@@ -227,6 +227,26 @@ namespace WebAPI.Models
             
         }
 
+        public async Task<DBModels.PostIncludingComments> GetPostIncludingComments(int id)
+        {
+
+            var returnedPost = await _context.Posts
+                .Include(c => c.Comments)
+                .Select(p => new DBModels.PostIncludingComments
+                {
+                    Id = p.Id,
+                    UserId = p.UserId,
+                    Title = p.Title,
+                    Body = p.Body,
+                    CreatedTime = p.CreatedTime,
+                    Comments = p.Comments.Select(c => new DBModels.Comment(c.UserId, c.PostId, c.Content, c.Time)).ToList()
+                }
+                ).ToListAsync();
+            DBModels.PostIncludingComments singlePost = returnedPost.FirstOrDefault(p => p.Id == id);
+            return singlePost;
+
+        }
+
         public List<DBModels.Group> GetAllGroups()
         {
             var groups = _context.Groups.ToList();
@@ -430,6 +450,8 @@ namespace WebAPI.Models
 
             return fetchedPosts;
         }
+
+
 
         // remove a group
         public DBModels.Group DeleteGroup(int groupId)

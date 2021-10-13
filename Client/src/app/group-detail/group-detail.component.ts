@@ -8,6 +8,7 @@ import { User } from '../models/user';
 import { first } from 'rxjs/operators';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Post } from '../models/post';
+import { PostDetail } from '../models/postdetail';
 @Component({
   selector: 'app-group-detail',
   templateUrl: './group-detail.component.html',
@@ -15,12 +16,25 @@ import { Post } from '../models/post';
 })
 export class GroupDetailComponent implements OnInit {
   user!: User;
-  post!: Post;
+  post!: PostDetail;
   group!: Group;
   submitted = false;
   loading = false;
+  loading2 = false;
   groups: Group[] = [];
+  posts: PostDetail[] = [];
+  postdetail!: PostDetail;
+  postIds: any;
+  comments: any;
+  groupid = Number(this.route.snapshot.paramMap.get('id'));
 
+  postForm: FormGroup = new FormGroup({
+    userId: new FormControl(''),
+    groupId: new FormControl(''),
+    title: new FormControl(''),
+    body: new FormControl('')
+
+  })
   form: FormGroup = new FormGroup({
 
     userId: new FormControl(''),
@@ -37,12 +51,18 @@ export class GroupDetailComponent implements OnInit {
     private userService: UserService) { this.user = this.userService.userValue; }
 
   ngOnInit(): void {
+
     this.getGroup();
     this.form = this.formBuilder.group({
       userId: [this.user.id],
       postId: ['', Validators.required],
       content: ['', [Validators.required]]
-
+    });
+    this.postForm = this.formBuilder.group({
+      userId: [this.user.id],
+      groupId: [this.groupid],
+      title: ['', Validators.required],
+      body: ['', Validators.required]
     });
   }
 
@@ -59,15 +79,57 @@ export class GroupDetailComponent implements OnInit {
   }
 
   getGroup(): void {
+    //this.postIds = new Array();
+    //this.comments = new Array();
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.groupService.getGroupIncludingPosts(id)
       .subscribe(
         group => {
           this.group = group;
-        },
-        posts =>
-          posts = this.group.posts
+          this.posts = this.group.posts
+          for (let postdetail of this.group.posts) {
+            this.comments = new Array();
+            this.postService.getPostById(postdetail.id).subscribe(post => {
+              this.post = post;
+              this.comments.push(this.post.comments)
+            })
+            //this.postIds.push(postdetail.id)
+            console.log(this.postIds);
+            console.log(this.comments)
+          }
+          //for (let postId of this.postIds) {
+          //  this.postService.getPostById(postId).subscribe(post => {
+          //    this.post = post;
+          //    for (let comment of this.post.comments) {
+          //      this.comments.push(comment)
+          //    }
+          //    console.log(post.comments)
+          //  })
+          //}
+        }
+
       );
+  }
+  AddPost() {
+    //this.submitted = true;
+    //stop here if form is invalid
+    if (this.postForm.invalid) {
+      return;
+    }
+    this.loading2 = true;
+    this.postService.createPost(this.postForm.value)
+      .pipe(first())
+      .subscribe(
+        data => {
+          const id = Number(this.route.snapshot.paramMap.get('id'));
+          this.router.navigate(['../' + id], { relativeTo: this.route });
+          console.log("added post");
+        },
+        error => {
+          this.loading2 = false;
+          alert(error);
+        }
+      )
   }
 
 
@@ -107,5 +169,6 @@ export class GroupDetailComponent implements OnInit {
         }
       )
   }
+
 
 }

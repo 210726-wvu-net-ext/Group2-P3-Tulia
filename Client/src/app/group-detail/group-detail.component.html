@@ -14,22 +14,34 @@
     </div>
     <div class="group-post">
         <div class="write-post">
-            <mat-card class="post-input-container">
+            <form [formGroup]="postForm" (ngSubmit)="AddPost()">
+                <mat-card class="post-input-container">
+                    
                 
-                <mat-form-field class="post-box" appearance="fill">
                     <mat-label>Write a new post</mat-label>
-                <textarea matInput placeholder="Ex. I'm feeling good..."></textarea>
-                  </mat-form-field>
-                  <br>
-                  <button mat-raised-button color="primary" (click)="submitPost()">Post</button>
-            </mat-card>
+                
+                    <!-- <input formControlName="groupId" value="{{group.id}}"> -->
+                <mat-form-field class="post-box" appearance="fill">
+                    <textarea matInput placeholder="post title" formControlName="title"></textarea>
+                </mat-form-field>
+                <mat-form-field>
+                    <textarea matInput placeholder="content" formControlName="body"></textarea>
+                </mat-form-field>
+                    <br>
+                    <button mat-raised-button color="primary" [disabled]="loading2" class="reply-button"><span *ngIf="loading2"></span>Post</button>
+                
+                </mat-card>
+            </form>
         </div>
         
         <div *ngIf="group" class="container">          
             <mat-card class="post-container" *ngFor="let post of group.posts">
                 <p class="post-header">{{group.groupTitle}}</p>
-                <mat-card-title>{{post.title}}</mat-card-title>
+                <mat-card-title><a routerLink="/delete-post/{{post.id}}">{{post.title}}</a></mat-card-title>
                 <p>{{post.body}}</p>
+                <div *ngIf="postdetail">bla</div>
+                <p *ngFor="let comment of post.comments">{{comment}}</p>
+                
                     <form [formGroup]="form" (ngSubmit)="AddComment()">
                         <mat-form-field class="reply-box" appearance="fill">
                             <mat-label>Leave a comment</mat-label>
