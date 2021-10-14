@@ -9,7 +9,7 @@ kind: Service
 metadata:
   annotations:
     service.beta.kubernetes.io/azure-dns-label-name: tulia-api
-  name: tulia-api
+  name: azure-load-balancer
 spec:
   type: LoadBalancer
   selector:
