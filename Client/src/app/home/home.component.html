@@ -21,7 +21,7 @@
                         <mat-card class="main container">
                             <mat-card-title>Groups you created</mat-card-title>
                             <mat-card *ngFor="let group of userdetail.groups" class="container">
-                                <mat-card-subtitle>{{group.groupTitle}}</mat-card-subtitle>
+                                <mat-card-subtitle><a routerLink="/groupDetail/{{group.id}}">{{group.groupTitle}}</a></mat-card-subtitle>
                                 <mat-card-content>
                                     {{group.description}}
                                 </mat-card-content>

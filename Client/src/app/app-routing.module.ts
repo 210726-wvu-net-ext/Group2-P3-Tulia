@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'groups', component: GroupsComponent, canActivate: [AuthGuard] },
   { path: 'groupDetail/:id', component: GroupDetailComponent, canActivate: [AuthGuard] },
   { path: 'posts', component: PostsComponent, canActivate: [AuthGuard] },
-  { path: 'delete-post/:id', component: DeletePostComponent, canActivate: [RoleGuard] }
+  { path: 'delete-post/:id', component: DeletePostComponent, canActivate: [AuthGuard] }
 
 ];
 @NgModule({
