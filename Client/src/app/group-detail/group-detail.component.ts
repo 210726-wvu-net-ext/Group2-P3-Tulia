@@ -95,8 +95,9 @@ export class GroupDetailComponent implements OnInit {
             })
             //this.postIds.push(postdetail.id)
             console.log(this.postIds);
-            console.log(this.comments)
+
           }
+          console.log(this.comments)
           //for (let postId of this.postIds) {
           //  this.postService.getPostById(postId).subscribe(post => {
           //    this.post = post;
