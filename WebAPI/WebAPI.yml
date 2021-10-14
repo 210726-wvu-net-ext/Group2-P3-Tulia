@@ -9,7 +9,7 @@ kind: Service
 metadata:
   annotations:
     service.beta.kubernetes.io/azure-dns-label-name: tulia-api
-  name: azure-load-balancer
+  name: tulia-api
 spec:
   type: LoadBalancer
   selector:
@@ -50,4 +50,4 @@ spec:
         image: bacoordinationp3.azurecr.io/tulia/backend:1.0.0
         imagePullPolicy: Always
         ports:
-        - containerPort: 4200
+        - containerPort: 80
