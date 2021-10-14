@@ -7,6 +7,7 @@ import { Post } from './models/post';
 import { Observable } from 'rxjs';
 import { Comment } from './models/comment';
 import { PostDetail } from './models/postdetail';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class PostsService {
   private postUrl = "https://localhost:44326/api/Post";
   private pUrl = "https://localhost:44326";
   private commentUrl = "https://localhost:44326/api/Comment";
+  private postUrl = `${environment.dbURL}Post`;
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
