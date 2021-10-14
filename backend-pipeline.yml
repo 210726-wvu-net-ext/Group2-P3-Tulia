@@ -74,7 +74,7 @@ stages:
           containerRegistry: '$(cReg)'
           repository: 'tulia/backend'
           command: 'buildAndPush'
-          Dockerfile: '**/Dockerfile'
+          Dockerfile: '$(sDir)/Dockerfile'
           tags: 'latest'
       #Publish artifact
       - task: PublishPipelineArtifact@1
