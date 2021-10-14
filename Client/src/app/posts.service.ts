@@ -13,9 +13,9 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class PostsService {
-  private postUrl = "https://localhost:44326/api/Post";
-  private pUrl = "https://localhost:44326";
-  private commentUrl = "https://localhost:44326/api/Comment";
+  //private postUrl = "https://localhost:44326/api/Post";
+  private pUrl = `${environment.dbURL}`;
+  private commentUrl = `${environment.dbURL}Comment`;
   private postUrl = `${environment.dbURL}Post`;
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
