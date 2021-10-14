@@ -47,7 +47,7 @@ spec:
       - name: tuliaback
       containers:
       - name: api
-        image: bacoordinationp3.azurecr.io/tulia/backend:1.0.0
+        image: bacoordinationp3.azurecr.io/tulia/backend:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 80

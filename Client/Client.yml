@@ -47,7 +47,7 @@ spec:
       - name: tuliafront
       containers:
       - name: ui
-        image: bacoordinationp3.azurecr.io/tulia/frontend:1.0.0
+        image: bacoordinationp3.azurecr.io/tulia/frontend:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 80
